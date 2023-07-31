@@ -7,19 +7,23 @@ const props = defineProps<{
   text: string
   isSidebarOpen: boolean
 }>()
-
-const { } = toRefs(props)
+const { to, text, isSidebarOpen } = toRefs(props)
 </script>
 
 <template>
-  <RouterLink :to="to" class="flex items-center gap-4 px-4 py-2">
-    <slot name="icon" />
-    {{ isSidebarOpen ? text : "" }}
-  </RouterLink>
+
+<RouterLink :to="to" class="flex items-center gap-4 m-6 p-1.5">
+<slot name="icon"></slot>
+{{ isSidebarOpen ? text : "" }}
+</RouterLink>
+
+
+
 </template>
 
+
 <style lang="scss" scoped>
-  a{
+a{
     transition: all 200ms;
     border-radius: 8px;
 
