@@ -96,7 +96,7 @@ function toggleSidebar() {
 
 <header class="default-header flex items-center justify-between gap-4">
   <h1 class="text-2xl font-bold">
-        Hello Ruwan
+        Hello Semini
       </h1>
 
       <div class="flex items-center gap-4">
@@ -105,7 +105,7 @@ function toggleSidebar() {
         <button><MaterialSymbolsToggleOffOutline class="text-[1.3rem]" /></button>
 
         <p>
-          Ruwan Darshana
+          Semini Dissanayaka
         </p>
 
         <img src="../assets/images/student-profile.jpg" alt="" class="profile-picture">
@@ -117,7 +117,7 @@ function toggleSidebar() {
   <div class="left-side-container">
             <div class="top-left-container">
                 <h2 class="font-semibold">
-                     My Classes
+                    Continue Watching
                 </h2>
 
                 <div class="flex gap-2">
