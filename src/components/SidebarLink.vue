@@ -11,13 +11,13 @@ const { to, text, isSidebarOpen } = toRefs(props)
 </script>
 
 <template>
-  
-<RouterLink :to="to" class="flex items-center gap-4 m-6 p-1.5"> 
+
+<RouterLink :to="to" class="flex items-center gap-4 m-6 p-1.5">
 <slot name="icon"></slot>
 {{ isSidebarOpen ? text : "" }}
 </RouterLink>
- 
- 
+
+
 
 </template>
 
