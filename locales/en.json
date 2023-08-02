@@ -1,5 +1,23 @@
 {
   "auth" : {
-    "login": "Login"
+    "login": "Login",
+    "remember": "Remember Me",
+    "forgotpassword": "Forgot Password",
+    "register": "Register",
+    "email": "Email",
+    "password": "Password",
+    "google": "Sign in with Google"
+  },
+
+
+  "sidebar" : {
+    "dashboard": "Dashboard",
+    "lesson-packs": "Lesson Packs",
+    "settings": "Settings",
+    "logout": "Logout",
+    "help": "Help",
+    "exams": "Exams",
+    "flash-cards": "Flash Cards"
+
   }
 }
