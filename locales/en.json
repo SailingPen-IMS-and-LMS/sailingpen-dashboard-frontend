@@ -1,5 +1,5 @@
 {
-  "auth" : {
+  "auth": {
     "login": "Login",
     "remember": "Remember Me",
     "forgotpassword": "Forgot Password",
@@ -9,8 +9,7 @@
     "google": "Sign in with Google"
   },
 
-
-  "sidebar" : {
+  "sidebar": {
     "dashboard": "Dashboard",
     "lesson-packs": "Lesson Packs",
     "settings": "Settings",
