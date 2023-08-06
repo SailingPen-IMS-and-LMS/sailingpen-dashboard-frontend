@@ -20,7 +20,6 @@ declare module 'vue' {
     IonIosArrowDropdownCircle: typeof import('~icons/ion/ios-arrow-dropdown-circle')['default']
     MakiCross: typeof import('~icons/maki/cross')['default']
     MaterialSymbolsDashboard: typeof import('~icons/material-symbols/dashboard')['default']
-    MaterialSymbolsLogin: typeof import('~icons/material-symbols/login')['default']
     MaterialSymbolsNotifications: typeof import('~icons/material-symbols/notifications')['default']
     MaterialSymbolsPlayCircleOutline: typeof import('~icons/material-symbols/play-circle-outline')['default']
     MaterialSymbolsShoppingCartOutlineRounded: typeof import('~icons/material-symbols/shopping-cart-outline-rounded')['default']
