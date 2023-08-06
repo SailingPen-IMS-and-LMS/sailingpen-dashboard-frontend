@@ -1,115 +1,42 @@
 <script setup lang="ts">
-import { NButton  } from '@nethren-ui/vue'
+import { NButton } from '@nethren-ui/vue'
 
 import SidebarLink from '~/components/SidebarLink.vue'
-import MaterialSymbolsDashboard from '~icons/material-symbols/dashboard'
-import IcSharpMenuBook from '~icons/ic/sharp-menu-book'
-import Fa6SolidUsersLine from '~icons/fa6-solid/users-line'
-import HealthiconsIExamMultipleChoiceNegative from '~icons/healthicons/i-exam-multiple-choice-negative'
-import PhSignOutBold from '~icons/ph/sign-out-bold'
-import MdiHelpCircle from '~icons/mdi/help-circle'
-import IconamoonMenuBurgerHorizontalBold from '~icons/iconamoon/menu-burger-horizontal-bold'
-import IcBaselineSettings from '~icons/ic/baseline-settings'
-import MingcuteAnnouncementLine from '~icons/mingcute/announcement-line'
-import MaterialSymbolsPaymentsOutlineRounded from '~icons/material-symbols/payments-outline-rounded'
-import CarbonBlog from '~icons/carbon/blog'
 import IcOutlineSearch from '~icons/ic/outline-search'
 
 import MaterialSymbolsNotifications from '~icons/material-symbols/notifications'
 import MaterialSymbolsShoppingCartOutlineRounded from '~icons/material-symbols/shopping-cart-outline-rounded'
 import MaterialSymbolsToggleOffOutline from '~icons/material-symbols/toggle-off-outline'
 
-const sidebarLinks: Array<{
-  to: string
-  text: string
-}> = [
-    {
-      to: '/', text: 'Dashboard',
-    },
-
-    {
-      to: '/students', text: 'Students',
-    },
-
-    {
-      to: '/attendance', text: 'Attendance',
-    },
-
-    {
-      to: '/payments', text: 'Payments',
-    },
-
-    {
-      to: 'class', text: 'Class',
-    },
-
-    {
-      to: '/settings', text: 'Settings',
-    },
-
-    {
-      to: '/announcements', text: 'Announcements',
-    },
-
-    {
-      to: '/blog_post', text: 'Blog Posts',
-    }
-
-    // {
-    //   to: 'logout', text: 'Logout',
-    // },
-
-    // {
-    //   to: 'help', text: 'Help',
-    // },
-
-  ]
+// bind the new page to here
+import BlogFormModal from './BlogFormModal.vue'
 
 const isSidebarOpen = ref(true)
 
-function toggleSidebar() {
-  isSidebarOpen.value = !isSidebarOpen.value
-}
+const isModalVisible = ref(false);
+
+const showModal = () => {
+  isModalVisible.value = true;
+};
+
+const hideModal = () => {
+  isModalVisible.value = false;
+};
+
+const blogs = ref([
+  { id: 1, name: 'Blog 1', class: 'Chemistry_2022', date: '2023-07-30' },
+  { id: 2, name: 'Blog 2', class: 'ICT_2022', date: '2023-07-31' },
+  { id: 3, name: 'Blog 3', class: 'ICT_2023', date: '2023-07-31' },
+
+]);
+
 </script>
 
 <template>
   <div class="default-layout">
     <aside class="default-sidebar" :class="[isSidebarOpen ? '' : 'default-sidebar--close']">
       <img src="/public/images/log.png" alt="">
-      <button @click="toggleSidebar">
-        <MakiCross v-if="isSidebarOpen" />
-        <IconamoonMenuBurgerHorizontalBold v-else />
-      </button>
       <nav class="navigation-bar flex flex-col justify-between">
-        <ul>
-          <SidebarLink v-for="sidebarLink in sidebarLinks" :key="sidebarLink.to" :to="sidebarLink.to"
-            :text="sidebarLink.text" :is-sidebar-open="isSidebarOpen">
-            <template #icon>
-              <MaterialSymbolsDashboard v-if="sidebarLink.text === 'Dashboard'" />
-              <IcSharpMenuBook v-else-if="sidebarLink.text === 'Class'" />
-              <Fa6SolidUsersLine v-else-if="sidebarLink.text === 'Students'" />
-              <HealthiconsIExamMultipleChoiceNegative v-else-if="sidebarLink.text === 'Attendance'" />
-              <MaterialSymbolsPaymentsOutlineRounded v-else-if="sidebarLink.text === 'Payments'" />
-              <CarbonBlog v-else-if="sidebarLink.text === 'Blog Posts'" />
-              <MingcuteAnnouncementLine v-else-if="sidebarLink.text === 'Announcements'" />
-              <IcBaselineSettings v-else-if="sidebarLink.text === 'Settings'" />
-            </template>
-          </SidebarLink>
-        </ul>
-
-        <ul class="bottom-links">
-          <SidebarLink to="/logout" text="Logout" :is-sidebar-open="isSidebarOpen">
-            <template #icon>
-              <PhSignOutBold />
-            </template>
-          </SidebarLink>
-
-          <SidebarLink to="/help" text="Help" :is-sidebar-open="isSidebarOpen">
-            <template #icon>
-              <MdiHelpCircle />
-            </template>
-          </SidebarLink>
-        </ul>
       </nav>
     </aside>
 
@@ -135,22 +62,19 @@ function toggleSidebar() {
       </div>
     </header>
 
-    <main class="default-page-container flex">
-      <div class="mx-auto max-w-2xl px-6 py-10 sm:px-6 sm:py-6 lg:max-w-7xl lg:px-8">
-        <div class="mt-5 flex lg:ml-100 lg:mt-0">
-          <n-button mode="outline">
-            <SidebarLink to="/logout" text="" :is-sidebar-open="isSidebarOpen">
-              <template #icon>
-                <IcOutlineSearch />
-              </template>
-            </SidebarLink>
-          </n-button>
-          <input type="text" id="search" name="search"
-            class="px-8 py-2 pr-48 border rounded-l-md focus:outline-none focus:ring focus:border-blue-600 flex-1 mr-8"
-            placeholder="Search Here " />
-          <NButton mode="solid" color="info">
-            + Add New Blog Post
-          </NButton>
+    <main class="flex justify-around">
+      <div class="max-w-5xl lg:max-w-7xl justify-around">
+        <div class="mt-5 flex justify-end">
+          <div
+            class="px-2 py-2 mr-4 border-2 border-blue-600 rounded-lg flex ">
+            <IcOutlineSearch class="text-[1.3rem] mr-2" />
+            <input type="text" id="search" name="search" placeholder="Search Here " class="outline-none w-100"/>
+          </div>
+            <NButton @click="showModal" mode="solid" color="info" class="justify-end">
+              + Add Blog Posts
+            </NButton>
+
+          <BlogFormModal v-if="isModalVisible" @cancelForm="hideModal" />
         </div>
         <h1 class="text-3xl font-bold mt-0 mb-8">Blog Posts</h1>
         <div>
@@ -164,64 +88,22 @@ function toggleSidebar() {
               </tr>
             </thead>
             <tbody>
-              <tr class="bg-white">
-                <td class="px-6 py-2 text-center">The Relationship between the Speed and the Distance</td>
-                <td class="px-6 py-2 text-center">1day and 3h ago</td>
-                <td class="px-6 py-2 text-center">Nilantha Jayasuriya</td>
-                <td class="px-6 py-2 flex justify-center">
-                  <div class="flex gap-3">
-                    <NButton class="shadow-sm" mode="text" color="success">View</NButton>
-                    <NButton class="shadow-sm" mode="text" color="primary">Edit</NButton>
-                    <NButton class="shadow-sm" mode="text" color="danger">Delete</NButton>
-                  </div>
+              <!-- Sample data rows, replace with your actual data -->
+              <tr v-for="(blog, index) in blogs" :key="blog.id">
+                <td :class="index % 2 === 0 ? 'alternate-row' : ''">
+                  <div class="px-1 py-1 justify-center text-center" small-text>{{ blog.name }}</div>
                 </td>
-              </tr>
-              <tr class="bg-white">
-                <td class="px-6 py-2 text-center">Eyes, Ears and North (EEN) surgery </td>
-                <td class="px-6 py-2 text-center">1day and 8h ago</td>
-                <td class="px-6 py-2 text-center">Tissa Jananayake</td>
-                <td class="px-6 py-2 flex justify-center">
-                  <div class="flex gap-3">
-                    <NButton class="shadow-sm" mode="text" color="success">View</NButton>
-                    <NButton class="shadow-sm" mode="text" color="primary">Edit</NButton>
-                    <NButton class="shadow-sm" mode="text" color="danger">Delete</NButton>
-                  </div>
+                <td :class="index % 2 === 0 ? 'alternate-row' : ''">
+                  <div class="px-4 py-3 justify-center text-center" small-text>{{ blog.date }}</div>
                 </td>
-              </tr>
-              <tr class="bg-white">
-                <td class="px-6 py-2 text-center">Vectors</td>
-                <td class="px-6 py-2 text-center">2day and 1h ago</td>
-                <td class="px-6 py-2 text-center">Ruwan Darshana</td>
-                <td class="px-6 py-2 flex justify-center">
-                  <div class="flex gap-3">
-                    <NButton class="shadow-sm" mode="text" color="success">View</NButton>
-                    <NButton class="shadow-sm" mode="text" color="primary">Edit</NButton>
-                    <NButton class="shadow-sm" mode="text" color="danger">Delete</NButton>
-                  </div>
+                <td :class="index % 2 === 0 ? 'alternate-row' : ''">
+                  <div class="px-4 py-3 justify-center text-center" small-text>{{ blog.class }}</div>
                 </td>
-              </tr>
-              <tr class="bg-white">
-                <td class="px-6 py-2 text-center">Mathematical Calculation Basics</td>
-                <td class="px-6 py-2 text-center">2day and 3h ago</td>
-                <td class="px-6 py-2 text-center">Ruwan Darshana</td>
-                <td class="px-6 py-2 flex justify-center">
-                  <div class="flex gap-3">
-                    <NButton class="shadow-sm" mode="text" color="success">View</NButton>
-                    <NButton class="shadow-sm" mode="text" color="primary">Edit</NButton>
-                    <NButton class="shadow-sm" mode="text" color="danger">Delete</NButton>
-                  </div>
-                </td>
-              </tr>
-              <tr class="bg-white">
-                <td class="px-6 py-2 text-center">Periodic Table Introduction</td>
-                <td class="px-6 py-2 text-center">4day and 5h ago</td>
-                <td class="px-6 py-2text-center">Charitha Dissanayaka</td>
-                <td class="px-6 py-2 flex justify-center">
-                  <div class="flex gap-3">
-                    <NButton class="shadow-sm" mode="text" color="success">View</NButton>
-                    <NButton class="shadow-sm" mode="text" color="primary">Edit</NButton>
-                    <NButton class="shadow-sm" mode="text" color="danger">Delete</NButton>
-                  </div>
+                <td class="px-4 py-3 justify-center text-center">
+                  <button class="action-button p-2 m-2 rounded-lg bg-blue-500 text-white hover:bg-blue-600">View</button>
+                  <button
+                    class="action-button p-2 m-2 rounded-lg bg-green-500 text-white hover:bg-green-600">Edit</button>
+                  <button class="action-button p-2 m-2 rounded-lg bg-red-500 text-white hover:bg-red-600">Delete</button>
                 </td>
               </tr>
             </tbody>
