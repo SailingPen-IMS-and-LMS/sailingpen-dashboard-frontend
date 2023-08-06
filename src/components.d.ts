@@ -7,9 +7,14 @@ export {}
 
 declare module 'vue' {
   export interface GlobalComponents {
+    DefaultHeader: typeof import('./components/layout-components/DefaultHeader.vue')['default']
+    DefaultMobileSidebar: typeof import('./components/layout-components/DefaultMobileSidebar.vue')['default']
+    DefaultPageContainer: typeof import('./components/layout-components/DefaultPageContainer.vue')['default']
+    DefaultSidebar: typeof import('./components/layout-components/DefaultSidebar.vue')['default']
     FlashCard: typeof import('./components/flashCard.vue')['default']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
     SidebarLink: typeof import('./components/SidebarLink.vue')['default']
+    VideoThumbnail: typeof import('./components/VideoThumbnail.vue')['default']
   }
 }
