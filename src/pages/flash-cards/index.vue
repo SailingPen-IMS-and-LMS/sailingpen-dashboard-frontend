@@ -2,6 +2,7 @@
 import { ref } from 'vue' // Import the ref function
 import { NButton } from '@nethren-ui/vue'
 
+
 const pure = ref([
   {
     title: 'Permutation Formulations',
