@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { ref } from 'vue';
 import { NButton } from '@nethren-ui/vue'
 import StaffEdit from './staff-edit.vue'
 
