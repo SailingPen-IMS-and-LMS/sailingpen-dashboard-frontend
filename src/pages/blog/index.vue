@@ -3,10 +3,10 @@ import { NButton } from '@nethren-ui/vue'   //add predefine nethren ui
 import MaterialSymbolsSearch from '~icons/material-symbols/search'
 
 
-import StaffAdd from './add-blog-post.vue'  // connect add-blog-post page
-import StaffEdit from './edit-blog-post.vue'
-import StaffDelete from './delete-blog-post.vue'
-import StaffView from './view-blog-post.vue'
+import BlogAdd from './add-blog-post.vue'  // connect add-blog-post page
+import BlogEdit from './edit-blog-post.vue'
+import BlogDelete from './delete-blog-post.vue'
+import BlogView from './view-blog-post.vue'
 
 // content details for blog post table
 const blogs = [
@@ -106,19 +106,19 @@ const hideDeleteModal = () => {
       </div>
 
       <div v-if="isAddModalVisible">
-        <StaffAdd @cancelForm="hideAddModal" />
+        <BlogAdd @cancelForm="hideAddModal" />
       </div>
 
       <div v-if="isViewModalVisible">
-        <StaffView @cancelForm="hideViewModal" />
+        <BlogView @cancelForm="hideViewModal" />
       </div>
 
       <div v-if="isEditModalVisible">
-        <StaffEdit @cancelForm="hideEditModal" />
+        <BlogEdit @cancelForm="hideEditModal" />
       </div>
 
       <div v-if="isDeleteModalVisible">
-        <StaffDelete @cancelForm="hideDeleteModal" />
+        <BlogDelete @cancelForm="hideDeleteModal" />
       </div>
 
     </div>

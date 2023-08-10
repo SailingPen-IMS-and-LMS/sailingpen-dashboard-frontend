@@ -3,17 +3,28 @@ import { ref } from 'vue';
 
 import MaterialSymbolsFormatBold from '~icons/material-symbols/format-bold'
 
-
-const TutorAssisName = ref('');
-const tutorName = ref('');
-const email = ref('');
+const FName = ref('');
+const LName = ref('');
+const DOB = ref('');
+const Email = ref('');
+const Address = ref('');
+const MobileNumber = ref('');
+const Gender = ref('');
+const JoinDate = ref('');
+const jobRole = ref('');
 
 const onSubmit = () => {
   // Handle form submission here (e.g., send data to the server)
   // Reset form fields after submission
-  TutorAssisName.value = '';
-  tutorName.value = '';
-  email.value = '';
+  FName.value = '';
+  LName.value = '';
+  DOB.value = '';
+  Address.value = '';
+  Email.value = '';
+  Gender.value = '';
+  MobileNumber.value = '';
+  JoinDate.value = '';
+  jobRole.value = '';
 
 };
 
@@ -33,7 +44,7 @@ function selectOption(option) {
   <div class="fixed top-0 left-0 w-full h-full bg-black bg-opacity-50 flex justify-center items-center">
     <div class="bg-white p-4 rounded-lg shadow-md border-green-4">
       <form class="flex flex-col justify-center">
-        <h1 class="py-4 font-semibold text-center text-5 border-b-2 mb-4 bg-green-500 text-white">Tutor Assistant Information</h1>
+        <h1 class="py-4 font-semibold text-center text-5 border-b-2 mb-4 bg-green-500 text-white">Staff Member Information</h1>
         <div>
           <div class="mb-2 grid grid-cols-1 gap-x-6 gap-y-6 sm:grid-cols-6 justify-center flex">
             <div class="col-span-full">
@@ -57,16 +68,32 @@ function selectOption(option) {
                 <dd class="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0">Pradeep</dd>
               </div>
               <div class="px-4 py-2 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
-                <dt class="text-sm font-medium leading-6 text-gray-900 font-semibold pl-6">Email address :</dt>
-                <dd class="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0">NuwanPPradeep1999@example.com</dd>
+                <dt class="text-sm font-medium leading-6 text-gray-900 font-semibold pl-6">Gender :</dt>
+                <dd class="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0">Male</dd>
               </div>
               <div class="px-4 py-2 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
-                <dt class="text-sm font-medium leading-6 text-gray-900 font-semibold pl-6">Tutor Name :</dt>
-                <dd class="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0">Ruwan Darshana</dd>
+                <dt class="text-sm font-medium leading-6 text-gray-900 font-semibold pl-6">Date Of Birth :</dt>
+                <dd class="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0">1989-04-21</dd>
+              </div>
+              <div class="px-4 py-2 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
+                <dt class="text-sm font-medium leading-6 text-gray-900 font-semibold pl-6">Address :</dt>
+                <dd class="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0">122/B , Borupana Road , Rathmalana</dd>
+              </div>
+              <div class="px-4 py-2 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
+                <dt class="text-sm font-medium leading-6 text-gray-900 font-semibold pl-6">Mobile No :</dt>
+                <dd class="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0">077 9787945</dd>
+              </div>
+              <div class="px-4 py-2 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
+                <dt class="text-sm font-medium leading-6 text-gray-900 font-semibold pl-6">Job Role :</dt>
+                <dd class="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0">Manager</dd>
               </div>
               <div class="px-4 py-2 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
                 <dt class="text-sm font-medium leading-6 text-gray-900 font-semibold pl-6">Joined Date :</dt>
                 <dd class="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0">2020-05-14</dd>
+              </div>
+              <div class="px-4 py-2 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
+                <dt class="text-sm font-medium leading-6 text-gray-900 font-semibold pl-6">Email address :</dt>
+                <dd class="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0">NuwanPPradeep1999@example.com</dd>
               </div>
               <div class="justify-end flex p-4">
                 <button @click="onSubmit"
