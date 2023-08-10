@@ -13,6 +13,14 @@ const hideModal = () => {
   isModalVisible.value = false;
 };
 
+// const showModal = () => {
+//   isModalVisible.value = true;
+// };
+
+// const hideModal = () => {
+//   isModalVisible.value = false;
+// };
+
 
 const members = [
   {
