@@ -19,16 +19,18 @@ import CilJustifyLeft from '~icons/cil/justify-left'
 import CilJustifyCenter from '~icons/cil/justify-center'
 
 
-const blogName = ref('');
+const AnnName = ref('');
 const className = ref('');
+const teacherName = ref('');
 const date = ref('');
 const postBody = ref('');
 
 const onSubmit = () => {
   // Handle form submission here (e.g., send data to the server)
   // Reset form fields after submission
-  blogName.value = '';
+  AnnName.value = '';
   className.value = '';
+  teacherName.value = '';
   date.value = '';
   postBody.value = '';
 };
@@ -49,10 +51,20 @@ function selectOption(option) {
   <div class="fixed top-0 left-0 w-full h-full bg-black bg-opacity-50 flex justify-center items-center">
     <div class="bg-white p-4 rounded-lg shadow-md;">
       <form class="flex flex-col">
-        <h1 class="py-4 font-semibold text-center border-b-2 mb-3 text-5">Add Blog Post</h1>
+        <h1 class="py-4 font-semibold text-center border-b-2 mb-3 text-5 bg-blue-500 text-white">Add Announcement </h1>
         <div class="flex gap-3">
-          <p class="text-4">Blog Post Name :</p>
-          <input v-model="blogName" type="text" placeholder="Blog name"
+          <p class="text-4 ">Announcement Name :</p>
+          <input v-model="AnnName" type="text" placeholder="Announcement name"
+            class="mb-4 p-2 border border-gray-300 rounded-md w-100 h-10" />
+        </div>
+        <div class="flex gap-3">
+          <p class="text-4">Teacher Name :</p>
+          <input v-model="teacherName" type="text" placeholder="Teacher name"
+            class="mb-4 p-2 border border-gray-300 rounded-md w-100 h-10" />
+        </div>
+        <div class="flex gap-3">
+          <p class="text-4">Class Name :</p>
+          <input v-model="className" type="text" placeholder="Class name"
             class="mb-4 p-2 border border-gray-300 rounded-md w-100 h-10" />
         </div>
         <p class="text-4">Schedule Period :</p>

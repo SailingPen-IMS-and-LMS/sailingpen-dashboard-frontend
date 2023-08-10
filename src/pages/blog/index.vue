@@ -84,7 +84,7 @@ const hideDeleteModal = () => {
           </thead>
           <tbody>
             <tr v-for="blog in blogs" :key="blog.id" class="bg-white">
-              <td class="pl-15 py-2 text-left">{{ blog.name }}</td>
+              <td class="pl-15 text-left">{{ blog.name }}</td>
               <td class="px-6 py-2 text-center">{{ blog.fromdate }}</td>
               <td class="px-6 py-2 text-center">{{ blog.todate }}</td>
               <td class="flex justify-center px-6 py-2">
