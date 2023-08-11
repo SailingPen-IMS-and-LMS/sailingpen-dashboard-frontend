@@ -91,7 +91,8 @@ const hideDeleteModal = () => {
               <td class="px-6 py-2 text-center">{{ blog.parentmobile }}</td>
               <td class="flex justify-center px-6 py-2">
                 <div class="flex gap-3">
-                  <NButton class="shadow-sm" mode="text" color="success" @click="showViewModal">
+                  <NButton class="shadow-sm" mode="text" color="success" >
+                    <RouterLink to="./view-student.vue" />
                     View
                   </NButton>
                   <NButton class="shadow-sm" mode="text" color="primary" @click="showEditModal">
