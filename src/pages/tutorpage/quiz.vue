@@ -219,17 +219,17 @@ box-shadow: #666;
 
 .first-place {
   height: 130px;
-  background-color: gold;
+  background-color: #FFB6B6;
 }
 
 .second-place {
   height: 105px;
-  background-color: silver;
+  background-color: #6100FF;
 }
 
 .third-place {
   height: 80px;
-  background-color: #cd7f32; /* Bronze */
+  background-color: #48E122; /* Bronze */
 }
 /* Add this to your existing styles */
 .position-label {
