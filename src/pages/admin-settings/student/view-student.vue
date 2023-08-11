@@ -1,7 +1,6 @@
 <script setup>
 import { ref } from 'vue';
 
-import ViewAttendance from './add-student.vue'
 
 import MaterialSymbolsFormatBold from '~icons/material-symbols/format-bold'
 
@@ -41,8 +40,6 @@ const showAttendanceModal = () => {
 const hideAttendanceModal = () => {
   isAttendanceModalVisible.value = true;
 }
-
-
 
 
 function toggleDropdown() {
@@ -121,8 +118,10 @@ function selectOption(option) {
                 <hr>
                 <h2 class="text-base font-semibold leading-7 text-gray-900 mt-2">System Information</h2>
                 <div class="justify-end flex p-4 gap-1">
-                  <button @click="showAttendanceModal"
-                    class="px-7 py-1 bg-gray-500 text-white rounded-md cursor-pointer">Attendance</button>
+                  <button class="px-7 py-1 bg-gray-500 text-white rounded-md cursor-pointer">
+                    <RouterLink to="../../attendance/index.vue" />
+                    Attendance
+                  </button>
                   <button @click="onSubmit"
                     class="px-7 py-1 bg-gray-500 text-white rounded-md cursor-pointer">Payments</button>
                   <button @click="onSubmit"
@@ -142,8 +141,8 @@ function selectOption(option) {
     </div>
 
     <div v-if="isDeleteModalVisible">
-        <ViewAttendance @cancelForm="hideAttendanceModal" />
-      </div>
+      <ViewAttendance @cancelForm="hideAttendanceModal" />
+    </div>
 
   </div>
 </template>
