@@ -18,6 +18,7 @@ declare module 'vue' {
     Fa6SolidUsersLine: typeof import('~icons/fa6-solid/users-line')['default']
     FlashCard: typeof import('./components/flashCard.vue')['default']
     HealthiconsIExamMultipleChoiceNegative: typeof import('~icons/healthicons/i-exam-multiple-choice-negative')['default']
+    Icon: typeof import('~icons/ic/on')['default']
     IcBaselineFormatItalic: typeof import('~icons/ic/baseline-format-italic')['default']
     IconamoonMenuBurgerHorizontalBold: typeof import('~icons/iconamoon/menu-burger-horizontal-bold')['default']
     IconParkOutlineOrderedList: typeof import('~icons/icon-park-outline/ordered-list')['default']
@@ -40,6 +41,8 @@ declare module 'vue' {
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
     SidebarLink: typeof import('./components/SidebarLink.vue')['default']
+    Tab: typeof import('./components/Tab.vue')['default']
+    TabsWrapper: typeof import('./components/TabsWrapper.vue')['default']
     UimAlignJustify: typeof import('~icons/uim/align-justify')['default']
     VideoThumbnail: typeof import('./components/VideoThumbnail.vue')['default']
   }
