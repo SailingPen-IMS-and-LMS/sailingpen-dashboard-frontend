@@ -39,6 +39,8 @@ declare module 'vue' {
     RouterView: typeof import('vue-router')['RouterView']
     ScheduledClass: typeof import('./components/ScheduledClass.vue')['default']
     SidebarLink: typeof import('./components/SidebarLink.vue')['default']
+    Tab: typeof import('./components/Tab.vue')['default']
+    TabsWrapper: typeof import('./components/TabsWrapper.vue')['default']
     VideoThumbnail: typeof import('./components/VideoThumbnail.vue')['default']
   }
 }

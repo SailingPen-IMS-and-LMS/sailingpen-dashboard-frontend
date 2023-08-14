@@ -233,7 +233,8 @@ import { NButton } from '@nethren-ui/vue'
 
 .top-left-container{
          overflow-y: scroll;
-    } 
+
+        } 
 
     
 </style>
