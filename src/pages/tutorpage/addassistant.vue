@@ -23,19 +23,32 @@
 
 <script setup>
 import { ref } from 'vue';
+import { useRouter } from 'vue-router';
+
+const router = useRouter();
 
 const email = ref('');
 const tel = ref('');
 
 const onSubmit = (event) => {
+  // event.preventDefault();
+  // // Handle form submission logic, e.g., save data
+  // console.log('Form submitted with:', email.value, tel.value);
+
   event.preventDefault();
   // Handle form submission logic, e.g., save data
   console.log('Form submitted with:', email.value, tel.value);
+  // Redirect to the appropriate route after form submission
+  router.push('/tutorpage/successmsg'); // Change this to your actual route
 };
 
 const onRemove = () => {
   // Handle the remove logic here
-  console.log('Remove button clicked');
+  // console.log('Remove button clicked');
+    // Handle the cancel logic here
+    console.log('Cancel button clicked');
+  // Redirect to the appropriate route after cancel button clicked
+  router.push('/tutorpage/leaderboard'); // Change this to your actual route
 };
 </script>
 
