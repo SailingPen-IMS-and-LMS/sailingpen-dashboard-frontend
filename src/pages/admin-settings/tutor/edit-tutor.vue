@@ -41,13 +41,11 @@ function selectOption(option) {
 </script>
 
 <template>
-  <h1 class="pl-8 font-semibold  mb-3 text-6 ">Add Tutor </h1>
+  <h1 class="pl-8 font-semibold  mb-3 text-6 ">Edit Tutor </h1>
   <div class=" w-full flex justify-center items-center mb-6">
     <div class="bg-white p-4 rounded-lg shadow-md border-2">
       <form class="flex flex-col">
         <h2 class="text-6 font-semibold leading-7 text-gray-900">Profile</h2>
-        <p class="mt-1 text-m leading-6 text-gray-600 ">This information will be displayed publicly so be careful
-          what you share.</p>
         <form>
           <div class="flex gap-12 mt-4">
             <div class="">
