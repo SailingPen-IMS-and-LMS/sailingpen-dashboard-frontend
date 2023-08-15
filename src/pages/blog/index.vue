@@ -10,10 +10,10 @@ import BlogView from './view-blog-post.vue'
 
 // content details for blog post table
 const blogs = [
-  { id: 1, name: 'Introduction About Sailingpen Institute',  fromdate: '2023-03-30' , todate: '2023-07-30' },
-  { id: 2, name: 'Why You Choose Sailingpen ?',  fromdate: '2023-04-30' , todate: '2023-07-31' },
-  { id: 3, name: 'Number 1 Combined Mathematics Class',  fromdate: '2023-06-30' , todate: '2023-07-31' },
-  { id: 4, name: 'Did You Come Yesterday [Blog]',  fromdate: '2023-08-30' , todate: '2023-08-31' },
+  { id: "BP001", name: 'Introduction About Sailingpen Institute', fromdate: '2023-03-30', todate: '2023-07-30' },
+  { id: "BP002", name: 'Why You Choose Sailingpen ?', fromdate: '2023-04-30', todate: '2023-07-31' },
+  { id: "BP003", name: 'Number 1 Combined Mathematics Class', fromdate: '2023-06-30', todate: '2023-07-31' },
+  { id: "BP004", name: 'Did You Come Yesterday [Blog]', fromdate: '2023-08-30', todate: '2023-08-31' },
 ];
 
 
@@ -58,24 +58,27 @@ const hideDeleteModal = () => {
 
 <template>
   <div>
-    <div class="mx-auto max-w-2xl px-6 py-10 lg:max-w-7xl lg:px-8 sm:px-6 sm:py-6">
+    <div class="">
       <div class="mt-5 flex lg:ml-100 lg:mt-0 justify-end">
         <div class="mr-8 flex border rounded-l-md px-4 py-2 pr-48">
           <MaterialSymbolsSearch />
           <input id="search" type="text" name="search" placeholder="Search Here " class="pl-4">
         </div>
-        <NButton mode="solid" color="info" @click="showAddModal">
+        <RouterLink to="/blog/add-blog-post" >
+          <NButton mode="solid" color="info">
           + Add New Blog Post
         </NButton>
+        </RouterLink>
       </div>
 
       <h1 class="mb-8 mt-0 text-3xl font-bold">
         Blog Posts
       </h1>
-      <div>
-        <table class="m-4 w-[100%] table-auto border-2 p-4">
-          <thead class="border-2">
+      <div class="mr-8">
+        <table class="m-4 w-[100%] table-auto p-4">
+          <thead class="">
             <tr class="text-black">
+              <th class="px-4 py-2">Blog ID</th>
               <th class="px-4 py-2">Blog Name</th>
               <th class="px-4 py-2">Publish Date</th>
               <th class="px-4 py-2">Expire Date</th>
@@ -83,19 +86,23 @@ const hideDeleteModal = () => {
             </tr>
           </thead>
           <tbody>
-            <tr v-for="blog in blogs" :key="blog.id" class="bg-white">
-              <td class="pl-15 text-left">{{ blog.name }}</td>
+            <tr v-for="(blog,index) in blogs" :key="index"
+              :class="{ 'bg-[#EDF2F7]': index % 2 === 0, 'bg-white': index % 2 !== 0 }">
+              <td class="text-center">{{ blog.id }}</td>
+              <td class="pl-8 text-left">{{ blog.name }}</td>
               <td class="px-6 py-2 text-center">{{ blog.fromdate }}</td>
               <td class="px-6 py-2 text-center">{{ blog.todate }}</td>
               <td class="flex justify-center px-6 py-2">
                 <div class="flex gap-3">
-                  <NButton class="shadow-sm" mode="text" color="success" @click="showViewModal">
+                  <NButton class="shadow-sm" mode="solid" style="height:2rem !important;" color="success" @click="showViewModal">
                     View
                   </NButton>
-                  <NButton class="shadow-sm" mode="text" color="primary" @click="showEditModal">
+                  <RouterLink to="/blog/edit-blog-post">
+                    <NButton class="shadow-sm" mode="solid" style="height:2rem !important;" color="primary">
                     Edit
                   </NButton>
-                  <NButton class="shadow-sm" mode="text" color="danger" @click="showDeleteModal">
+                  </RouterLink>
+                  <NButton class="shadow-sm" mode="solid" style="height:2rem !important;" color="danger" @click="showDeleteModal">
                     Delete
                   </NButton>
                 </div>
