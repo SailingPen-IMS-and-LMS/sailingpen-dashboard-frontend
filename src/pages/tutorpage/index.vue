@@ -2,22 +2,25 @@
   <div>
     <h1 class="text-2xl pl-5">Combined Maths - Ruwan Darshana</h1>
   <div>
-    
+     
+   
   </div>
   
     <Tabs v-model="activeTab">
       <Tab title="Home">
-        1st tab
+    
+      <homeitems/>
       </Tab>
     
       <Tab title="Quizzes">
        <quiz/>
       </Tab>
       <Tab title="Leaderboard">
-        2nd tab
+    <leaderboard/>
       </Tab>
       <Tab title="Flashcards">
         2nd tab
+        <sss/>
       </Tab>
       <Tab title="Announcements">
         2nd tab
@@ -34,6 +37,9 @@ import { ref } from 'vue';
 import Tabs from '../../components/TabsWrapper.vue';
 import Tab from '../../components/Tab.vue';
 import quiz from './quiz.vue';
+import homeitems from './home-items.vue';
+import sss from './addassistant.vue';
+import leaderboard from './leaderboard.vue';
 // import { NButton } from '@nethren-ui/vue'
 
 
