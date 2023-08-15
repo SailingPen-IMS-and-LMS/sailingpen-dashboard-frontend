@@ -2,8 +2,7 @@
   <div>
     <h1 class="text-2xl pl-5">Combined Maths - Ruwan Darshana</h1>
   <div>
-     
-   
+    
   </div>
   
     <Tabs v-model="activeTab">
