@@ -1,20 +1,29 @@
 <template>
   <div class="overlay">
+    <!-- <button class="close-button" >iii</button> -->
+   
     <div class="form-box">
-      <h1 class="heading">Invite New Tutor Assistant</h1>
+     <div class="top">
+
+      <h1 class="heading">Edit Tutor Assistant Details  </h1>
+     
+     </div>
+     
+      
       <form @submit="onSubmit">
         <div class="form-group">
           <label for="email">Tutor Assistant's Email:</label>
+       
           <input v-model="email" type="email" id="email" required class="input-field" />
         </div>
         <div class="form-group">
-          <label for="tel">Name</label>
+          <label for="tel">Tel No:</label>
           <input v-model="tel" type="tel" id="tel" required class="input-field" />
         </div>
         <div class="button-group">
-       
-          <button @click="onRemove" class="button remove-button">Cancel</button>
-          <button type="submit" class="button save-button">Invite</button>
+          <button type="submit" class="button save-button">Save</button>
+          <button @click="onRemove" class="button remove-button">Remove</button>
+          
         </div>
       </form>
     </div>
@@ -23,32 +32,19 @@
 
 <script setup>
 import { ref } from 'vue';
-import { useRouter } from 'vue-router';
-
-const router = useRouter();
 
 const email = ref('');
 const tel = ref('');
 
 const onSubmit = (event) => {
-  // event.preventDefault();
-  // // Handle form submission logic, e.g., save data
-  // console.log('Form submitted with:', email.value, tel.value);
-
   event.preventDefault();
   // Handle form submission logic, e.g., save data
   console.log('Form submitted with:', email.value, tel.value);
-  // Redirect to the appropriate route after form submission
-  router.push('/tutorpage/successmsg'); // Change this to your actual route
 };
 
 const onRemove = () => {
   // Handle the remove logic here
-  // console.log('Remove button clicked');
-    // Handle the cancel logic here
-    console.log('Cancel button clicked');
-  // Redirect to the appropriate route after cancel button clicked
-  router.push('/tutorpage/leaderboard'); // Change this to your actual route
+  console.log('Remove button clicked');
 };
 </script>
 
@@ -75,10 +71,9 @@ const onRemove = () => {
 }
 .form-box {
   background-color: #fff;
-  padding: 1rem;
+  padding: 3rem;
   border-radius: 4px;
   box-shadow: 0 3px 6px rgba(0, 0, 0, 0.1);
-  padding: 3rem;
 }
 
 h2 {
@@ -116,10 +111,23 @@ h2 {
 }
 
 .save-button {
-  background-color: #6464cf; /* Green color */
+  background-color: #4CAF50; /* Green color */
 }
 
 .remove-button {
-  background-color: #a8a7a7; /* Red color */
+  background-color: #FF5733; /* Red color */
+}
+
+
+.close-button {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background-color: transparent;
+  border: none;
+  font-size: 1.5rem;
+  cursor: pointer;
+  color: #555;
+  z-index: 10000;
 }
 </style>

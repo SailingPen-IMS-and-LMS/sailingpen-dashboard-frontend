@@ -37,6 +37,7 @@ declare module 'vue' {
     Myclass: typeof import('./components/Myclass.vue')['default']
     PhExamFill: typeof import('~icons/ph/exam-fill')['default']
     PhSignOutBold: typeof import('~icons/ph/sign-out-bold')['default']
+    ResourceCard: typeof import('./components/ResourceCard.vue')['default']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
     ScheduledClass: typeof import('./components/ScheduledClass.vue')['default']

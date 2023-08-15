@@ -3,17 +3,17 @@ import { NButton } from '@nethren-ui/vue'   //add predefine nethren ui
 import MaterialSymbolsSearch from '~icons/material-symbols/search'
 
 
-import BlogAdd from './add-blog-post.vue'  // connect add-blog-post page
-import BlogEdit from './edit-blog-post.vue'
-import BlogDelete from './delete-blog-post.vue'
-import BlogView from './view-blog-post.vue'
+import StudentAdd from './add-student.vue'  // connect add-blog-post page
+import StudentEdit from './edit-student.vue'
+import StudentDelete from './delete-student.vue'
+import StudentView from './view-student.vue'
 
 // content details for blog post table
 const blogs = [
-  { id: 1, name: 'Introduction About Sailingpen Institute',  fromdate: '2023-03-30' , todate: '2023-07-30' },
-  { id: 2, name: 'Why You Choose Sailingpen ?',  fromdate: '2023-04-30' , todate: '2023-07-31' },
-  { id: 3, name: 'Number 1 Combined Mathematics Class',  fromdate: '2023-06-30' , todate: '2023-07-31' },
-  { id: 4, name: 'Did You Come Yesterday [Blog]',  fromdate: '2023-08-30' , todate: '2023-08-31' },
+  { id: 1, name: 'Kamal Addararachchi',  joinDate: '2023-03-30' , email: 'kamal123123@gmail.com' , parentmobile : '077 5237227' },
+  { id: 2, name: 'Piyadasa Sirisena Kumara',  joinDate: '2023-04-30' , email: 'AttendanceMarker@gmail.com' , parentmobile : '077 5237227'},
+  { id: 3, name: 'K.K.K.P. Padmasingha',  joinDate: '2023-06-30' , email: 'KKPPSecurity789789@gmail.com' , parentmobile : '077 5237227'},
+  { id: 4, name: 'Sanjula Presmasiri de silva',  joinDate: '2023-08-30' , email: 'Helper99@gmail.com' , parentmobile : '077 5237227'},
 ];
 
 
@@ -65,31 +65,34 @@ const hideDeleteModal = () => {
           <input id="search" type="text" name="search" placeholder="Search Here " class="pl-4">
         </div>
         <NButton mode="solid" color="info" @click="showAddModal">
-          + Add New Blog Post
+          + Add New Student
         </NButton>
       </div>
 
       <h1 class="mb-8 mt-0 text-3xl font-bold">
-        Blog Posts
+        Students
       </h1>
       <div>
         <table class="m-4 w-[100%] table-auto border-2 p-4">
           <thead class="border-2">
             <tr class="text-black">
-              <th class="px-4 py-2">Blog Name</th>
-              <th class="px-4 py-2">Publish Date</th>
-              <th class="px-4 py-2">Expire Date</th>
+              <th class="px-4 py-2">Student Name</th>
+              <th class="px-4 py-2">Joined Date</th>
+              <th class="px-4 py-2">Email</th>
+              <th class="px-4 py-2">Parent's Mobile No</th>
               <th class="px-4 py-2"></th>
             </tr>
           </thead>
           <tbody>
             <tr v-for="blog in blogs" :key="blog.id" class="bg-white">
               <td class="pl-15 text-left">{{ blog.name }}</td>
-              <td class="px-6 py-2 text-center">{{ blog.fromdate }}</td>
-              <td class="px-6 py-2 text-center">{{ blog.todate }}</td>
+              <td class="px-6 py-2 text-center">{{ blog.joinDate }}</td>
+              <td class="px-6 py-2 text-center">{{ blog.email }}</td>
+              <td class="px-6 py-2 text-center">{{ blog.parentmobile }}</td>
               <td class="flex justify-center px-6 py-2">
                 <div class="flex gap-3">
-                  <NButton class="shadow-sm" mode="text" color="success" @click="showViewModal">
+                  <NButton class="shadow-sm" mode="text" color="success" >
+                    <RouterLink to="./view-student.vue" />
                     View
                   </NButton>
                   <NButton class="shadow-sm" mode="text" color="primary" @click="showEditModal">
@@ -106,19 +109,19 @@ const hideDeleteModal = () => {
       </div>
 
       <div v-if="isAddModalVisible">
-        <BlogAdd @cancelForm="hideAddModal" />
+        <StudentAdd @cancelForm="hideAddModal" />
       </div>
 
       <div v-if="isViewModalVisible">
-        <BlogView @cancelForm="hideViewModal" />
+        <StudentView @cancelForm="hideViewModal" />
       </div>
 
       <div v-if="isEditModalVisible">
-        <BlogEdit @cancelForm="hideEditModal" />
+        <StudentEdit @cancelForm="hideEditModal" />
       </div>
 
       <div v-if="isDeleteModalVisible">
-        <BlogDelete @cancelForm="hideDeleteModal" />
+        <StudentDelete @cancelForm="hideDeleteModal" />
       </div>
 
     </div>
