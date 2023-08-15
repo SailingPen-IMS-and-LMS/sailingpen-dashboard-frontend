@@ -22,9 +22,6 @@ const isViewModalVisible = ref(false);
 const isEditModalVisible = ref(false);
 const isDeleteModalVisible = ref(false);
 
-const showAddModal = () => {
-  isAddModalVisible.value = true;
-};
 
 const hideAddModal = () => {
   isAddModalVisible.value = false;
@@ -38,9 +35,6 @@ const hideViewModal = () => {
   isViewModalVisible.value = false;
 };
 
-const showEditModal = () => {
-  isEditModalVisible.value = true;
-};
 
 const hideEditModal = () => {
   isEditModalVisible.value = false;
