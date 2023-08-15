@@ -17,6 +17,7 @@ declare module 'vue' {
     IcRoundDashboard: typeof import('~icons/ic/round-dashboard')['default']
     IcSharpAssignment: typeof import('~icons/ic/sharp-assignment')['default']
     IcSharpMenuBook: typeof import('~icons/ic/sharp-menu-book')['default']
+    IonIosArrowDropdownCircle: typeof import('~icons/ion/ios-arrow-dropdown-circle')['default']
     MakiCross: typeof import('~icons/maki/cross')['default']
     MaterialSymbolsDashboard: typeof import('~icons/material-symbols/dashboard')['default']
     MaterialSymbolsNotifications: typeof import('~icons/material-symbols/notifications')['default']
