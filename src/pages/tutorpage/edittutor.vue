@@ -1,10 +1,19 @@
 <template>
   <div class="overlay">
+    <!-- <button class="close-button" >iii</button> -->
+   
     <div class="form-box">
-      <h1 class="heading">Edit Tutor Assistant Details</h1>
+     <div class="top">
+
+      <h1 class="heading">Edit Tutor Assistant Details  </h1>
+     
+     </div>
+     
+      
       <form @submit="onSubmit">
         <div class="form-group">
           <label for="email">Tutor Assistant's Email:</label>
+       
           <input v-model="email" type="email" id="email" required class="input-field" />
         </div>
         <div class="form-group">
@@ -14,6 +23,7 @@
         <div class="button-group">
           <button type="submit" class="button save-button">Save</button>
           <button @click="onRemove" class="button remove-button">Remove</button>
+          
         </div>
       </form>
     </div>
@@ -61,7 +71,7 @@ const onRemove = () => {
 }
 .form-box {
   background-color: #fff;
-  padding: 1rem;
+  padding: 3rem;
   border-radius: 4px;
   box-shadow: 0 3px 6px rgba(0, 0, 0, 0.1);
 }
@@ -106,5 +116,18 @@ h2 {
 
 .remove-button {
   background-color: #FF5733; /* Red color */
+}
+
+
+.close-button {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background-color: transparent;
+  border: none;
+  font-size: 1.5rem;
+  cursor: pointer;
+  color: #555;
+  z-index: 10000;
 }
 </style>
