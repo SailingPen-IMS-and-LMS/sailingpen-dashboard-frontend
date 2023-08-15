@@ -39,10 +39,10 @@ function selectOption(option) {
 </script>
 
 <template>
-  <div class="fixed top-0 left-0 w-full h-full bg-black bg-opacity-50 flex justify-center items-center">
-    <div class="bg-white p-4 rounded-lg shadow-md;">
+  <h1 class="pl-8 font-semibold mb-3 text-5 ">Edit Staff Member </h1>
+  <div class="fixed w-full flex justify-center items-center">
+    <div class="bg-white p-4 rounded-lg shadow-md border-2">
       <form class="flex flex-col">
-        <h1 class="py-4 font-semibold text-center border-b-2 mb-3 text-5 bg-blue-500 text-white">Edit Staff Member </h1>
         <form>
           <div class="">
             <div class="mt-2 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6 flex">
@@ -143,8 +143,12 @@ function selectOption(option) {
         </form>
 
         <div class="justify-end flex p-4 gap-4">
-          <button @click="onSubmit" class="px-3 py-1 bg-green-500 text-white rounded-md cursor-pointer">Save</button>
-          <button @click="onSubmit" class="px-2 py-1 bg-red-500 text-white rounded-md cursor-pointer">Cancel</button>
+          <RouterLink to="/admin-settings/staff">
+            <button  class="px-3 py-1 bg-green-500 text-white rounded-md cursor-pointer">Save</button>
+          </RouterLink>
+          <RouterLink to="/admin-settings/staff">
+            <button  class="px-2 py-1 bg-red-500 text-white rounded-md cursor-pointer">Cancel</button>
+          </RouterLink>
         </div>
       </form>
     </div>

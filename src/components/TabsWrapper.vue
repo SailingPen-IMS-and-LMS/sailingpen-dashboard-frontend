@@ -28,6 +28,38 @@
 
 <template>
     
+
+    <div id="tabs-container" :class="customClass" ref="tabContainer">
+      <div id="tab-headers">
+        <ul>
+  
+          <!-- this shows all of the titles -->
+          <li v-for="(tab, index) in tabs" :key="index" :class="activeTabIndex == index ? 'active' : ''" @click="changeTab(index)" ref="tabHeaders">{{ tab.title }}</li>
+        </ul>
+      </div>
+  
+      <!-- this is where the tabs go, in this slot -->
+      <div id="active-tab">
+          <slot></slot>
+      </div>
+    </div>
+  </template>
+  
+  <style>
+    #tab-headers ul {
+      margin: 0;
+      padding: 0;
+      display: flex;
+      border-bottom: 2px solid #ddd;
+    }
+    #tab-headers ul li {
+     
+     padding: 1rem 1.25rem;
+     position: relative;
+     cursor: pointer;
+     padding-right: 100px;
+     list-style: none;
+
   <div id="tabs-container" :class="customClass" ref="tabContainer">
     <div id="tab-headers">
       <ul>
@@ -83,4 +115,7 @@
   #active-tab {
     padding: 0.75rem;
   }
+
 </style>
+
+

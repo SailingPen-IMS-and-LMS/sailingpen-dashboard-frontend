@@ -2,7 +2,7 @@
   <div class="fixed top-0 left-0 w-full h-full bg-black bg-opacity-50 flex justify-center items-center">
     <div class="bg-white p-4 rounded-lg shadow-md w-100">
       <form class="flex flex-col">
-        <h1 class="py-4 font-semibold text-center border-b-2">Remove Staff Member</h1>
+        <h1 class="py-4 font-semibold text-center border-b-2 text-white bg-red-500">Remove Staff Member</h1>
         <div class="pt-8 ">
           <p>Staff Member Name : {{ }}</p>
           <p>Job Role : {{ }}</p>

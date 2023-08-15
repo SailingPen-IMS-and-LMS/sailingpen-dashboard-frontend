@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { NButton } from '@nethren-ui/vue'
 
-import TutorAdd from './add-tutor.vue'
+import TutorDelete from './delete-tutor.vue'
 import TutorView from './view-tutor.vue'
 
 
@@ -43,15 +43,15 @@ const tutors = [
   },
 ];
 
-const isAddModalVisible = ref(false);
+const isDeleteModalVisible = ref(false);
 const isViewModalVisible = ref(false);
 
-const showAddModal = () => {
-  isAddModalVisible.value = true;
+const showDeleteModal = () => {
+  isDeleteModalVisible.value = true;
 };
 
-const hideAddModal = () => {
-  isAddModalVisible.value = false;
+const hideDeleteModal = () => {
+  isDeleteModalVisible.value = false;
 };
 
 const showViewModal = () => {
@@ -65,21 +65,23 @@ const hideViewModal = () => {
 </script>
 
 <template>
-  <div class="mx-auto max-w-2xl px-6 py-10 lg:max-w-7xl lg:px-8 sm:px-6 sm:py-6">
+  <div class="">
     <div class="mt-5 flex lg:ml-100 lg:mt-0 justify-end">
       <div class="mr-8 flex border rounded-l-md px-4 py-2 pr-48">
         <MaterialSymbolsSearch />
         <input id="search" type="text" name="search" placeholder="Search Here " class="pl-4">
       </div>
-      <NButton mode="solid" color="info" @click="showAddModal">
-        + Add Tutor
-      </NButton>
+      <RouterLink to="/admin-settings/tutor/add-tutor">
+        <NButton mode="solid" color="info">
+          + Add Tutor
+        </NButton>
+      </RouterLink>
     </div>
     <h2 class="mb-4 text-3xl font-bold">
       Tutors
     </h2>
-    <div class="flex justify-center border-2 rounded-lg">
-      <table class="m-4 w-[90%] table-auto p-2 ">
+    <div class="flex justify-center">
+      <table class="m-4 w-full table-auto p-2 ">
         <tbody>
           <tr>
             <td></td>
@@ -89,7 +91,7 @@ const hideViewModal = () => {
             <td class=" py-2  font-semibold">Joined Date</td>
             <td></td>
           </tr>
-          <tr v-for="tutor in tutors" class="bg-white">
+          <tr v-for="(tutor, index) in tutors" :class="{ 'bg-[#EDF2F7]': index % 2 === 0, 'bg-white': index % 2 !== 0 }">
             <td class="py-2 ">
               <div class="flex text-right justify-end">
                 <img :src="tutor.image" alt="" class="h-[40%] w-[40%]">
@@ -107,21 +109,40 @@ const hideViewModal = () => {
             <td class="py-2 text-left ">
               {{ tutor.date }}
             </td>
-            <td class="py-2 ">
-              <NButton class="shadow-sm" mode="outline" color="success" @click="showViewModal">
-                View
-              </NButton>
+            <td class="py-2 px-4">
+              <div class="flex gap-2 justify-end">
+                <div>
+                  <NButton class="shadow-sm" style="height:2rem !important;" mode="solid" color="danger"
+                    @click="showDeleteModal">
+                    Remove
+                  </NButton>
+                </div>
+                <div>
+                  <NButton class="shadow-sm" style="height:2rem !important;" mode="solid" color="success"
+                    @click="showViewModal">
+                    View
+                  </NButton>
+                </div>
+                <div>
+                  <RouterLink to="/admin-settings/tutor/edit-tutor">
+                    <NButton class="shadow-sm" style="height:2rem !important;" mode="solid" color="info">
+                      Edit
+                    </NButton>
+                  </RouterLink>
+                </div>
+              </div>
             </td>
           </tr>
         </tbody>
       </table>
     </div>
-    <div v-if="isAddModalVisible">
-        <TutorAdd @cancelForm="hideAddModal" />
-      </div>
 
-      <div v-if="isViewModalVisible">
-        <TutorView @cancelForm="hideViewModal" />
-      </div>
+    <div v-if="isViewModalVisible">
+      <TutorView @cancelForm="hideViewModal" />
+    </div>
+    <div v-if="isDeleteModalVisible">
+      <TutorDelete @cancelForm="hideDeleteModal" />
+    </div>
+
   </div>
 </template>
