@@ -4,8 +4,10 @@
     <h1 class="name">{{ props.title }}</h1>
     <input v-model="input1" type="text" :placeholder="props.placeholder1" :class="{ 'form-input': true, 'invalid': !input1 }" />
 <input v-model="input2" type="text" :placeholder="props.placeholder2" :class="{ 'form-input': true, 'invalid': !input2 }" />
+
 <!-- ... Other form inputs ... -->
-<button @click="onSubmit" class="button submit-button">{{ props.buttonText }}</button>
+<button @click="onSubmit" class="button submit-button">{{ props.okbutton }}</button>
+<button @click="onPressCancel" class="button cancel-button">{{ props.cancelbutton }}</button>
 
   </form>
   
@@ -15,7 +17,7 @@
 <script setup>
 import { ref, defineProps } from 'vue';
 
-const props = defineProps(['title', 'placeholder1', 'placeholder2', 'buttonText']);
+const props = defineProps(['title', 'placeholder1', 'placeholder2', 'okbutton', 'cancelbutton']);
 
 const input1 = ref('');
 const input2 = ref('');
@@ -52,11 +54,12 @@ const onSubmit = () => {
   font-weight: 600;
 }
 
+
 .modal {
   background-color: #fff;
-  padding: 1rem;
+  padding: 3rem;
   border-radius: 8px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+  box-shadow: 0 3px 12px rgba(0, 0, 0, 0.15);
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -82,14 +85,6 @@ const onSubmit = () => {
   width: 100%; /* Make the input fields stretch to full width */
 }
 
-.submit-button {
-  padding: 0.5rem 1rem;
-  background-color: #5e5cba;
-  color: #fff;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
-}
 
 /* Optional: Add focus styles for form elements */
 .form-input:focus,
@@ -98,9 +93,36 @@ const onSubmit = () => {
   box-shadow: 0 0 0 2px #5e5cba;
 }
 
-.invalid {
-  border-color: #ff5b5b; /* Change border color for invalid input */
-  background-color: rgba(255, 91, 91, 0.1); /* Add a light red background */
+
+.button-group {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 1rem;
 }
+
+.cancel-button,
+.submit-button {
+  padding: 0.5rem 2rem;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  color: #fff; /* Set text color to white */
+}
+
+.submit-button {
+  background-color: #4CAF50; /* Green color */
+}
+
+.cancel-button {
+  background-color: #FF5733; /* Red color */
+}
+
+
+/**********************/
+
+
+
+
+
 
 </style>
