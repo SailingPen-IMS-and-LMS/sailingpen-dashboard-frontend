@@ -120,7 +120,7 @@ import { NButton } from '@nethren-ui/vue'
     width: 225px;
     grid-column: 1/2;
     grid-row: 1/3;
-
+    
     display: flex;
     flex-direction: column;
     align-items: center;

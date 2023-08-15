@@ -10,6 +10,7 @@
   margin: 0 auto;
   width: 100%;
   margin-top: 2rem;
+  overflow:auto;
 
   @include mq(lg) {
     padding-inline: 2rem;

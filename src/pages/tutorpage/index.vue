@@ -20,7 +20,8 @@
           2nd tab
         </Tab>
         <Tab title="Announcements">
-          2nd tab
+          <announcement></announcement>
+          
         </Tab>
       </Tabs>
       
@@ -35,6 +36,9 @@
   import Tab from '../../components/Tab.vue';
   import quiz from './quiz.vue';
   import leaderboardMain from './leaderboardMain.vue';
+  import announcement from './announcement.vue';
+  
+  
   // import { NButton } from '@nethren-ui/vue'
   
   

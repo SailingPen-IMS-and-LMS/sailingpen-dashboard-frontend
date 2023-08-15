@@ -26,6 +26,7 @@ const { isSidebarOpen } = useSidebar()
             <fa6-solid-users-line v-else-if="sidebarLink.text === 'Classes'" />
             <healthicons-i-exam-multiple-choice-negative v-else-if="sidebarLink.text === 'Exams'" />
             <mdi-cards v-else-if="sidebarLink.text === 'Flash Cards'" />
+            <ic-sharp-assignment v-else-if="sidebarLink.text === 'Tutor Assistants'" />
           </template>
         </SidebarLink>
       </ul>
