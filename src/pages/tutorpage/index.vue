@@ -2,8 +2,7 @@
   <div>
     <h1 class="text-2xl pl-5">Combined Maths - Ruwan Darshana</h1>
   <div>
-     
-   
+    
   </div>
   
     <Tabs v-model="activeTab">
@@ -23,7 +22,7 @@
         <sss/>
       </Tab>
       <Tab title="Announcements">
-        2nd tab
+     
       </Tab>
     </Tabs>
     
@@ -40,6 +39,7 @@ import quiz from './quiz.vue';
 import homeitems from './home-items.vue';
 import sss from './addassistant.vue';
 import leaderboard from './leaderboard.vue';
+
 // import { NButton } from '@nethren-ui/vue'
 
 
