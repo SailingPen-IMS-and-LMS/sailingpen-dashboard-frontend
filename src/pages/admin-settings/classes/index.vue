@@ -16,7 +16,7 @@ const tutors = [
     ],
   },
   {
-    name: 'Ruwan Darshan',
+    name: 'Charitha Dissanayake',
     assistants: [
       { id:'CLS01' , name: '2023 Theory Class', fees: '3000.00', image: '/public/images/Profile Avatart.png', date: '2017/05/04' },
       { id:'CLS02' , name: '2022 Theory Class', fees: '2500.00', image: '/public/images/Profile Avatart.png', date: '2028/07/04' },
@@ -67,12 +67,13 @@ const hideRestrictModal = () => {
       Classes
     </h2>
     <div>
-      <table class="w-[100%] table-auto">
+      <div class="w-[100%]">
         <div>
           <template v-for="tutor in tutors">
-            <div class="flex ml-16 flex-row m-4">
-              <tbody class="w-280">
-                <div class="flex justify-between mt-4 mb-2">
+            <div class="flex ml-16 flex-row m-4"
+            >
+              <div class="border-2" >
+                <div class="flex justify-between mt-4 mb-2 border-2">
                   <div>
                     <p class="px-6 py-2 text-left font-semibold text-5">
                       {{ tutor.name }}
@@ -124,13 +125,13 @@ const hideRestrictModal = () => {
                   </td>
                 </tr>
               </tbody>
-              </tbody>
+            </div>
             </div>
           </template>
 
 
         </div>
-      </table>
+      </div>
     </div>
     <div v-if="isAddModalVisible">
       <TutorAssistantAdd @cancelForm="hideAddModal" />
