@@ -7,7 +7,7 @@ const tutors = [
   {
     name: 'Ruwan Darshan',
     id: 1,
-    assistants: [
+    classes: [
       { id:'CLS01' , name: '2023 Theory Class', fees: '3000.00', image: '/public/images/Profile Avatart.png', date: '2017/05/04' },
       { id:'CLS02' , name: '2022 Theory Class', fees: '2500.00', image: '/public/images/Profile Avatart.png', date: '2028/07/04' },
       { id:'CLS03' , name: '2021 Paper Class', fees: '1500.00', image: '/public/images/Profile Avatart.png', date: '2020/05/04' },
@@ -16,7 +16,7 @@ const tutors = [
   {
     name: 'Charitha Dissanayake',
     id: 2,
-    assistants: [
+    classes: [
       { id:'CLS01' , name: '2023 Theory Class', fees: '3000.00', image: '/public/images/Profile Avatart.png', date: '2017/05/04' },
       { id:'CLS02' , name: '2022 Theory Class', fees: '2500.00', image: '/public/images/Profile Avatart.png', date: '2028/07/04' },
       { id:'CLS03' , name: '2021 Paper Class', fees: '1500.00', image: '/public/images/Profile Avatart.png', date: '2020/05/04' },
@@ -63,7 +63,7 @@ const tutors = [
                     <td class=" py-2   font-semibold">Created Date</td>
                     <td></td>
                   </tr>
-                  <tr v-for="(assistant, assistantIndex) in tutor.assistants" :key="assistantIndex">
+                  <tr v-for="(assistant, assistantIndex) in tutor.classes" :key="assistantIndex">
                     <td class=" py-2">
                       <div class="flex text-right justify-end ">
                         <img :src="assistant.image" alt="" class="h-[50%] w-[50%]">
