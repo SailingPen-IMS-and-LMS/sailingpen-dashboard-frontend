@@ -48,107 +48,121 @@ function selectOption(option) {
 </script>
 
 <template>
-  <div class="fixed top-0 left-0 w-full h-full bg-black bg-opacity-50 flex justify-center items-center">
-    <div class="bg-white p-4 rounded-lg shadow-md;">
+  <h1 class="font-semibold mb-3 text-6">Add Announcement</h1>
+  <div class=" w-full  flex  items-center">
+    <div class="bg-white p-4 ">
       <form class="flex flex-col">
-        <h1 class="py-4 font-semibold text-center border-b-2 mb-3 text-5 bg-blue-500 text-white">Add Announcement </h1>
-        <div class="flex gap-3">
-          <p class="text-4 ">Announcement Name :</p>
-          <input v-model="AnnName" type="text" placeholder="Announcement name"
-            class="mb-4 p-2 border border-gray-300 rounded-md w-100 h-10" />
-        </div>
-        <div class="flex gap-3">
-          <p class="text-4">Teacher Name :</p>
-          <input v-model="teacherName" type="text" placeholder="Teacher name"
-            class="mb-4 p-2 border border-gray-300 rounded-md w-100 h-10" />
-        </div>
-        <div class="flex gap-3">
-          <p class="text-4">Class Name :</p>
-          <input v-model="className" type="text" placeholder="Class name"
-            class="mb-4 p-2 border border-gray-300 rounded-md w-100 h-10" />
-        </div>
-        <p class="text-4">Schedule Period :</p>
-        <div class="flex gap-3 justify-center mr-10 mt-3">
-          <p class="text-4">From :</p>
-          <input v-model="date" type="date" class="mb-4 p-2 border border-gray-300 rounded-md w-50 h-10" />
-          <p class="text-4">To : </p>
-          <input v-model="date" type="date" class="mb-4 p-2 border border-gray-300 rounded-md w-50 h-10" />
-        </div>
-        <p class="text-4 pb-2">Content :</p>
-        <div class="mb-4 p-2 border border-gray-300 rounded-md w-200 h-60 flex justify-center">
+        <div class="flex gap-4">
           <div>
-            <div class="flex justify-center items-center">
-              <div class="flex justify-center items-center bg-gray-100 p-2">
-                <div class="toolbar-item">
-                  <undo />
+            <p class="text-4">Announcement Name:</p>
+            <div class="flex gap-3 justify-between">
+              <input v-model="AnnName" type="text" placeholder="Announcement name"
+                class="mb-4 p-2 border border-gray-300 rounded-md w-100 h-10" />
+            </div>
+            <p class="text-4">Class Name :</p>
+            <div class="flex justify-between">
+              <input v-model="className" type="text" placeholder="Class name"
+                class="mb-4 p-2 border border-gray-300 rounded-md w-100 h-10" />
+            </div>
+            <p class="text-4">Teacher Name :</p>
+            <div class="flex justify-between">
+              <input v-model="teacherName" type="text" placeholder="Teacher name"
+                class="mb-4 p-2 border border-gray-300 rounded-md w-100 h-10" />
+            </div>
+            <p class="text-4 mr-4">Schedule Period :</p>
+            <div class="flex justify-left mt-3">
+              <div class="flex gap-1">
+                <div>
+                  <p>From :</p><input v-model="date" type="date" class="mb-4 p-2 border border-gray-300 rounded-md w-50 h-10" />
                 </div>
-                <div class="toolbar-item">
-                  <redo />
-                </div>
-                <div class="dropdown">
-                  <button
-                    class="flex items-center gap-2 px-2 py-1 rounded-md bg-white text-gray-800 border border-gray-300"
-                    @click="toggleDropdown">
-                    <span>paragraph</span>
-                    <dropdown />
-
-                  </button>
-                  <div v-if="showDropdown" class="dropdown-menu">
-                    <div @click="selectOption(1)" class="dropdown-item">Option 1</div>
-                    <div @click="selectOption(2)" class="dropdown-item">Option 2</div>
-                    <div @click="selectOption(3)" class="dropdown-item">Option 3</div>
-                    <div @click="selectOption(4)" class="dropdown-item">Option 4</div>
-                  </div>
-                </div>
-                <div class="toolbar-item">
-                  <linksymbol />
-                </div>
-                <div class="toolbar-item">
-                  <MaterialSymbolsFormatBold />
-                </div>
-                <div class="toolbar-item">
-                  <IcBaselineFormatItalic />
-                </div>
-                <div class="toolbar-item">
-                  <MingcuteFontFill />
-                </div>
-                <div class="toolbar-item">
-                  <unorderdlist />
-                </div>
-                <div class="toolbar-item">
-                  <IconParkOutlineOrderedList />
-                </div>
-                <div class="toolbar-item">
-                  <addimage />
-                </div>
-                <div class="toolbar-item">
-                  <addvideo />
-                </div>
-                <div class="toolbar-item">
-                  <IcSharpKeyboardVoice />
-                </div>
-                <div class="toolbar-item">
-                  <UimAlignJustify />
-                </div>
-                <div class="toolbar-item">
-                  <CilJustifyRight />
-                </div>
-                <div class="toolbar-item">
-                  <CilJustifyLeft />
-                </div>
-                <div class="toolbar-item">
-                  <CilJustifyCenter />
+                <div>
+                  <p>To:</p><input v-model="date" type="date" class="mb-4 p-2 border border-gray-300 rounded-md w-50 h-10" />
                 </div>
               </div>
             </div>
-            <div class="editor-content border p-4 h-40 justify-center item-center">
-              <v-quill v-model="content" />
+          </div>
+          <div>
+            <p class="text-4">Content :</p>
+            <div class="mb-4 p-2 border border-gray-300 rounded-md w-200 h-80 flex justify-center">
+              <div>
+                <div class="flex justify-center items-center">
+                  <div class="flex justify-center items-center bg-gray-100 p-2">
+                    <div class="toolbar-item">
+                      <undo />
+                    </div>
+                    <div class="toolbar-item">
+                      <redo />
+                    </div>
+                    <div class="dropdown">
+                      <button
+                        class="flex items-center gap-2 px-2 py-1 rounded-md bg-white text-gray-800 border border-gray-300"
+                        @click="toggleDropdown">
+                        <span>paragraph</span>
+                        <dropdown />
+
+                      </button>
+                      <div v-if="showDropdown" class="dropdown-menu">
+                        <div @click="selectOption(1)" class="dropdown-item">Option 1</div>
+                        <div @click="selectOption(2)" class="dropdown-item">Option 2</div>
+                        <div @click="selectOption(3)" class="dropdown-item">Option 3</div>
+                        <div @click="selectOption(4)" class="dropdown-item">Option 4</div>
+                      </div>
+                    </div>
+                    <div class="toolbar-item">
+                      <linksymbol />
+                    </div>
+                    <div class="toolbar-item">
+                      <MaterialSymbolsFormatBold />
+                    </div>
+                    <div class="toolbar-item">
+                      <IcBaselineFormatItalic />
+                    </div>
+                    <div class="toolbar-item">
+                      <MingcuteFontFill />
+                    </div>
+                    <div class="toolbar-item">
+                      <unorderdlist />
+                    </div>
+                    <div class="toolbar-item">
+                      <IconParkOutlineOrderedList />
+                    </div>
+                    <div class="toolbar-item">
+                      <addimage />
+                    </div>
+                    <div class="toolbar-item">
+                      <addvideo />
+                    </div>
+                    <div class="toolbar-item">
+                      <IcSharpKeyboardVoice />
+                    </div>
+                    <div class="toolbar-item">
+                      <UimAlignJustify />
+                    </div>
+                    <div class="toolbar-item">
+                      <CilJustifyRight />
+                    </div>
+                    <div class="toolbar-item">
+                      <CilJustifyLeft />
+                    </div>
+                    <div class="toolbar-item">
+                      <CilJustifyCenter />
+                    </div>
+                  </div>
+                </div>
+                <div class="editor-content border p-4 h-60 justify-center item-center">
+                  <v-quill v-model="content" />
+                </div>
+              </div>
             </div>
           </div>
         </div>
         <div class="justify-end flex p-4 gap-4">
-          <button @click="onSubmit" class="px-3 py-1 bg-green-500 text-white rounded-md cursor-pointer">Save</button>
-          <button @click="onSubmit" class="px-2 py-1 bg-red-500 text-white rounded-md cursor-pointer">Cancel</button>
+          <RouterLink to="/announcement">
+            <button class="px-3 py-1 bg-green-500 text-white rounded-md cursor-pointer">Save</button>
+          </RouterLink>
+          <RouterLink to="/announcement">
+            <button class="px-2 py-1 bg-red-500 text-white rounded-md cursor-pointer">Cancel</button>
+          </RouterLink>
         </div>
       </form>
     </div>

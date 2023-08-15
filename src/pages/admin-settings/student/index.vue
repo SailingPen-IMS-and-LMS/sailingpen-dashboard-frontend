@@ -10,10 +10,10 @@ import StudentView from './view-student.vue'
 
 // content details for blog post table
 const blogs = [
-  { id: 1, name: 'Kamal Addararachchi',  joinDate: '2023-03-30' , email: 'kamal123123@gmail.com' , parentmobile : '077 5237227' },
-  { id: 2, name: 'Piyadasa Sirisena Kumara',  joinDate: '2023-04-30' , email: 'AttendanceMarker@gmail.com' , parentmobile : '077 5237227'},
-  { id: 3, name: 'K.K.K.P. Padmasingha',  joinDate: '2023-06-30' , email: 'KKPPSecurity789789@gmail.com' , parentmobile : '077 5237227'},
-  { id: 4, name: 'Sanjula Presmasiri de silva',  joinDate: '2023-08-30' , email: 'Helper99@gmail.com' , parentmobile : '077 5237227'},
+  { id: 1, name: 'Kamal Addararachchi', joinDate: '2023-03-30', email: 'kamal123123@gmail.com', parentmobile: '077 5237227' },
+  { id: 2, name: 'Piyadasa Sirisena Kumara', joinDate: '2023-04-30', email: 'AttendanceMarker@gmail.com', parentmobile: '077 5237227' },
+  { id: 3, name: 'K.K.K.P. Padmasingha', joinDate: '2023-06-30', email: 'KKPPSecurity789789@gmail.com', parentmobile: '077 5237227' },
+  { id: 4, name: 'Sanjula Presmasiri de silva', joinDate: '2023-08-30', email: 'Helper99@gmail.com', parentmobile: '077 5237227' },
 ];
 
 
@@ -64,9 +64,12 @@ const hideDeleteModal = () => {
           <MaterialSymbolsSearch />
           <input id="search" type="text" name="search" placeholder="Search Here " class="pl-4">
         </div>
-        <NButton mode="solid" color="info" @click="showAddModal">
-          + Add New Student
-        </NButton>
+        <RouterLink to="/admin-settings/student/add-student">
+          <NButton mode="solid" color="info" >
+            + Add New Student
+          </NButton>
+        </RouterLink>
+
       </div>
 
       <h1 class="mb-8 mt-0 text-3xl font-bold">
@@ -91,13 +94,14 @@ const hideDeleteModal = () => {
               <td class="px-6 py-2 text-center">{{ blog.parentmobile }}</td>
               <td class="flex justify-center px-6 py-2">
                 <div class="flex gap-3">
-                  <NButton class="shadow-sm" mode="text" color="success" >
-                    <RouterLink to="./view-student.vue" />
+                  <NButton class="shadow-sm" mode="text" color="success" @click="showViewModal">
                     View
                   </NButton>
-                  <NButton class="shadow-sm" mode="text" color="primary" @click="showEditModal">
-                    Edit
-                  </NButton>
+                  <RouterLink to="/admin-settings/student/edit-student">
+                    <NButton class="shadow-sm" mode="text" color="primary">
+                      Edit
+                    </NButton>
+                  </RouterLink>
                   <NButton class="shadow-sm" mode="text" color="danger" @click="showDeleteModal">
                     Delete
                   </NButton>

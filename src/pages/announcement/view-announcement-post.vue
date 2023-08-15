@@ -51,19 +51,19 @@ function selectOption(option) {
       <form class="flex flex-col justify-center">
         <h1 class="py-4 font-semibold text-center text-5 border-b-2 mb-4 bg-green-500 text-white">View Announcement</h1>
         <div class="flex gap-3">
-          <p class="text-4" >Announcement Name :</p>
+          <p class="text-4">Announcement Name :</p>
           <h2 class="mb-4 p-2 border border-gray-300 rounded-md w-100 h-10">{{ AnnName }}</h2>
         </div>
         <div class="flex gap-3">
-          <p class="text-4" >Class Name :</p>
+          <p class="text-4">Class Name :</p>
           <h2 class="mb-4 p-2 border border-gray-300 rounded-md w-100 h-10">{{ className }}</h2>
         </div>
-        <p class="text-4 pb-2" >Content :</p>
+        <p class="text-4 pb-2">Content :</p>
         <div class="mb-4 p-2 border border-gray-300 rounded-md w-200 h-60 flex justify-center">
           <p>This is the content of the Announcement</p>
         </div>
         <div class="justify-end flex p-4">
-          <button @click="onSubmit" class="px-7 py-1 bg-[#5e5cba] text-white rounded-md cursor-pointer">Back</button>
+          <button @click="onSubmit" class="px-6 py-1 bg-[#5e5cba] text-white rounded-md cursor-pointer">Back</button>
         </div>
       </form>
     </div>

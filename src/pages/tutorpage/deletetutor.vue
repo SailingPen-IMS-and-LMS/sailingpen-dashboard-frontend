@@ -11,20 +11,15 @@
   </template>
   
   <script>
-  export default {
-    methods: {
-      onConfirm() {
-        // Handle the confirmation logic here
-        console.log("Tutor deleted");
-        // Close the confirmation box or perform any other action
-      },
-      onCancel() {
-        // Handle the cancel logic here
-        console.log("Deletion canceled");
-        // Close the confirmation box or perform any other action
-      }
-    }
-  };
+ const onConfirm = () => {
+  console.log("Tutor deleted");
+  // Handle confirmation logic here
+};
+
+const onCancel = () => {
+  console.log("Deletion canceled");
+  // Handle cancel logic here
+};
   </script>
   
   <style scoped>
@@ -51,6 +46,7 @@
   
   .message {
     margin-bottom: 1rem;
+    padding: 1.9rem;
   }
   
   .button-group {
