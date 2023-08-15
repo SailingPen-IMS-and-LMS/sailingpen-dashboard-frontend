@@ -2,8 +2,9 @@
     <div v-if="activeTab === 'Quizzes'" class="quizzes-tab">
       <div class="quizzes-header">
         <NButton mode="text" class="add-quiz-button">
-          <RouterLink to="/quiz/new">
+          <RouterLink to="/tutorpage/addassistant">
             + Create new quiz
+   
           </RouterLink>
         </NButton>
       </div>
@@ -59,6 +60,7 @@
   import { ref } from 'vue';
   import { NButton } from '@nethren-ui/vue'
   import leaderboard from './leaderboard.vue';
+
   
   const activeTab = ref('Quizzes'); // Set the default active tab
 

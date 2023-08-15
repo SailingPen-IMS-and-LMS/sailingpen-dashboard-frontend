@@ -22,6 +22,7 @@
         <sss/>
       </Tab>
       <Tab title="Announcements">
+        <announcement/>
      
       </Tab>
     </Tabs>
@@ -39,6 +40,7 @@ import quiz from './quiz.vue';
 import homeitems from './home-items.vue';
 import sss from './addassistant.vue';
 import leaderboard from './leaderboard.vue';
+import announcement from './announcement.vue';
 
 // import { NButton } from '@nethren-ui/vue'
 
