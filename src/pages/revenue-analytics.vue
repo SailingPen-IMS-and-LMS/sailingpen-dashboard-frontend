@@ -58,7 +58,7 @@ const tutors = [
 
       <div class="classes-income admin-rev-top-card">
         <div class="card-title flex justify-between">
-          <h3> Class Participation </h3>
+          <h3> Class Income </h3>
           <NButton color="info" style="border-radius: 15px ; height: 1.5rem">View All</NButton>
         </div>
         <h4 class="mx-1 mb-1 text-sm text-gray-400">Name</h4>
