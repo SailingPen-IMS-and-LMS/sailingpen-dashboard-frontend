@@ -226,7 +226,6 @@ const students = [
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  text-align: center;
 
 
   span{
@@ -238,7 +237,7 @@ const students = [
   h3{
     font-weight: 600;
     margin-bottom: .5em;
-    height: 2rem;
+
   }
 
 
