@@ -49,6 +49,7 @@
             <th class="py-2">Paid</th>
             <th class="py-2">Not Paid</th>
             <th class="py-2">Excuse </th>
+            <th class="px-4 py-2">Mark Payments</th>
           </tr>
         </thead>
         <tbody>
@@ -86,9 +87,19 @@
                 <span v-if="student.excuse" class="w-6 h-6 rounded-full bg-blue-500"></span>
               </div>
             </td>
+            <td>
+              <div class="flex justify-center">
+                <NButton class="shadow-sm" mode="solid" color="info" @click="showUpdateModal" style="height: 2rem;">
+                  Update
+                </NButton>
+              </div>
+            </td>
           </tr>
         </tbody>
       </table>
+    </div>
+    <div v-if="isUpdateModalVisible">
+      <PaymentUpdate @cancelForm="hideUpdateModal" />
     </div>
   </div>
 </template>
@@ -96,6 +107,9 @@
 <script setup>
 import { NButton } from '@nethren-ui/vue'
 import AttendanceSheetView from './payments-sheet-view.vue'
+
+
+import PaymentUpdate from './payments-update.vue'
 
 const selectedMonth = ref(1);
 const selectedYear = ref(new Date().getFullYear());
@@ -154,6 +168,7 @@ const students = [
 
 
 const isAttendanceSheetModalVisible = ref(false);
+const isUpdateModalVisible = ref(false);
 
 const showAttendanceChartModal = () => {
   isAttendanceSheetModalVisible.value = true;
@@ -161,6 +176,14 @@ const showAttendanceChartModal = () => {
 
 const hideAttendanceChartModal = () => {
   isAttendanceSheetModalVisible.value = false;
+};
+
+const showUpdateModal = () => {
+  isUpdateModalVisible.value = true;
+};
+
+const hideUpdateModal = () => {
+  isUpdateModalVisible.value = false;
 };
 
 </script>
