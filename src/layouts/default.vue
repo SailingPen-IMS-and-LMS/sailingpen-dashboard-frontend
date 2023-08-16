@@ -1,35 +1,73 @@
 <script setup lang="ts">
+import { storeToRefs } from 'pinia'
+import { useAuthStore } from '~/stores'
 import type { SidebarItems } from '~/types'
 
-const sidebarLinks: SidebarItems = [
-  {
-    to: '/', text: 'Dashboard',
-  },
+const authStore = useAuthStore()
+const { isAuthenticated, userType } = storeToRefs(authStore)
 
-  {
-    to: '/lesson-packs', text: 'Lesson Packs',
-  },
+const sidebarLinks = computed<SidebarItems>(() => {
+  if (isAuthenticated.value && userType.value === 'admin') {
+    return [
+      {
+        to: '/', text: 'Dashboard',
+      },
+      {
+        to: '/revenue', text: 'Revenue',
+      },
+      {
+        to: '/staff', text: 'Staff',
+      },
+      {
+        to: '/tutors', text: 'Tutors',
+      },
+      {
+        to: '/tutors/assistants', text: 'Tutor Assistants',
+      },
+      {
+        to: '/students', text: 'Students',
+      },
+      {
+        to: '/attendance', text: 'Attendance',
+      },
+      {
+        to: '/announcements', text: 'Announcements',
+      },
+      {
+        to: '/blog', text: 'Blog',
+      },
+      {
+        to: '/settings', text: 'Settings',
+      },
+    ]
+  }
+  else if (isAuthenticated.value && userType.value === 'tutor') {
+    return [
+      {
+        to: '/tutor-dashboard', text: 'Dashboard',
+      },
 
-  {
-    to: '/exams', text: 'Exams',
-  },
+      {
+        to: '/tutor-dashboard/my-classes', text: 'My classes',
+      },
+      {
+        to: '/tutor-dashboard/lesson-packs', text: 'Lesson packs',
+      },
 
-  {
-    to: '/flash-cards', text: 'Flash Cards',
-  },
+      {
+        to: '/tutor-dashboard/exams', text: 'Exams',
+      },
 
-  {
-    to: '/settings', text: 'Settings',
-  },
-
-  {
-    to: '/help', text: 'Help',
-  },
-
-  {
-    to: '/logout', text: 'Logout',
-  },
-]
+      {
+        to: '/tutor-dashboard/flash-cards', text: 'Flash Cards',
+      },
+      {
+        to: '/tutor-dashboard/my-assistants', text: 'My Assistants',
+      },
+    ]
+  }
+  else { return [] }
+})
 </script>
 
 <template>

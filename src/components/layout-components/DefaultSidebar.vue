@@ -1,6 +1,8 @@
 <script setup lang="ts">
-import logoImgUrl from '~/assets/images/logo.png'
+import SidebarLink from '../SidebarLink.vue'
 import { useSidebar } from '~/composables'
+import logoImgUrl from '~/assets/images/logo.png'
+import shortLogoImgUrl from '~/assets/images/short-logo.png'
 import type { SidebarItems } from '~/types'
 
 const props = defineProps<{
@@ -13,7 +15,8 @@ const { isSidebarOpen } = useSidebar()
 
 <template>
   <aside class="default-sidebar" :class="[isSidebarOpen ? '' : 'default-sidebar--close']">
-    <img :src="logoImgUrl" alt="">
+    <img v-show="isSidebarOpen" :src="logoImgUrl" alt="SailingPen Logo" class="mx-auto min-w-[225px] px-[1rem]">
+    <img v-show="!isSidebarOpen" :src="shortLogoImgUrl" alt="SailingPen short logo" class="mx-auto">
     <nav class="h-[calc(100vh-88px)] flex flex-col justify-between">
       <ul>
         <SidebarLink
@@ -21,28 +24,44 @@ const { isSidebarOpen } = useSidebar()
           :text="sidebarLink.text" :is-sidebar-open="isSidebarOpen"
         >
           <template #icon>
-            <ic-round-dashboard v-if="sidebarLink.text === 'Dashboard'" />
-            <ic-sharp-menu-book v-else-if="sidebarLink.text === 'Lesson packs'" />
-            <fa6-solid-users-line v-else-if="sidebarLink.text === 'Classes'" />
-            <healthicons-i-exam-multiple-choice-negative v-else-if="sidebarLink.text === 'Exams'" />
-            <mdi-cards v-else-if="sidebarLink.text === 'Flash Cards'" />
-            <ic-sharp-assignment v-else-if="sidebarLink.text === 'Tutor Assistants'" />
+            <!-- Common -->
+            <ic-round-dashboard v-if="sidebarLink.text === 'Dashboard'" class="h-[24px] min-h-[24px] min-w-[24px] w-[24px]" />
+            <tabler-users-group v-else-if="sidebarLink.text === 'Students'" class="h-[24px] min-h-[24px] min-w-[24px] w-[24px]" />
+            <ic-outline-person-pin v-else-if="sidebarLink.text === 'Tutor Assistants'" class="h-[24px] min-h-[24px] min-w-[24px] w-[24px]" />
+            <carbon-blog v-else-if="sidebarLink.text === 'Blog'" class="h-[24px] min-h-[24px] min-w-[24px] w-[24px]" />
+            <ph-speaker-high-duotone v-else-if="sidebarLink.text === 'Announcements'" class="h-[24px] min-h-[24px] min-w-[24px] w-[24px]" />
+            <fluent-tasks-app-28-regular v-else-if="sidebarLink.text === 'Attendance'" class="h-[24px] min-h-[24px] min-w-[24px] w-[24px]" />
+            <!-- Common -->
+            <!-- Admin -->
+            <ph-chalkboard-teacher v-if="sidebarLink.text === 'Tutors'" class="h-[24px] min-h-[24px] min-w-[24px] w-[24px]" />
+            <ic-outline-settings v-else-if="sidebarLink.text === 'Settings'" class="h-[24px] min-h-[24px] min-w-[24px] w-[24px]" />
+            <clarity-employee-group-line v-else-if="sidebarLink.text === 'Staff'" class="h-[24px] min-h-[24px] min-w-[24px] w-[24px]" />
+            <ic-round-attach-money v-else-if="sidebarLink.text === 'Revenue'" class="h-[24px] min-h-[24px] min-w-[24px] w-[24px]" />
+            <solar-hand-money-outline v-else-if="sidebarLink.text === 'Payments'" class="h-[24px] min-h-[24px] min-w-[24px] w-[24px]" />
+            <!-- Admin -->
+            <!-- Tutor -->
+            <ic-sharp-menu-book v-else-if="sidebarLink.text === 'Lesson packs'" class="h-[24px] min-h-[24px] min-w-[24px] w-[24px]" />
+            <fa6-solid-users-line v-else-if="sidebarLink.text === 'My classes'" class="h-[24px] min-h-[24px] min-w-[24px] w-[24px]" />
+            <ph-exam v-else-if="sidebarLink.text === 'Exams'" class="h-[24px] min-h-[24px] min-w-[24px] w-[24px]" />
+            <mdi-cards v-else-if="sidebarLink.text === 'Flash Cards'" class="h-[24px] min-h-[24px] min-w-[24px] w-[24px]" />
+            <ic-outline-person-pin v-else-if="sidebarLink.text === 'My Assistants'" class="h-[24px] min-h-[24px] min-w-[24px] w-[24px]" />
+            <!-- Tutor -->
           </template>
         </SidebarLink>
       </ul>
 
       <ul class="bottom-links">
-        <SidebarLink to="/logout" text="Logout" :is-sidebar-open="isSidebarOpen" :is-button="true">
+        <!-- <SidebarLink to="/logout" text="Logout" :is-sidebar-open="isSidebarOpen" :is-button="true">
           <template #icon>
-            <ph-sign-out-bold />
+            <ph-sign-out-bold class="h-[24px] min-h-[24px] min-w-[24px] w-[24px]" />
           </template>
-        </SidebarLink>
+        </SidebarLink> -->
 
-        <SidebarLink to="/help" text="Help" :is-sidebar-open="isSidebarOpen">
+        <!-- <SidebarLink to="/help" text="Help" :is-sidebar-open="isSidebarOpen">
           <template #icon>
-            <mdi-help-circle />
+            <mdi-help-circle class="h-[24px] min-h-[24px] min-w-[24px] w-[24px]" />
           </template>
-        </SidebarLink>
+        </SidebarLink> -->
       </ul>
     </nav>
   </aside>
@@ -55,8 +74,8 @@ const { isSidebarOpen } = useSidebar()
     grid-row: 1 / 3;
     // display: flex;
     flex-direction: column;
-    align-items: center;
-    transition: all 300ms ease-in-out;
+    // align-items: center;
+    transition: all 200ms ease-in-out;
     background-color: var(--bg-primary);
     display: none;
 
@@ -65,9 +84,14 @@ const { isSidebarOpen } = useSidebar()
     }
 
     img {
-        width: 200px;
-        height: 60px;
-        margin-top: 1.5rem;
+        // width: 200px;
+        // height: 60px;
+        // margin-top: 1.5rem;
+    }
+
+    nav {
+        padding-inline: 1rem;
+        // margin-top: 60px;
     }
 
     ul {
@@ -75,10 +99,11 @@ const { isSidebarOpen } = useSidebar()
         flex-direction: column;
         gap: 1rem;
         margin-top: 2rem;
+        width: 100%;
     }
 
     &--close {
-        width: 100px;
+        width: 88px;
     }
 
 }
