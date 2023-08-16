@@ -2,7 +2,7 @@
     <div v-if="activeTab === 'Quizzes'" class="quizzes-tab">
       <div class="quizzes-header">
         <NButton mode="text" class="add-quiz-button">
-          <RouterLink to="/tutorpage/addassistant">
+          <RouterLink to="/tutorpage/add-quiz">
             + Create new quiz
    
           </RouterLink>

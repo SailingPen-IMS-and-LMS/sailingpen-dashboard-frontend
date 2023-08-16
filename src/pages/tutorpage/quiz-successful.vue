@@ -3,7 +3,7 @@
       <div class="confirmation-box">
         <div class="message"></div>
        
-          <button @click="onConfirm" class="button yes-button">Invitation sent successfully!</button>
+          <button @click="onConfirm" class="button yes-button">Your Quiz was created Successfully!</button>
      
 
       </div>
@@ -18,7 +18,7 @@ const router = useRouter();
  const onConfirm = () => {
   
   // Handle confirmation logic here
-  router.push('/tutorpage/leaderboard'); // Change this to your actual route
+  router.push('/tutorpage'); // Change this to your actual route
 };
 
 

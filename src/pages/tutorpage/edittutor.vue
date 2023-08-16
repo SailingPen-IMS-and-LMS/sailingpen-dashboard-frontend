@@ -35,16 +35,21 @@ import { ref } from 'vue';
 
 const email = ref('');
 const tel = ref('');
+import { useRouter } from 'vue-router';
+
+const router = useRouter();
 
 const onSubmit = (event) => {
   event.preventDefault();
   // Handle form submission logic, e.g., save data
   console.log('Form submitted with:', email.value, tel.value);
+  router.push('/tutorpage/successmsg'); // Change this to your actual route
 };
 
 const onRemove = () => {
   // Handle the remove logic here
   console.log('Remove button clicked');
+  router.push('/tutorpage/deletetutor'); // Change this to your actual route
 };
 </script>
 

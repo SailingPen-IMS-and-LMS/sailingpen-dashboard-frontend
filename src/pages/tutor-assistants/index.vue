@@ -22,9 +22,6 @@ const isAddModalVisible = ref(false);
 const isViewModalVisible = ref(false);
 const isRestrictModalVisible = ref(false);
 
-const showAddModal = () => {
-  isAddModalVisible.value = true;
-};
 
 const hideAddModal = () => {
   isAddModalVisible.value = false;
@@ -72,9 +69,13 @@ const hideRestrictModal = () => {
                     </p>
                   </div>
                   <div class="flex gap-3 pr-2">
-                    <NButton class="shadow-sm" mode="solid" color="info" @click="showAddModal">
-                      + Add Assistants
-                    </NButton>
+                    <NButton mode="text" class="add-quiz-button">
+          <RouterLink to="/tutorpage/addassistant">
+       
+            Add Assistant
+   
+          </RouterLink>
+        </NButton>
                   </div>
                 </div>
               <tbody class="ml-10">
@@ -109,9 +110,13 @@ const hideRestrictModal = () => {
                       <NButton class="shadow-sm" mode="outline" color="danger" @click="showRestrictModal">
                         Restrict
                       </NButton>
-                      <NButton class="shadow-sm" mode="outline" color="warning" @click="showEditModal">
-                            Edit
-                      </NButton>
+                      <NButton  mode="outline" class="add-quiz-button">
+          <RouterLink to="/tutorpage/edittutor">
+       
+     Edit
+   
+          </RouterLink>
+        </NButton>
                     </div>
                   </td>
                 </tr>
