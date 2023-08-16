@@ -1,7 +1,7 @@
 <template>
     <div class="overlay">
       <div class="confirmation-box">
-        <div class="message">Do you want to delete this tutor?</div>
+        <div class="message">Do you want to delete this tutor assistant?</div>
         <div class="button-group">
           <button @click="onConfirm" class="button yes-button">Yes</button>
           <button @click="onCancel" class="button cancel-button">Cancel</button>
@@ -10,10 +10,14 @@
     </div>
   </template>
   
-  <script>
+  <script setup>
+  import { useRouter } from 'vue-router';
+
+const router = useRouter();
  const onConfirm = () => {
   console.log("Tutor deleted");
   // Handle confirmation logic here
+  router.push('/tutor'); // Change this to your actual route
 };
 
 const onCancel = () => {
