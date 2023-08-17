@@ -1,16 +1,20 @@
 <script setup lang="ts">
+import { NButton, NInput, NModal } from '@nethren-ui/vue'
 import { storeToRefs } from 'pinia'
-import { NButton, NModal } from '@nethren-ui/vue'
+import { api } from '~/api'
 import PageHeading from '~/components/common/PageHeading.vue'
 import DataTable from '~/components/common/table-components/DataTable.vue'
 import DataTableData from '~/components/common/table-components/DataTableData.vue'
 import DataTableHeading from '~/components/common/table-components/DataTableHeading.vue'
 import DataTableRow from '~/components/common/table-components/DataTableRow.vue'
-import { useTutorsStore } from '~/stores'
-import { api } from '~/api'
+import { useSubjectsStore, useTutionClassesStore, useTutorsStore } from '~/stores'
 
+const tutionClassesStore = useTutionClassesStore()
+const { loadingTutionClasses, tutionClasses } = storeToRefs(tutionClassesStore)
 const tutorsStore = useTutorsStore()
-const { loadingTutors, tutors } = storeToRefs(tutorsStore)
+const { tutors } = storeToRefs(tutorsStore)
+const subjectsStore = useSubjectsStore()
+const { subjects } = storeToRefs(subjectsStore)
 
 const deleteTutorModal = ref<InstanceType<typeof NModal>>()
 
@@ -20,29 +24,59 @@ function onDeleteSubmit() {
 
 const viewTutorModal = ref<InstanceType<typeof NModal>>()
 
-async function loadTutors() {
-  tutorsStore.setLoadingTutors(true)
+const addClassModal = ref<InstanceType<typeof NModal>>()
+
+const newSubjectFormData = ref({
+  class_name: '',
+  class_description: '',
+  admission_fee: 0,
+  monthly_fee: 0,
+  subject_id: '',
+  tutor_id: '',
+})
+
+const submittingAdditionForm = ref(false)
+
+async function onSubjectAddFormSubmit() {
+  submittingAdditionForm.value = true
   try {
-    const response = await api.users.tutors.getListForAdmin()
-    if (response)
-      tutorsStore.setTutors(response)
+    for (const key in newSubjectFormData.value) {
+      if (Object.prototype.hasOwnProperty.call(newSubjectFormData.value, key)) {
+        const element = newSubjectFormData.value[key as keyof typeof newSubjectFormData.value]
+        if (!element || element === '') {
+          // eslint-disable-next-line no-alert
+          alert('Please enter all data')
+          return
+        }
+      }
+    }
+    const result = await api.tutionClasses.create({
+      ...newSubjectFormData.value,
+      admission_fee: Number(newSubjectFormData.value.admission_fee),
+      monthly_fee: Number(newSubjectFormData.value.monthly_fee),
+    })
+    if (result) {
+      tutionClassesStore.setLoadingTutionClasses(true)
+      const res = await api.tutionClasses.get()
+      if (res) {
+        tutionClassesStore.setTutionClasses(res)
+        addClassModal.value?.closeModal()
+      }
+    }
   }
   catch (error) {
     console.log(error)
   }
   finally {
-    tutorsStore.setLoadingTutors(false)
+    submittingAdditionForm.value = false
+    tutionClassesStore.setLoadingTutionClasses(false)
   }
 }
-
-onMounted(() => {
-  loadTutors()
-})
 </script>
 
 <template>
-  <div class="tutors-page">
-    <PageHeading>Tutors</PageHeading>
+  <div class="tutionClasses-page">
+    <PageHeading>Classes</PageHeading>
     <div class="flex justify-end">
       <div class="flex items-center gap-4">
         <div class="mr-8 flex border rounded-l-md px-4 py-2 pr-48">
@@ -50,37 +84,32 @@ onMounted(() => {
           <input id="search" type="text" name="search" placeholder="Search Here " class="pl-4">
         </div>
 
-        <NButton mode="solid">
-          <RouterLink to="/tutors/add-new">
-            + Add Tutor
-          </RouterLink>
+        <NButton mode="solid" @click="addClassModal?.openModal()">
+          + Add class
         </NButton>
       </div>
     </div>
-    <DataTable class="mt-8" :loading="loadingTutors">
+    <DataTable class="mt-8" :loading="loadingTutionClasses">
       <template #table-heading-rows>
-        <DataTableHeading>Tutor's name</DataTableHeading>
+        <DataTableHeading>Class</DataTableHeading>
+        <DataTableHeading>Description</DataTableHeading>
+        <DataTableHeading>Tutor</DataTableHeading>
         <DataTableHeading>Subject</DataTableHeading>
-        <DataTableHeading>Email</DataTableHeading>
-        <DataTableHeading>Joined Date</DataTableHeading>
         <DataTableHeading class="text-right" />
       </template>
       <template #table-body-rows>
-        <DataTableRow v-for="tutor in tutors" :key="tutor.tutor_id">
+        <DataTableRow v-for="tutionClass in tutionClasses" :key="tutionClass.class_id">
           <DataTableData>
-            <div class="flex items-center gap-4 text-right">
-              <img :src="tutor.avatar" alt="" class="h-[40px] w-[40px] rounded-full">
-              {{ tutor.f_name }} {{ tutor.l_name }}
-            </div>
+            {{ tutionClass.class_name }}
           </DataTableData>
           <DataTableData>
-            {{ tutor.subject_name }}
+            {{ tutionClass.class_description }}
           </DataTableData>
           <DataTableData>
-            {{ tutor.email }}
+            {{ `${tutionClass.tutor.user.f_name} ${tutionClass.tutor.user.l_name}` }}
           </DataTableData>
-          <DataTableData :data-create="tutor.create_at">
-            {{ tutor.create_at }}
+          <DataTableData>
+            {{ tutionClass.subject.subject_name }}
           </DataTableData>
           <DataTableData>
             <div class="flex items-center justify-end gap-2">
@@ -89,9 +118,9 @@ onMounted(() => {
               </NButton>
               <RouterLink
                 :to="{
-                  path: `/tutors/${tutor.tutor_id}/edit`,
+                  path: `/classes/${tutionClass.class_id}/edit`,
                   query: {
-                    name: `${tutor.f_name} ${tutor.l_name}`,
+                    name: `${tutionClass.tutor.user.f_name} ${tutionClass.tutor.user.l_name}`,
                   },
                 }"
               >
@@ -111,6 +140,54 @@ onMounted(() => {
         </DataTableRow>
       </template>
     </DataTable>
+    <NModal ref="addClassModal">
+      <template #modal-header>
+        Add new class
+      </template>
+      <template #modal-body>
+        <form class="w-[300px] flex flex-col gap-1" @submit.prevent="onSubjectAddFormSubmit">
+          <div class="n-input n-input--primary n--primary">
+            <label for="subject_id" class="n-input__label">Subject</label>
+            <select id="subject_id" v-model="newSubjectFormData.subject_id" name="subject_id" class="n-input__input">
+              <option v-for="subject in subjects" :key="subject.subject_id" :value="subject.subject_id">
+                {{
+                  subject.subject_name }}
+              </option>
+            </select>
+          </div>
+          <div class="n-input n-input--primary n--primary">
+            <label for="tutor_id" class="n-input__label">Tutor</label>
+            <select id="tutor_id" v-model="newSubjectFormData.tutor_id" name="tutor_id" class="n-input__input">
+              <option v-for="tutor in tutors" :key="tutor.tutor_id" :value="tutor.tutor_id">
+                {{
+                  `${tutor.f_name} ${tutor.l_name}` }}
+              </option>
+            </select>
+          </div>
+          <NInput id="class_name" v-model="newSubjectFormData.class_name" label="Class Name" name="class_name" />
+          <NInput
+            id="class_description" v-model="newSubjectFormData.class_description" label="Class Description"
+            name="class_description"
+          />
+          <NInput
+            id="admission_fee" v-model="newSubjectFormData.admission_fee" label="Admission Fee" name="admission_fee"
+            type="number"
+          />
+          <NInput
+            id="monthly_fee" v-model="newSubjectFormData.monthly_fee" label="Monthly Fee" name="monthly_fee"
+            type="number"
+          />
+          <div class="flex justify-center gap-4 p-4">
+            <NButton class="px-2 py-1" role="button" mode="text" color="danger" @click="addClassModal?.closeModal()">
+              Cancel
+            </NButton>
+            <NButton class="px-2 py-1" color="primary" :is-loading="submittingAdditionForm" loading-text="Submitting">
+              Add
+            </NButton>
+          </div>
+        </form>
+      </template>
+    </NModal>
     <NModal ref="deleteTutorModal">
       <template #modal-header>
         Are you sure you want to delete this tutor?

@@ -1,6 +1,9 @@
 export interface SidebarItem {
-  to: string
+  to?: string
   text: string
+  isButton?: boolean
+  children?: SidebarItem[]
+  isChild?: boolean
 }
 export interface ResourceInfoCard {
   id: number

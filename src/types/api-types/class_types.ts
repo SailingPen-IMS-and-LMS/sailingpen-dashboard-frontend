@@ -21,3 +21,56 @@ export interface NotEnrolledClass {
 }
 
 export type NotEnrolledClasses = NotEnrolledClass[]
+
+export type ListOfTutionClassDetails = TutionClassDetails[]
+
+export interface TutionClassDetails {
+  class_id: string
+  class_name: string
+  class_description: string
+  schedule: any
+  admission_fee: string
+  monthly_fee: string
+  subject_id: string
+  tutor_id: string
+  subject: Subject
+  tutor: Tutor
+  enrollment: Enrollment[]
+}
+
+export interface Subject {
+  subject_id: string
+  subject_name: string
+  subject_description: string
+}
+
+export interface Tutor {
+  tutor_id: string
+  qualifications: string[]
+  payment_details: string
+  user_id: string
+  user: GenericUser
+  subject_id: string
+}
+
+export interface Enrollment {
+  id: number
+  enrolled_date_time: string
+  student_id: string
+  class_id: string
+}
+
+export interface GenericUser {
+  f_name: string
+  l_name: string
+}
+
+export interface CreateClassDto {
+
+  class_name: string
+  class_description: string
+  admission_fee: number
+  monthly_fee: number
+  subject_id: string
+  tutor_id: string
+}

@@ -1,4 +1,4 @@
-export interface RegisterDto {
+export interface StudentRegisterDto {
   nic: string
   f_name: string
   l_name: string
@@ -14,9 +14,28 @@ export interface RegisterDto {
   terms: false
 }
 
-export interface LoginDto {
+export interface StudentLoginDto {
   username: string
   password: string
+}
+
+export interface CreateTutorDto {
+  username: string
+  nic: string
+  f_name: string
+  l_name: string
+  email: string
+  password: string
+  confirm_password: string
+  dob: string
+  address: string
+  contact_no: string
+  avatar: File | null
+  qualifications: string[]
+  subject_id: string
+  bank_name: string
+  branch_name: string
+  account_no: string
 }
 
 export interface LoginResponse {

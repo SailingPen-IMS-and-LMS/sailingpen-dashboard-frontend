@@ -1,16 +1,15 @@
 <script setup lang="ts">
-import { storeToRefs } from 'pinia'
 import { NButton, NModal } from '@nethren-ui/vue'
+import { storeToRefs } from 'pinia'
 import PageHeading from '~/components/common/PageHeading.vue'
 import DataTable from '~/components/common/table-components/DataTable.vue'
 import DataTableData from '~/components/common/table-components/DataTableData.vue'
 import DataTableHeading from '~/components/common/table-components/DataTableHeading.vue'
 import DataTableRow from '~/components/common/table-components/DataTableRow.vue'
-import { useTutorsStore } from '~/stores'
-import { api } from '~/api'
+import { useSubjectsStore } from '~/stores'
 
-const tutorsStore = useTutorsStore()
-const { loadingTutors, tutors } = storeToRefs(tutorsStore)
+const subjectsStore = useSubjectsStore()
+const { loadingSubjects, subjects } = storeToRefs(subjectsStore)
 
 const deleteTutorModal = ref<InstanceType<typeof NModal>>()
 
@@ -19,30 +18,11 @@ function onDeleteSubmit() {
 }
 
 const viewTutorModal = ref<InstanceType<typeof NModal>>()
-
-async function loadTutors() {
-  tutorsStore.setLoadingTutors(true)
-  try {
-    const response = await api.users.tutors.getListForAdmin()
-    if (response)
-      tutorsStore.setTutors(response)
-  }
-  catch (error) {
-    console.log(error)
-  }
-  finally {
-    tutorsStore.setLoadingTutors(false)
-  }
-}
-
-onMounted(() => {
-  loadTutors()
-})
 </script>
 
 <template>
-  <div class="tutors-page">
-    <PageHeading>Tutors</PageHeading>
+  <div class="subjects-page">
+    <PageHeading>Subjects</PageHeading>
     <div class="flex justify-end">
       <div class="flex items-center gap-4">
         <div class="mr-8 flex border rounded-l-md px-4 py-2 pr-48">
@@ -51,55 +31,42 @@ onMounted(() => {
         </div>
 
         <NButton mode="solid">
-          <RouterLink to="/tutors/add-new">
+          <RouterLink to="/subjects/add-new">
             + Add Tutor
           </RouterLink>
         </NButton>
       </div>
     </div>
-    <DataTable class="mt-8" :loading="loadingTutors">
+    <DataTable class="mt-8" :loading="loadingSubjects">
       <template #table-heading-rows>
-        <DataTableHeading>Tutor's name</DataTableHeading>
         <DataTableHeading>Subject</DataTableHeading>
-        <DataTableHeading>Email</DataTableHeading>
-        <DataTableHeading>Joined Date</DataTableHeading>
+        <DataTableHeading>Description</DataTableHeading>
+        <DataTableHeading>Subject streams</DataTableHeading>
         <DataTableHeading class="text-right" />
       </template>
       <template #table-body-rows>
-        <DataTableRow v-for="tutor in tutors" :key="tutor.tutor_id">
+        <DataTableRow v-for="subject in subjects" :key="subject.subject_id">
           <DataTableData>
-            <div class="flex items-center gap-4 text-right">
-              <img :src="tutor.avatar" alt="" class="h-[40px] w-[40px] rounded-full">
-              {{ tutor.f_name }} {{ tutor.l_name }}
-            </div>
+            {{ subject.subject_name }}
           </DataTableData>
           <DataTableData>
-            {{ tutor.subject_name }}
+            {{ subject.subject_description }}
           </DataTableData>
           <DataTableData>
-            {{ tutor.email }}
+            {{
+              subject.subject_stream.map((stream) => {
+                return stream.stream_name
+              }).join(', ') }}
           </DataTableData>
-          <DataTableData :data-create="tutor.create_at">
-            {{ tutor.create_at }}
-          </DataTableData>
+          \
           <DataTableData>
             <div class="flex items-center justify-end gap-2">
               <NButton style="height:2rem !important;" mode="outline" color="info" @click="viewTutorModal?.openModal()">
                 <mdi-eye-outline />
               </NButton>
-              <RouterLink
-                :to="{
-                  path: `/tutors/${tutor.tutor_id}/edit`,
-                  query: {
-                    name: `${tutor.f_name} ${tutor.l_name}`,
-                  },
-                }"
-              >
-                <NButton style="height:2rem !important;" mode="outline" color="warning">
-                  <ic-baseline-edit />
-                </NButton>
-              </RouterLink>
-
+              <NButton style="height:2rem !important;" mode="outline" color="warning">
+                <ic-baseline-edit />
+              </NButton>
               <NButton
                 style="height:2rem !important;" mode="outline" color="danger"
                 @click="deleteTutorModal?.openModal()"

@@ -2,57 +2,27 @@
 import { NButton } from '@nethren-ui/vue'
 import { ref } from 'vue'
 
-import AnnouncementAdd from './add-announcement-post.vue'
-import AnnouncementEdit from './edit-announcement-post.vue'
-import AnnouncementDelete from './delete-announcement-post.vue'
-import AnnouncementView from './view-announcement-post.vue'
-
 const pure = ref([
   {
     title: 'Differentiation Formulations',
     Description1: 'It was popularized in the 1960s with the release of Letraset sheets containing Lorem Ipsus passages.',
     className: '2023 Mathematics',
-    techerName: 'Ruwan Darshana',
+    teacherName: 'Ruwan Darshana',
   },
   {
     title: 'Differentiation Formulations',
     Description1: 'It was popularized in the 1960s with the release of Letraset sheets containing Lorem Ipsus passages.',
     className: '2023 Mathematics',
-    techerName: 'Ruwan Darshana',
+    teacherName: 'Ruwan Darshana',
   },
   {
     title: 'Differentiation Formulations',
     Description1: 'It was popularized in the 1960s with the release of Letraset sheets containing Lorem Ipsus passages.',
     className: '2023 Mathematics',
-    techerName: 'Ruwan Darshana',
+    teacherName: 'Ruwan Darshana',
   },
   // ... (your other data entries)
 ])
-
-const isViewModalVisible = ref(false)
-const isEditModalVisible = ref(false)
-const isDeleteModalVisible = ref(false)
-const selectedCourse = ref(null)
-
-function showViewModal(course) {
-  isViewModalVisible.value = true
-}
-
-function showEditModal(course) {
-  isEditModalVisible.value = true
-}
-
-function showDeleteModal(course) {
-  isDeleteModalVisible.value = true
-}
-
-function hideEditModal() {
-  isEditModalVisible.value = false
-}
-
-function hideViewModal() {
-  isDeleteModalVisible.value = false
-}
 </script>
 
 <template>
@@ -110,7 +80,7 @@ function hideViewModal() {
               {{ course.className }}
             </td>
             <td class="px-4 py-2">
-              {{ course.techerName }}
+              {{ course.teacherName }}
             </td>
             <td class="px-4 py-2">
               <div class="flex gap-2">
@@ -136,21 +106,6 @@ function hideViewModal() {
           </tr>
         </tbody>
       </table>
-    </div>
-    <div v-if="isAddModalVisible">
-      <AnnouncementAdd @cancelForm="hideAddModal" />
-    </div>
-
-    <div v-if="isViewModalVisible">
-      <AnnouncementView @cancelForm="hideViewModal" />
-    </div>
-
-    <div v-if="isEditModalVisible">
-      <AnnouncementEdit @cancelForm="hideEditModal" />
-    </div>
-
-    <div v-if="isDeleteModalVisible">
-      <AnnouncementDelete @cancelForm="hideDeleteModal" />
     </div>
   </div>
 </template>
