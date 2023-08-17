@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { NButton, NInput, NModal } from '@nethren-ui/vue'
 import { storeToRefs } from 'pinia'
+import { api } from '~/api'
 import PageHeading from '~/components/common/PageHeading.vue'
 import DataTable from '~/components/common/table-components/DataTable.vue'
 import DataTableData from '~/components/common/table-components/DataTableData.vue'
@@ -28,8 +29,8 @@ const addClassModal = ref<InstanceType<typeof NModal>>()
 const newSubjectFormData = ref({
   class_name: '',
   class_description: '',
-  admission_fee: '',
-  monthly_fee: '',
+  admission_fee: 0,
+  monthly_fee: 0,
   subject_id: '',
   tutor_id: '',
 })
@@ -39,20 +40,43 @@ const submittingAdditionForm = ref(false)
 async function onSubjectAddFormSubmit() {
   submittingAdditionForm.value = true
   try {
-
+    for (const key in newSubjectFormData.value) {
+      if (Object.prototype.hasOwnProperty.call(newSubjectFormData.value, key)) {
+        const element = newSubjectFormData.value[key as keyof typeof newSubjectFormData.value]
+        if (!element || element === '') {
+          // eslint-disable-next-line no-alert
+          alert('Please enter all data')
+          return
+        }
+      }
+    }
+    const result = await api.tutionClasses.create({
+      ...newSubjectFormData.value,
+      admission_fee: Number(newSubjectFormData.value.admission_fee),
+      monthly_fee: Number(newSubjectFormData.value.monthly_fee),
+    })
+    if (result) {
+      tutionClassesStore.setLoadingTutionClasses(true)
+      const res = await api.tutionClasses.get()
+      if (res) {
+        tutionClassesStore.setTutionClasses(res)
+        addClassModal.value?.closeModal()
+      }
+    }
   }
   catch (error) {
     console.log(error)
   }
   finally {
     submittingAdditionForm.value = false
+    tutionClassesStore.setLoadingTutionClasses(false)
   }
 }
 </script>
 
 <template>
   <div class="tutionClasses-page">
-    <PageHeading>Tutors</PageHeading>
+    <PageHeading>Classes</PageHeading>
     <div class="flex justify-end">
       <div class="flex items-center gap-4">
         <div class="mr-8 flex border rounded-l-md px-4 py-2 pr-48">
@@ -121,7 +145,7 @@ async function onSubjectAddFormSubmit() {
         Add new class
       </template>
       <template #modal-body>
-        <form class="flex flex-col gap-1" @submit.prevent="onSubjectAddFormSubmit">
+        <form class="w-[300px] flex flex-col gap-1" @submit.prevent="onSubjectAddFormSubmit">
           <div class="n-input n-input--primary n--primary">
             <label for="subject_id" class="n-input__label">Subject</label>
             <select id="subject_id" v-model="newSubjectFormData.subject_id" name="subject_id" class="n-input__input">
@@ -132,7 +156,7 @@ async function onSubjectAddFormSubmit() {
             </select>
           </div>
           <div class="n-input n-input--primary n--primary">
-            <label for="tutor_id" class="n-input__label">Subject</label>
+            <label for="tutor_id" class="n-input__label">Tutor</label>
             <select id="tutor_id" v-model="newSubjectFormData.tutor_id" name="tutor_id" class="n-input__input">
               <option v-for="tutor in tutors" :key="tutor.tutor_id" :value="tutor.tutor_id">
                 {{

@@ -64,3 +64,13 @@ export interface GenericUser {
   f_name: string
   l_name: string
 }
+
+export interface CreateClassDto {
+
+  class_name: string
+  class_description: string
+  admission_fee: number
+  monthly_fee: number
+  subject_id: string
+  tutor_id: string
+}

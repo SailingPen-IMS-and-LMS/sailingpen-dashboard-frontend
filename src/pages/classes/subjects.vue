@@ -22,7 +22,7 @@ const viewTutorModal = ref<InstanceType<typeof NModal>>()
 
 <template>
   <div class="subjects-page">
-    <PageHeading>Tutors</PageHeading>
+    <PageHeading>Subjects</PageHeading>
     <div class="flex justify-end">
       <div class="flex items-center gap-4">
         <div class="mr-8 flex border rounded-l-md px-4 py-2 pr-48">
