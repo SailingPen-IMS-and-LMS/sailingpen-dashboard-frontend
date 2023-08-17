@@ -1,30 +1,24 @@
 import { defineStore } from 'pinia'
-import type { EnrolledClasses } from '~/types'
+import type { ListOfTutionClassDetails } from '~/types'
 
 export interface TutionClassesState {
-  enrolledClasses: EnrolledClasses
-  loadingEnrolledClasses: boolean
+  tutionClasses: ListOfTutionClassDetails
+  loadingTutionClasses: boolean
 }
 
 export const useTutionClassesStore = defineStore('tution-classes', {
   state: (): TutionClassesState => ({
-    enrolledClasses: [],
-    loadingEnrolledClasses: true,
+    tutionClasses: [],
+    loadingTutionClasses: true,
   }),
 
-  getters: {
-    isNotEnrolledInAnyClass: (state) => {
-      return state.enrolledClasses.length === 0
-    },
-  },
-
   actions: {
-    setEnrolledClasses(classes: EnrolledClasses) {
-      this.enrolledClasses = classes
+    setTutionClasses(classes: ListOfTutionClassDetails) {
+      this.tutionClasses = classes
     },
 
-    setLoadingEnrolledClasses(loading: boolean) {
-      this.loadingEnrolledClasses = loading
+    setLoadingTutionClasses(loading: boolean) {
+      this.loadingTutionClasses = loading
     },
   },
 })

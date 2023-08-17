@@ -177,7 +177,7 @@ function hideAttendanceChartModal() {
             <td class="px-4 py-2">
               <div class="flex">
                 <div>{{ student.studentId }}</div>
-                <RouterLink to="/attendance/attendance-student-view">
+                <RouterLink to="/students/attendance/attendance-student-view">
                   <div class="ml-2 p-0.5">
                     <GotoStudent />
                   </div>

@@ -19,17 +19,56 @@ const sidebarLinks = computed<SidebarItems>(() => {
         to: '/staff', text: 'Staff',
       },
       {
-        to: '/tutors', text: 'Tutors',
+        to: '/classes',
+        text: 'Classes',
+        isButton: true,
+        children: [
+          {
+            to: '/classes',
+            text: 'View classes',
+            isChild: true,
+          },
+          {
+            to: '/classes/subjects',
+            text: 'View subjects',
+            isChild: true,
+          },
+        ],
       },
       {
-        to: '/tutors/assistants', text: 'Tutor Assistants',
+        to: '/tutors',
+        text: 'Tutors',
+        isButton: true,
+        children: [
+          {
+            to: '/tutors',
+            text: 'View tutors',
+            isChild: true,
+          },
+          {
+            to: '/tutors/assistants',
+            text: 'View Assistants',
+            isChild: true,
+          }],
       },
       {
-        to: '/students', text: 'Students',
+        to: '/students',
+        isButton: true,
+        text: 'Students',
+        children: [
+          {
+            to: '/students',
+            text: 'View students',
+            isChild: true,
+          },
+          {
+            to: '/students/attendance',
+            text: 'View Attendance',
+            isChild: true,
+          },
+        ],
       },
-      {
-        to: '/attendance', text: 'Attendance',
-      },
+
       {
         to: '/announcements', text: 'Announcements',
       },
@@ -81,22 +120,22 @@ const sidebarLinks = computed<SidebarItems>(() => {
 
 <style lang="scss">
 .default-layout {
-    width: 100vw;
-    height: 100vh;
-    overflow: hidden;
-    display: grid;
-    grid-template-columns: 1fr;
-    grid-template-rows: 60px 1fr;
-    grid-column: 2 / 3;
-    grid-row: 2 / 3;
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: 60px 1fr;
+  grid-column: 2 / 3;
+  grid-row: 2 / 3;
 
-    @include mq(lg){
+  @include mq(lg) {
     grid-template-columns: min-content 1fr;
 
-    }
+  }
 }
 
 .bottom-links {
-    margin-bottom: 2rem;
+  margin-bottom: 2rem;
 }
 </style>

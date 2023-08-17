@@ -30,9 +30,9 @@ declare module 'vue' {
     IcRoundDashboard: typeof import('~icons/ic/round-dashboard')['default']
     IcSharpAssignment: typeof import('~icons/ic/sharp-assignment')['default']
     IcSharpMenuBook: typeof import('~icons/ic/sharp-menu-book')['default']
+    MaterialSymbolsAndroidCameraOutline: typeof import('~icons/material-symbols/android-camera-outline')['default']
     MaterialSymbolsLogin: typeof import('~icons/material-symbols/login')['default']
     MaterialSymbolsNotifications: typeof import('~icons/material-symbols/notifications')['default']
-    MaterialSymbolsPlayCircleOutline: typeof import('~icons/material-symbols/play-circle-outline')['default']
     MaterialSymbolsSearch: typeof import('~icons/material-symbols/search')['default']
     MaterialSymbolsShoppingCartOutlineRounded: typeof import('~icons/material-symbols/shopping-cart-outline-rounded')['default']
     MaterialSymbolsToggleOffOutline: typeof import('~icons/material-symbols/toggle-off-outline')['default']
@@ -53,9 +53,11 @@ declare module 'vue' {
     ScheduledClass: typeof import('./components/ScheduledClass.vue')['default']
     SidebarLink: typeof import('./components/SidebarLink.vue')['default']
     SolarHandMoneyOutline: typeof import('~icons/solar/hand-money-outline')['default']
+    SvgSpinners180Ring: typeof import('~icons/svg-spinners/180-ring')['default']
     Tab: typeof import('./components/Tab.vue')['default']
     TablerUsersGroup: typeof import('~icons/tabler/users-group')['default']
     TabsWrapper: typeof import('./components/TabsWrapper.vue')['default']
+    UilAngleDown: typeof import('~icons/uil/angle-down')['default']
     VideoThumbnail: typeof import('./components/VideoThumbnail.vue')['default']
   }
 }

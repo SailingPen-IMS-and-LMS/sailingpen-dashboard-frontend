@@ -1,18 +1,13 @@
 <script setup lang="ts">
-import { NButton } from '@nethren-ui/vue';
+import { NButton } from '@nethren-ui/vue'
 import { ref } from 'vue'
-
-import AnnouncementAdd from './add-announcement-post.vue'
-import AnnouncementEdit from './edit-announcement-post.vue'
-import AnnouncementDelete from './delete-announcement-post.vue'
-import AnnouncementView from './view-announcement-post.vue'
 
 import MaterialSymbolsSearch from '~icons/material-symbols/search'
 
 const pure = ref([
   {
     title: 'Permutation Formulations',
-    Description1: ' It was popularized in the 1960s with the release of Letraset sheets containing Lorem Ipsus passages.',
+    Description1: ' It was popularized in the 1960s with the release of sheets containing Lorem Ipsus passages.',
     imageUrl: '/images/bg1.png',
     altText: 'Tall slender porcelain bottle with natural clay textured body and cork stopper.',
     className: '2023 Chemistry',
@@ -73,50 +68,12 @@ const pure = ref([
     altText: 'Tall slender porcelain bottle with natural clay textured body and cork stopper.',
     className: '2023 Mathematics',
     techerName: 'Ruwan Darshana',
-  }
+  },
 ])
-
-const isAddModalVisible = ref(false);
-const isViewModalVisible = ref(false);
-const isEditModalVisible = ref(false);
-const isDeleteModalVisible = ref(false);
-
-const showAddModal = () => {
-  isAddModalVisible.value = true;
-};
-
-const hideAddModal = () => {
-  isAddModalVisible.value = false;
-};
-
-const showViewModal = () => {
-  isViewModalVisible.value = true;
-};
-
-const hideViewModal = () => {
-  isViewModalVisible.value = false;
-};
-
-const showEditModal = () => {
-  isEditModalVisible.value = true;
-};
-
-const hideEditModal = () => {
-  isEditModalVisible.value = false;
-};
-
-const showDeleteModal = () => {
-  isDeleteModalVisible.value = true;
-};
-
-const hideDeleteModal = () => {
-  isDeleteModalVisible.value = false;
-};
-
 </script>
 
 <template>
-  <div class="mt-5 flex lg:ml-100 lg:mt-0 justify-end">
+  <div class="mt-5 flex justify-end lg:ml-100 lg:mt-0">
     <div class="mr-8 flex border rounded-l-md px-4 py-2 pr-48">
       <MaterialSymbolsSearch />
       <input id="search" type="text" name="search" placeholder="Search Here " class="pl-4">
@@ -133,56 +90,43 @@ const hideDeleteModal = () => {
   <h2 class="text-2xl font-bold tracking-tight text-gray-900">
     Announcements
   </h2>
-  <div class="grid grid-cols-1 mt-6 gap-x-6 gap-y-10 lg:grid-cols-6 sm:grid-cols-3 xl:gap-x-8 ">
+  <div class="grid grid-cols-1 mt-6 gap-x-6 gap-y-10 lg:grid-cols-6 sm:grid-cols-3 xl:gap-x-8">
     <a v-for="course in pure" :key="course.title" class="group">
 
-      <div class="relative h-50 w-45 mb-28">
+      <div class="relative mb-28 h-50 w-45">
         <!-- The image -->
         <img :src="course.imageUrl" alt="Your Image" class="h-full w-full rounded-t-lg object-cover">
 
         <!-- The text on top of the image -->
         <div class="absolute inset-0 left-2 top-8 z-10 text-lg font-bold text-white">
-          <div class="flex text-center mb-6 justify-center">
+          <div class="mb-6 flex justify-center text-center">
             <p class="font-sm text-m mt-1 justify-center">{{ course.title }}</p>
           </div>
           <div>
-            <p class="font-xs text-xs mt-1 justify-items-stretch">{{ course.altText }}</p>
+            <p class="font-xs mt-1 justify-items-stretch text-xs">{{ course.altText }}</p>
           </div>
         </div>
         <div>
-          <div class="flex border-l-2 border-r-2 pt-2 justify-center text-center item-center">
-            <p class="font-sm text-sm ">{{ course.className }} <br> {{ course.techerName }}
+          <div class="item-center flex justify-center border-l-2 border-r-2 pt-2 text-center">
+            <p class="font-sm text-sm">{{ course.className }} <br> {{ course.techerName }}
             </p>
           </div>
-          <div class="flex gap-1 justify-center border-b-2 border-l-2 border-r-2 p-4 rounded-b-lg">
-            <button @click="showDeleteModal"
-              class="px-2 py-1 bg-red-500 text-white rounded-md cursor-pointer">Delete</button>
+          <div class="flex justify-center gap-1 border-b-2 border-l-2 border-r-2 rounded-b-lg p-4">
+            <button
+              class="cursor-pointer rounded-md bg-red-500 px-2 py-1 text-white"
+              @click="showDeleteModal"
+            >Delete</button>
 
             <RouterLink to="/announcement/edit-announcement-post">
-              <button class="px-2 py-1 bg-blue-500 text-white rounded-md cursor-pointer">Edit</button>
+              <button class="cursor-pointer rounded-md bg-blue-500 px-2 py-1 text-white">Edit</button>
             </RouterLink>
             <RouterLink to="/announcement/view-announcement-post">
-              <button class="px-2 py-1 bg-green-500 text-white rounded-md cursor-pointer">View</button>
+              <button class="cursor-pointer rounded-md bg-green-500 px-2 py-1 text-white">View</button>
             </RouterLink>
           </div>
         </div>
       </div>
 
-      <div v-if="isAddModalVisible">
-        <AnnouncementAdd @cancelForm="hideAddModal" />
-      </div>
-
-      <div v-if="isViewModalVisible">
-        <AnnouncementView @cancelForm="hideViewModal" />
-      </div>
-
-      <div v-if="isEditModalVisible">
-        <AnnouncementEdit @cancelForm="hideEditModal" />
-      </div>
-
-      <div v-if="isDeleteModalVisible">
-        <AnnouncementDelete @cancelForm="hideDeleteModal" />
-      </div>
     </a>
   </div>
 </template>

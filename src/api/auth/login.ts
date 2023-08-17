@@ -1,7 +1,7 @@
 import { instance } from '../instance'
-import type { LoginDto, LoginResponse } from '~/types'
+import type { LoginResponse, StudentLoginDto } from '~/types'
 
-export async function login(loginDto: LoginDto) {
+export async function login(loginDto: StudentLoginDto) {
   try {
     const result = await instance.post<LoginResponse>('/auth/login', loginDto)
     if (result.status === 200) {
