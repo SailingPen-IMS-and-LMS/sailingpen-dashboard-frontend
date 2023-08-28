@@ -39,11 +39,11 @@ export interface CreateTutorDto {
 }
 
 export interface LoginResponse {
-  accessToken: string
+  accessTokenDashboard: string
   userType: 'admin' | 'tutor' | 'adminassistant' | 'tutorassistant'
 }
 
 export interface AuthRefreshResponse {
-  accessToken: string
+  accessTokenDashboard: string
   userType: 'admin' | 'tutor' | 'adminassistant' | 'tutorassistant'
 }
