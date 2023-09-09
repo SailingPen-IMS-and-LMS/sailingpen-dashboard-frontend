@@ -38,6 +38,12 @@ export interface CreateTutorDto {
   account_no: string
 }
 
+export interface LoginDto {
+  username: string
+  password: string
+  confirm_password: boolean
+}
+
 export interface LoginResponse {
   accessTokenDashboard: string
   userType: 'admin' | 'tutor' | 'adminassistant' | 'tutorassistant'

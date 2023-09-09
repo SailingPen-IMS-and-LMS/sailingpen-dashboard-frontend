@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { useI18n } from 'vue-i18n'
-import { NButton, NInput } from '@nethren-ui/vue'
+import { NButton, NCheckbox, NInput } from '@nethren-ui/vue'
 import { ref } from 'vue'
 import { useAuthStore } from '~/stores'
 import { api } from '~/api'
@@ -11,6 +11,7 @@ const { t } = useI18n()
 const loginFormData = ref<LoginDto>({
   username: '',
   password: '',
+  confirm_password: false,
 })
 
 const authStore = useAuthStore()
@@ -32,6 +33,7 @@ async function onLoginFormSubmit() {
           break
         case 'tutor':
           profile = await api.users.tutors.getProfile()
+          console.log(profile)
           authStore.setTutorProfile(profile || null)
           await router.replace('/tutor-dashboard/my-classes')
           break
@@ -72,16 +74,16 @@ async function onLoginFormSubmit() {
             placeholder="Enter your password" name="password"
           />
         </div>
-        <div class="flex flex-row">
-          <div class="pl-2.5">
-            <p class="">
+        <div class="flex flex-row justify-between">
+          <div class="flex flex-row items-center gap-4">
+            <NCheckbox id="confirm_password" v-model="loginFormData.confirm_password" name="confirm_password" aria-label="Confirm Password" />
+            <label for="confirm_password">
               {{ t('auth.remember') }}
-            </p>
+            </label>
           </div>
-
-          <div class="ml-auto">
-            <p>{{ t('auth.forgotpassword') }}</p>
-          </div>
+          <RouterLink to="/auth/forgot-password" class="text-[var(--color-info)] underline">
+            {{ t('auth.forgotpassword') }}?
+          </RouterLink>
         </div>
 
         <NButton :is-loading="loading" loading-text="Submitting">

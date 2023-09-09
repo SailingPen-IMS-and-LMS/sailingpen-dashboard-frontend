@@ -30,7 +30,6 @@ declare module 'vue' {
     IcRoundDashboard: typeof import('~icons/ic/round-dashboard')['default']
     IcSharpAssignment: typeof import('~icons/ic/sharp-assignment')['default']
     IcSharpMenuBook: typeof import('~icons/ic/sharp-menu-book')['default']
-    MaterialSymbolsAndroidCameraOutline: typeof import('~icons/material-symbols/android-camera-outline')['default']
     MaterialSymbolsLogin: typeof import('~icons/material-symbols/login')['default']
     MaterialSymbolsNotifications: typeof import('~icons/material-symbols/notifications')['default']
     MaterialSymbolsPlayCircleOutline: typeof import('~icons/material-symbols/play-circle-outline')['default']
