@@ -9,7 +9,8 @@ const instance = axios.create({
 })
 
 function authenticatedInstance() {
-  const token = localStorage.getItem('accessToken')
+  const token = localStorage.getItem('accessTokenDashboard')
+  console.log(token)
   return axios.create({
     baseURL: 'http://localhost:3000',
     headers: {

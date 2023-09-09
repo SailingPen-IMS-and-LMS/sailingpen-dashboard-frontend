@@ -6,7 +6,8 @@ export async function login(loginDto: StudentLoginDto) {
     const result = await instance.post<LoginResponse>('/auth/login', loginDto)
     if (result.status === 200) {
       console.log(result.data)
-      localStorage.setItem('accessToken', result.data.accessToken)
+      console.log(result.data)
+      localStorage.setItem('accessTokenDashboard', result.data.accessTokenDashboard)
       return result.data.userType
     }
   }

@@ -82,9 +82,9 @@ const sidebarLinks = computed<SidebarItems>(() => {
   }
   else if (isAuthenticated.value && userType.value === 'tutor') {
     return [
-      {
-        to: '/tutor-dashboard', text: 'Dashboard',
-      },
+      // {
+      //   to: '/tutor-dashboard', text: 'Dashboard',
+      // },
 
       {
         to: '/tutor-dashboard/my-classes', text: 'My classes',

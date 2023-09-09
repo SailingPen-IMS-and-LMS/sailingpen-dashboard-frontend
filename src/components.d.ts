@@ -33,6 +33,7 @@ declare module 'vue' {
     MaterialSymbolsAndroidCameraOutline: typeof import('~icons/material-symbols/android-camera-outline')['default']
     MaterialSymbolsLogin: typeof import('~icons/material-symbols/login')['default']
     MaterialSymbolsNotifications: typeof import('~icons/material-symbols/notifications')['default']
+    MaterialSymbolsPlayCircleOutline: typeof import('~icons/material-symbols/play-circle-outline')['default']
     MaterialSymbolsSearch: typeof import('~icons/material-symbols/search')['default']
     MaterialSymbolsShoppingCartOutlineRounded: typeof import('~icons/material-symbols/shopping-cart-outline-rounded')['default']
     MaterialSymbolsToggleOffOutline: typeof import('~icons/material-symbols/toggle-off-outline')['default']

@@ -16,7 +16,7 @@ interface SidebarLinkProps {
 const props = withDefaults(defineProps<SidebarLinkProps>(), {
   isButton: false,
   children: () => [] as SidebarLinkProps[],
-  isChild: true,
+  isChild: true
 })
 
 const { to, text, isSidebarOpen, isButton, children, isChild } = toRefs(props)

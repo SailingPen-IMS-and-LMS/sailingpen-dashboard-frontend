@@ -33,7 +33,7 @@ async function onLoginFormSubmit() {
         case 'tutor':
           profile = await api.users.tutors.getProfile()
           authStore.setTutorProfile(profile || null)
-          await router.replace('/tutor-dashboard')
+          await router.replace('/tutor-dashboard/my-classes')
           break
 
         default:

@@ -11,6 +11,7 @@ const tutorsStore = useTutorsStore()
 
 onMounted(async () => {
   const refreshResponse = await api.auth.refreshDashboard()
+  console.log(refreshResponse)
   if (refreshResponse) {
     let profile: null | AdminProfile | TutorProfile
     let classesListForAdmins: undefined | ListOfTutionClassDetails

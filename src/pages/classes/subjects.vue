@@ -58,7 +58,6 @@ const viewTutorModal = ref<InstanceType<typeof NModal>>()
                 return stream.stream_name
               }).join(', ') }}
           </DataTableData>
-          \
           <DataTableData>
             <div class="flex items-center justify-end gap-2">
               <NButton style="height:2rem !important;" mode="outline" color="info" @click="viewTutorModal?.openModal()">

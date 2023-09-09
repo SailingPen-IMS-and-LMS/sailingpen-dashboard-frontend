@@ -49,12 +49,12 @@ function hideDeleteModal() {
   <div class="mt-6">
     <div class="">
       <div class="mt-5 flex justify-end lg:ml-100 lg:mt-0">
-        <div class="mr-8 flex border rounded-l-md px-4 py-2 pr-48">
+        <div class="mr-8 flex border rounded-l-md px-4 py-2">
           <MaterialSymbolsSearch />
           <input id="search" type="text" name="search" placeholder="Search Here " class="pl-4">
         </div>
         <RouterLink to="/blog/add-blog-post">
-          <NButton mode="solid" color="info">
+          <NButton mode="solid">
             + New article
           </NButton>
         </RouterLink>
