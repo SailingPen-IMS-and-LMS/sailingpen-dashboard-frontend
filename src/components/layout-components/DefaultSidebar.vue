@@ -1,12 +1,12 @@
 <script setup lang="ts">
+import { storeToRefs } from 'pinia'
 import SidebarLink from '../SidebarLink.vue'
 import { useSidebar } from '~/composables'
 import logoImgUrl from '~/assets/images/logo.png'
 import shortLogoImgUrl from '~/assets/images/short-logo.png'
 import type { SidebarItems } from '~/types'
 import { api } from '~/api'
-import {useAuthStore} from '~/stores'
-import { storeToRefs } from 'pinia'
+import { useAuthStore } from '~/stores'
 
 const props = defineProps<{
   sidebarLinks: SidebarItems
@@ -16,7 +16,7 @@ const { sidebarLinks } = toRefs(props)
 const { isSidebarOpen } = useSidebar()
 
 const authStore = useAuthStore()
-const {profile, userType} = storeToRefs(authStore)
+const { profile, userType } = storeToRefs(authStore)
 
 const loggingOut = ref(false)
 
@@ -25,21 +25,23 @@ const router = useRouter()
 async function logout() {
   loggingOut.value = true
   try {
-      const res = await api.auth.logout()
-      if (res) {
-        profile.value = null
-        userType.value = null
-        await router.replace('/auth/login')
-      } else {
-        throw new Error("Something happened ..")
-      }
-  } catch (error) {
+    const res = await api.auth.logout()
+    if (res) {
+      profile.value = null
+      userType.value = null
+      await router.replace('/auth/login')
+    }
+    else {
+      throw new Error('Something happened ..')
+    }
+  }
+  catch (error) {
     console.log(error)
-  } finally {
+  }
+  finally {
     loggingOut.value = false
   }
 }
-
 </script>
 
 <template>
@@ -109,6 +111,12 @@ async function logout() {
               v-else-if="sidebarLink.text === 'My classes' || sidebarLink.text === 'Classes'"
               class="h-[24px] min-h-[24px] min-w-[24px] w-[24px]"
             />
+
+            <solar-video-library-broken
+              v-else-if="sidebarLink.text === 'Library'"
+              class="h-[24px] min-h-[24px] min-w-[24px] w-[24px]"
+            />
+
             <ph-exam v-else-if="sidebarLink.text === 'Exams'" class="h-[24px] min-h-[24px] min-w-[24px] w-[24px]" />
             <mdi-cards
               v-else-if="sidebarLink.text === 'Flash Cards'"
