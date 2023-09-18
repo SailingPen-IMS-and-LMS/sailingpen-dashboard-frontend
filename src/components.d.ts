@@ -7,6 +7,8 @@ export {}
 
 declare module 'vue' {
   export interface GlobalComponents {
+    AddSubjectModal: typeof import('./components/AddSubjectModal.vue')['default']
+    AddSubjectStreamModal: typeof import('./components/AddSubjectStreamModal.vue')['default']
     AnnouncementCard: typeof import('./components/AnnouncementCard.vue')['default']
     CarbonBlog: typeof import('~icons/carbon/blog')['default']
     CharmChevronsRight: typeof import('~icons/charm/chevrons-right')['default']
@@ -24,7 +26,9 @@ declare module 'vue' {
     Fa6SolidUsersLine: typeof import('~icons/fa6-solid/users-line')['default']
     FluentDocumentPdf24Regular: typeof import('~icons/fluent/document-pdf24-regular')['default']
     FluentTasksApp28Regular: typeof import('~icons/fluent/tasks-app28-regular')['default']
+    FolderThumbnail: typeof import('./components/common/FolderThumbnail.vue')['default']
     IcBaselineEdit: typeof import('~icons/ic/baseline-edit')['default']
+    IcBaselineFolder: typeof import('~icons/ic/baseline-folder')['default']
     IconamoonMenuBurgerHorizontalBold: typeof import('~icons/iconamoon/menu-burger-horizontal-bold')['default']
     IcOutlinePersonPin: typeof import('~icons/ic/outline-person-pin')['default']
     IcOutlineSettings: typeof import('~icons/ic/outline-settings')['default']
@@ -33,6 +37,7 @@ declare module 'vue' {
     IcRoundDashboard: typeof import('~icons/ic/round-dashboard')['default']
     IcSharpAssignment: typeof import('~icons/ic/sharp-assignment')['default']
     IcSharpMenuBook: typeof import('~icons/ic/sharp-menu-book')['default']
+    MaterialSymbolsAndroidCameraOutline: typeof import('~icons/material-symbols/android-camera-outline')['default']
     MaterialSymbolsAttachFileAddRounded: typeof import('~icons/material-symbols/attach-file-add-rounded')['default']
     MaterialSymbolsLogin: typeof import('~icons/material-symbols/login')['default']
     MaterialSymbolsNotifications: typeof import('~icons/material-symbols/notifications')['default']

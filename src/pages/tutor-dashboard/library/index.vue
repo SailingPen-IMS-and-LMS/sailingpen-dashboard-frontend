@@ -1,36 +1,17 @@
 <script setup lang="ts">
+import { NModal } from '@nethren-ui/vue'
 import PageHeading from '~/components/common/PageHeading.vue'
 import ContextMenu from '~/components/common/ContextMenu.vue'
 import CircularProgress from '~/components/common/CircularProgress.vue'
+import FolderThumbnail from '~/components/common/FolderThumbnail.vue'
+import { api } from '~/api'
+import type { LibraryRootFolder } from '~/types'
 
 const fileInput = ref<HTMLInputElement>()
 const files = ref<Array<{
   file: File
   type: 'video' | 'image' | 'document'
 }>>([])
-
-const demoFiles = ref<Array<{
-  name: string
-  type: 'video' | 'image' | 'document'
-}>>([{
-  name: 'File 1.mp4',
-  type: 'video',
-}, {
-  name: 'File 2.pdf',
-  type: 'document',
-}, {
-  name: 'File 3.jpg',
-  type: 'image',
-}, {
-  name: 'File 1efjkvb348931bvvvq4278923190235.mp4',
-  type: 'video',
-}, {
-  name: 'File 1wfvhu2b4ervb2u4ervjevu24.pdf',
-  type: 'document',
-}, {
-  name: 'File erhcn3ngirugeiuwgiueiugruiui.png',
-  type: 'image',
-}])
 
 function getFileType(mimeType: string) {
   if (mimeType.startsWith('image'))
@@ -56,6 +37,58 @@ function onFilesSelect(e: InputEvent) {
     })
   }
 }
+
+const loadingRootFoldersChildrenFolders = ref(false)
+const rootFolderChildrenFolders = ref<LibraryRootFolder | null>()
+
+async function loadFolderStructure() {
+  try {
+    loadingRootFoldersChildrenFolders.value = true
+    const folderResponse = await api.library.folders.root()
+    if (folderResponse)
+      rootFolderChildrenFolders.value = folderResponse
+  }
+  catch (e) {
+    console.log(e)
+  }
+  finally {
+    loadingRootFoldersChildrenFolders.value = false
+  }
+}
+
+onMounted(async () => {
+  await loadFolderStructure()
+})
+
+const newFolderName = ref('')
+const addFolderModal = ref<InstanceType<typeof NModal>>()
+const loadingCreatingFolder = ref(false)
+
+async function createFolder() {
+  if (!newFolderName.value || newFolderName.value === '')
+    alert('Folder name must not be empty')
+
+  try {
+    loadingCreatingFolder.value = true
+    const response = await api.library.folders.create({
+      name: newFolderName.value,
+      parent_folder_id: rootFolderChildrenFolders.value?.root_folder_id as number,
+    })
+    if (response) {
+      if (rootFolderChildrenFolders.value)
+        rootFolderChildrenFolders.value.children = response
+      addFolderModal.value?.closeModal()
+      newFolderName.value = ''
+    }
+  }
+  catch (error) {
+    console.log(error)
+  }
+  finally {
+    loadingCreatingFolder.value = false
+  }
+  console.log('Folder created', newFolderName.value)
+}
 </script>
 
 <template>
@@ -63,6 +96,13 @@ function onFilesSelect(e: InputEvent) {
     <PageHeading>
       Library
     </PageHeading>
+    <svg-spinners-180-ring
+      v-if="loadingRootFoldersChildrenFolders"
+      class="absolute left-1/2 top-1/2 translate-[-50%] text-[48px] text-[rgba(0,0,0,0.3)]"
+    />
+    <div v-else-if="rootFolderChildrenFolders && rootFolderChildrenFolders.children" class="library-grid mt-8">
+      <FolderThumbnail v-for="folder in rootFolderChildrenFolders.children" :key="folder.id" :folder="folder" />
+    </div>
   </div>
   <ContextMenu container=".library-page">
     <ul
@@ -77,6 +117,36 @@ function onFilesSelect(e: InputEvent) {
           @change="(e) => onFilesSelect(e as InputEvent)"
         >
       </li>
+      <li
+        class="flex items-center gap-4 rounded-[0.375rem] px-4 py-2 transition active:bg-[rgba(0,0,0,0.2)] hover:bg-[rgba(0,0,0,0.1)]"
+        @click="addFolderModal?.openModal()"
+      >
+        <material-symbols-upload-rounded />
+        Create new folder
+        <NModal ref="addFolderModal" :close-on-outside-click="false">
+          <template #modal-header>
+            <h1 class="text-xl font-semibold">
+              Enter folder name
+            </h1>
+          </template>
+          <template #modal-body>
+            <form class="flex flex-col gap-4" @submit.prevent="createFolder">
+              <NInput
+                id="new_folder_name" v-model="newFolderName" label="Enter folder name" name="new_folder_name"
+                :label-attrs="{ style: { display: 'none' } }" required
+              />
+              <div class="flex items-center justify-end gap-4">
+                <NButton mode="text" color="danger" type="button" @click="addFolderModal?.closeModal()">
+                  Cancel
+                </NButton>
+                <NButton :is-loading="loadingCreatingFolder" loading-text="Creating">
+                  Confirm
+                </NButton>
+              </div>
+            </form>
+          </template>
+        </NModal>
+      </li>
     </ul>
   </ContextMenu>
   <div v-if="files.length > 0" class="absolute bottom-8 right-8 rounded-[0.375rem] shadow-lg">
@@ -85,8 +155,12 @@ function onFilesSelect(e: InputEvent) {
     </p>
     <ul class="max-h-[200px] overflow-y-auto">
       <li v-for="{ file, type } in files" :key="file.name" class="flex items-center gap-4 px-4 py-2">
-        <streamline-entertainment-play-list1-screen-television-display-player-movies-movie-tv-media-players-video v-if="type === 'video'" />
-        <StreamlineImagePictureLandscape2PhotosPhotoLandscapePicturePhotographyCameraPictures v-else-if="type === 'image'" />
+        <streamline-entertainment-play-list1-screen-television-display-player-movies-movie-tv-media-players-video
+          v-if="type === 'video'"
+        />
+        <StreamlineImagePictureLandscape2PhotosPhotoLandscapePicturePhotographyCameraPictures
+          v-else-if="type === 'image'"
+        />
         <fluent-document-pdf-24-regular v-else-if="type === 'document'" />
         <span style="text-overflow: ellipsis; white-space: nowrap;overflow: hidden; width: 250px;">
           {{ file.name }}
@@ -97,4 +171,25 @@ function onFilesSelect(e: InputEvent) {
   </div>
 </template>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+.library-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1rem;
+
+  @include mq(md) {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.25rem;
+  }
+
+  @include mq(lg) {
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1.5rem;
+  }
+
+  @include mq(xl) {
+    grid-template-columns: repeat(5, 1fr);
+    gap: 2rem;
+  }
+}
+</style>
