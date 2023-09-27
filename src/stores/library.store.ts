@@ -1,4 +1,4 @@
-import { defineStore } from 'pinia'
+import { acceptHMRUpdate, defineStore } from 'pinia'
 import type { LibraryFolderStructure } from '~/types'
 
 export interface LibraryState {
@@ -22,3 +22,6 @@ export const useLibraryStore = defineStore('library', {
     },
   },
 })
+
+if (import.meta.hot)
+  import.meta.hot.accept(acceptHMRUpdate(useLibraryStore, import.meta.hot))

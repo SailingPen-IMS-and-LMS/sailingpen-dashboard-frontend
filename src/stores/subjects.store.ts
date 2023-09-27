@@ -1,4 +1,4 @@
-import { defineStore } from 'pinia'
+import { acceptHMRUpdate, defineStore } from 'pinia'
 import type { ListOfSubjectDetails, ListOfSubjectStream } from '~/types'
 
 export interface SubjectsState {
@@ -34,3 +34,6 @@ export const useSubjectsStore = defineStore('subjects', {
     },
   },
 })
+
+if (import.meta.hot)
+  import.meta.hot.accept(acceptHMRUpdate(useSubjectsStore, import.meta.hot))

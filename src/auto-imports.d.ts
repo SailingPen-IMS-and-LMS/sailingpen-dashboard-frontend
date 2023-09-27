@@ -260,6 +260,7 @@ declare global {
   const useTransition: typeof import('@vueuse/core')['useTransition']
   const useTutionClassesStore: typeof import('./stores/tution-classes.store')['useTutionClassesStore']
   const useTutorsStore: typeof import('./stores/tutors.store')['useTutorsStore']
+  const useUploadsStore: typeof import('./stores/uploads.store')['useUploadsStore']
   const useUrlSearchParams: typeof import('@vueuse/core')['useUrlSearchParams']
   const useUserMedia: typeof import('@vueuse/core')['useUserMedia']
   const useVModel: typeof import('@vueuse/core')['useVModel']
@@ -555,6 +556,7 @@ declare module 'vue' {
     readonly useTransition: UnwrapRef<typeof import('@vueuse/core')['useTransition']>
     readonly useTutionClassesStore: UnwrapRef<typeof import('./stores/tution-classes.store')['useTutionClassesStore']>
     readonly useTutorsStore: UnwrapRef<typeof import('./stores/tutors.store')['useTutorsStore']>
+    readonly useUploadsStore: UnwrapRef<typeof import('./stores/uploads.store')['useUploadsStore']>
     readonly useUrlSearchParams: UnwrapRef<typeof import('@vueuse/core')['useUrlSearchParams']>
     readonly useUserMedia: UnwrapRef<typeof import('@vueuse/core')['useUserMedia']>
     readonly useVModel: UnwrapRef<typeof import('@vueuse/core')['useVModel']>
@@ -844,6 +846,7 @@ declare module '@vue/runtime-core' {
     readonly useTransition: UnwrapRef<typeof import('@vueuse/core')['useTransition']>
     readonly useTutionClassesStore: UnwrapRef<typeof import('./stores/tution-classes.store')['useTutionClassesStore']>
     readonly useTutorsStore: UnwrapRef<typeof import('./stores/tutors.store')['useTutorsStore']>
+    readonly useUploadsStore: UnwrapRef<typeof import('./stores/uploads.store')['useUploadsStore']>
     readonly useUrlSearchParams: UnwrapRef<typeof import('@vueuse/core')['useUrlSearchParams']>
     readonly useUserMedia: UnwrapRef<typeof import('@vueuse/core')['useUserMedia']>
     readonly useVModel: UnwrapRef<typeof import('@vueuse/core')['useVModel']>

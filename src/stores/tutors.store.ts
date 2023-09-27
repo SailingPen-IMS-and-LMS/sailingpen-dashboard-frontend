@@ -1,4 +1,4 @@
-import { defineStore } from 'pinia'
+import { acceptHMRUpdate, defineStore } from 'pinia'
 import type { ListOfTutorBasicDetails } from '~/types'
 
 export interface TutorsState {
@@ -22,3 +22,6 @@ export const useTutorsStore = defineStore('tutors', {
     },
   },
 })
+
+if (import.meta.hot)
+  import.meta.hot.accept(acceptHMRUpdate(useTutorsStore, import.meta.hot))

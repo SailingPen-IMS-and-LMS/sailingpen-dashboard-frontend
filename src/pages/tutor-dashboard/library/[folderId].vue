@@ -66,8 +66,10 @@ onMounted(async () => {
 })
 
 watch(route, async (newVal) => {
-  folderId.value = newVal.params.folderId as string
-  await loadFolderStructure()
+  if (route.fullPath !== '/tutor-dashboard/library') {
+    folderId.value = newVal.params.folderId as string
+    await loadFolderStructure()
+  }
 })
 
 const newFolderName = ref('')
@@ -105,10 +107,16 @@ async function createFolder() {
     <PageHeading>
       Library
     </PageHeading>
-    <svg-spinners-180-ring v-if="loadingFoldersChildrenFolders" class="absolute left-1/2 top-1/2 translate-[-50%] text-[48px] text-[rgba(0,0,0,0.3)]" />
-    <div v-else class="library-grid mt-8">
+    <svg-spinners-180-ring
+      v-if="loadingFoldersChildrenFolders"
+      class="absolute left-1/2 top-1/2 translate-[-50%] text-[48px] text-[rgba(0,0,0,0.3)]"
+    />
+    <div v-else-if="!loadingFoldersChildrenFolders && folderChildren.length > 0" class="library-grid mt-8">
       <FolderThumbnail v-for="folder in folderChildren" :key="folder.id" :folder="folder" />
     </div>
+    <p v-else class="absolute left-1/2 top-1/2 flex translate-[-50%] items-center justify-center text-center text-[48px] text-[rgba(0,0,0,0.3)]">
+      No folder or files yet <br> Right click to add
+    </p>
 
     <div v-if="files.length > 0" class="absolute bottom-8 right-8 rounded-[0.375rem] shadow-lg">
       <p class="bg-[var(--color-primary)] px-4 py-2 text-white" style="border-radius: 0.375rem 0.375rem 0 0;">
@@ -116,8 +124,12 @@ async function createFolder() {
       </p>
       <ul class="max-h-[200px] overflow-y-auto">
         <li v-for="{ file, type } in files" :key="file.name" class="flex items-center gap-4 px-4 py-2">
-          <streamline-entertainment-play-list1-screen-television-display-player-movies-movie-tv-media-players-video v-if="type === 'video'" />
-          <StreamlineImagePictureLandscape2PhotosPhotoLandscapePicturePhotographyCameraPictures v-else-if="type === 'image'" />
+          <streamline-entertainment-play-list1-screen-television-display-player-movies-movie-tv-media-players-video
+            v-if="type === 'video'"
+          />
+          <StreamlineImagePictureLandscape2PhotosPhotoLandscapePicturePhotographyCameraPictures
+            v-else-if="type === 'image'"
+          />
           <fluent-document-pdf-24-regular v-else-if="type === 'document'" />
           <span style="text-overflow: ellipsis; white-space: nowrap;overflow: hidden; width: 250px;">
             {{ file.name }}
@@ -127,10 +139,11 @@ async function createFolder() {
       </ul>
     </div>
     <ContextMenu container=".library-page">
-      <ul
-        class="flex flex-col cursor-pointer rounded-[0.375rem] p-[0.125rem] shadow-md"
-      >
-        <li class="flex items-center gap-4 rounded-[0.375rem] px-4 py-2 transition active:bg-[rgba(0,0,0,0.2)] hover:bg-[rgba(0,0,0,0.1)]" @click="fileInput?.click()">
+      <ul class="flex flex-col cursor-pointer rounded-[0.375rem] p-[0.125rem] shadow-md">
+        <li
+          class="flex items-center gap-4 rounded-[0.375rem] px-4 py-2 transition active:bg-[rgba(0,0,0,0.2)] hover:bg-[rgba(0,0,0,0.1)]"
+          @click="fileInput?.click()"
+        >
           <material-symbols-upload-rounded />
           Upload
           <input
@@ -139,7 +152,10 @@ async function createFolder() {
             @change="(e) => onFilesSelect(e as InputEvent)"
           >
         </li>
-        <li class="flex items-center gap-4 rounded-[0.375rem] px-4 py-2 transition active:bg-[rgba(0,0,0,0.2)] hover:bg-[rgba(0,0,0,0.1)]" @click="addFolderModal?.openModal()">
+        <li
+          class="flex items-center gap-4 rounded-[0.375rem] px-4 py-2 transition active:bg-[rgba(0,0,0,0.2)] hover:bg-[rgba(0,0,0,0.1)]"
+          @click="addFolderModal?.openModal()"
+        >
           <material-symbols-upload-rounded />
           Create new folder
           <NModal ref="addFolderModal" :close-on-outside-click="false">
@@ -150,7 +166,10 @@ async function createFolder() {
             </template>
             <template #modal-body>
               <form class="flex flex-col gap-4" @submit.prevent="createFolder">
-                <NInput id="new_folder_name" v-model="newFolderName" label="Enter folder name" name="new_folder_name" :label-attrs="{ style: { display: 'none' } }" required />
+                <NInput
+                  id="new_folder_name" v-model="newFolderName" label="Enter folder name" name="new_folder_name"
+                  :label-attrs="{ style: { display: 'none' } }" required
+                />
                 <div class="flex items-center justify-end gap-4">
                   <NButton mode="text" color="danger" type="button" @click="addFolderModal?.closeModal()">
                     Cancel
