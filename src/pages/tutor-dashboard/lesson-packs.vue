@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import { NButton } from '@nethren-ui/vue';
-import PageHeading from '~/components/common/PageHeading.vue';
+import { NButton } from '@nethren-ui/vue'
+import PageHeading from '~/components/common/PageHeading.vue'
 </script>
 
 <template>

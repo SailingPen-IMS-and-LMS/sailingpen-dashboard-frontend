@@ -1,9 +1,7 @@
-import { streams } from './streams'
 import { get } from './get'
 import { create } from './create'
 
-export const subjects = {
+export const streams = {
   get,
-  streams,
   create,
 }

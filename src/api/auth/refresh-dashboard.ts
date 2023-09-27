@@ -5,7 +5,7 @@ export async function refreshDashboard() {
   try {
     const result = await instance.get<AuthRefreshResponse>('/auth/refresh-dashboard')
     if (result.status === 200) {
-      localStorage.setItem('accessToken', result.data.accessToken)
+      localStorage.setItem('accessTokenDashboard', result.data.accessTokenDashboard)
       return result.data.userType
     }
   }

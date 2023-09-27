@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { useAuthStore, useSubjectsStore, useTutionClassesStore, useTutorsStore } from '~/stores'
 import { api } from '~/api'
-import type { AdminProfile, ListOfSubjectDetails, ListOfTutionClassDetails, ListOfTutorBasicDetails, TutorProfile } from '~/types'
+import type { AdminProfile, ListOfSubjectDetails, ListOfSubjectStream, ListOfTutionClassDetails, ListOfTutorBasicDetails, TutorProfile } from '~/types'
 
 const router = useRouter()
 const authStore = useAuthStore()
@@ -16,6 +16,7 @@ onMounted(async () => {
     let profile: null | AdminProfile | TutorProfile
     let classesListForAdmins: undefined | ListOfTutionClassDetails
     let subjectListForAdmins: undefined | ListOfSubjectDetails
+    let subjectStreamListForAdmins: undefined | ListOfSubjectStream
     let tutorListForAdmins: undefined | ListOfTutorBasicDetails
     switch (refreshResponse) {
       case 'admin':
@@ -27,6 +28,9 @@ onMounted(async () => {
         subjectListForAdmins = await api.subjects.get()
         subjectsStore.setSubjects(subjectListForAdmins || [])
         subjectsStore.setLoadingSubjects(false)
+        subjectStreamListForAdmins = await api.subjects.streams.get()
+        subjectsStore.setSubjectStreams(subjectStreamListForAdmins || [])
+        subjectsStore.setLoadingSubjectStreams(false)
         tutorListForAdmins = await api.users.tutors.getListForAdmin() || undefined
         tutorsStore.setTutors(tutorListForAdmins || [])
         tutorsStore.setLoadingTutors(false)
@@ -41,9 +45,11 @@ onMounted(async () => {
         break
     }
 
+    const refreshTime = 1000 * 60 * 14.5
+
     setInterval(async () => {
-      await api.auth.refreshDashboard()
-    }, 1000 * 60 * 14.5)
+      console.log(await api.auth.refreshDashboard())
+    }, refreshTime)
   }
   else {
     await router.replace('/auth/login')
