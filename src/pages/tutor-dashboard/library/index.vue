@@ -31,22 +31,11 @@ function getFileType(mimeType: string): ResourceType {
 }
 
 const loadingRootFoldersChildrenFolders = ref(false)
-const rootFolderChildrenFolders = ref<LibraryRootFolder | null>()
-const resources = ref<ResourceResults>([
-  { id: 1, name: '340916376_1222008802017311_6711937171836442875_n.jpg', url: 'https://sailingpen-dev-bucket.s3.ap-south-1.amazonaws.com/tutors/tutor_083d8294-16ec-4ea9-9c24-d851700791ec/resources/1/faf35a64-2e33-4450-86e2-400856cf0012-340916376_1222008802017311_6711937171836442875_n.jpg', type: 'image', folder_id: 1 },
-  { id: 2, name: 'pexels-irina-iriser-1379636.jpg', url: 'https://sailingpen-dev-bucket.s3.ap-south-1.amazonaws.com/tutors/tutor_083d8294-16ec-4ea9-9c24-d851700791ec/resources/1/473b6958-9da8-46d1-8389-b1bc6e583584-pexels-irina-iriser-1379636.jpg', type: 'image', folder_id: 1 },
-  { id: 3, name: 'pexels-irina-iriser-1379636.jpg', url: 'https://sailingpen-dev-bucket.s3.ap-south-1.amazonaws.com/tutors/tutor_083d8294-16ec-4ea9-9c24-d851700791ec/resources/1/f182344c-7520-4aad-a416-49706b2f2b8f-pexels-irina-iriser-1379636.jpg', type: 'image', folder_id: 1 },
-  { id: 4, name: 'pexels-irina-iriser-1379636.jpg', url: 'https://sailingpen-dev-bucket.s3.ap-south-1.amazonaws.com/tutors/tutor_083d8294-16ec-4ea9-9c24-d851700791ec/resources/1/e4f628ad-d89b-48b7-a00e-bc552af8ed3e-pexels-irina-iriser-1379636.jpg', type: 'image', folder_id: 1 },
-  { id: 5, name: 'pexels-irina-iriser-1379636.jpg', url: 'https://sailingpen-dev-bucket.s3.ap-south-1.amazonaws.com/tutors/tutor_083d8294-16ec-4ea9-9c24-d851700791ec/resources/1/480cdc12-fefb-483e-83db-99524ee9d6ff-pexels-irina-iriser-1379636.jpg', type: 'image', folder_id: 1 },
-  { id: 6, name: 'pexels-irina-iriser-1379636.jpg-1695027545934', url: 'https://sailingpen-dev-bucket.s3.ap-south-1.amazonaws.com/tutors/tutor_083d8294-16ec-4ea9-9c24-d851700791ec/resources/1/fd54b340-4fb9-46dd-885a-528ddcaf37ab-pexels-irina-iriser-1379636.jpg-1695027545934', type: 'image', folder_id: 1 },
-  { id: 7, name: '1695027641001-pexels-irina-iriser-1379636.jpg', url: 'https://sailingpen-dev-bucket.s3.ap-south-1.amazonaws.com/tutors/tutor_083d8294-16ec-4ea9-9c24-d851700791ec/resources/1/5c3df705-0761-434e-8bdb-f8edc375ff94-1695027641001-pexels-irina-iriser-1379636.jpg', type: 'image', folder_id: 1 },
-  { id: 8, name: '1695028108264-pexels-irina-iriser-1379636.jpg', url: 'https://sailingpen-dev-bucket.s3.ap-south-1.amazonaws.com/tutors/tutor_083d8294-16ec-4ea9-9c24-d851700791ec/resources/1/fb465835-fb1b-4d61-9395-6106731d56d1-1695028108264-pexels-irina-iriser-1379636.jpg', type: 'image', folder_id: 1 },
-  { id: 9, name: '1695028211175-pexels-irina-iriser-1379636.jpg', url: 'https://sailingpen-dev-bucket.s3.ap-south-1.amazonaws.com/tutors/tutor_083d8294-16ec-4ea9-9c24-d851700791ec/resources/1/60c2c7cf-5334-4406-b6a8-841b81bce41a-1695028211175-pexels-irina-iriser-1379636.jpg', type: 'image', folder_id: 1 },
-  { id: 10, name: '1695028259007-pexels-irina-iriser-1379636.jpg', url: 'https://sailingpen-dev-bucket.s3.ap-south-1.amazonaws.com/tutors/tutor_083d8294-16ec-4ea9-9c24-d851700791ec/resources/1/ba46e536-f63b-4a80-9662-5f598d3875dc-1695028259007-pexels-irina-iriser-1379636.jpg', type: 'image', folder_id: 1 },
-  { id: 11, name: '1695028572499-pexels-irina-iriser-1379636.jpg', url: 'https://sailingpen-dev-bucket.s3.ap-south-1.amazonaws.com/tutors/tutor_083d8294-16ec-4ea9-9c24-d851700791ec/resources/1/83a14890-d1f8-4b41-aab0-50cdf2fae5b1-1695028572499-pexels-irina-iriser-1379636.jpg', type: 'image', folder_id: 1 },
-  { id: 12, name: '1695028807934-pexels-irina-iriser-1379636.jpg', url: 'https://sailingpen-dev-bucket.s3.ap-south-1.amazonaws.com/tutors/tutor_083d8294-16ec-4ea9-9c24-d851700791ec/resources/1/29e12e86-2088-48d4-9b0c-dd150b260fa9-1695028807934-pexels-irina-iriser-1379636.jpg', type: 'image', folder_id: 1 },
-  { id: 13, name: '1695028894279-pexels-irina-iriser-1379636.jpg', url: 'https://sailingpen-dev-bucket.s3.ap-south-1.amazonaws.com/tutors/tutor_083d8294-16ec-4ea9-9c24-d851700791ec/resources/1/815dc13a-71a9-456a-8123-b245f8b4f904-1695028894279-pexels-irina-iriser-1379636.jpg', type: 'image', folder_id: 1 },
-])
+const rootFolderChildrenFolders = ref<LibraryRootFolder>({
+  root_folder_id: 0,
+  folders: [],
+})
+const resources = ref<ResourceResults>([])
 
 const uploadsStore = useUploadsStore()
 const { uploads } = storeToRefs(uploadsStore)
@@ -68,8 +57,7 @@ function onFilesSelect(e: InputEvent) {
         })
         uploadsStore.removeUpload(file.name)
         if (result)
-          console.log(JSON.stringify(result))
-        // resources.value = result
+          resources.value = result
       }
     })
   }
@@ -77,11 +65,39 @@ function onFilesSelect(e: InputEvent) {
 
 async function loadFolderStructure() {
   try {
-    loadingRootFoldersChildrenFolders.value = true
     const folderResponse = await api.library.folders.root()
     console.log(folderResponse)
-    if (folderResponse)
+    if (folderResponse) {
       rootFolderChildrenFolders.value = folderResponse
+    }
+    else {
+      rootFolderChildrenFolders.value = {
+        root_folder_id: 0,
+        folders: [],
+      }
+    }
+  }
+  catch (e) {
+    console.log(e)
+  }
+}
+
+async function loadFolderDocumentAndImageResources() {
+  try {
+    const resourcesResponse = await api.library.resources.imageOrDocumentGet(rootFolderChildrenFolders.value.root_folder_id)
+    if (resourcesResponse)
+      resources.value = resourcesResponse
+  }
+  catch (e) {
+    console.log(e)
+  }
+}
+
+onMounted(async () => {
+  loadingRootFoldersChildrenFolders.value = true
+  try {
+    await loadFolderStructure()
+    await loadFolderDocumentAndImageResources()
   }
   catch (e) {
     console.log(e)
@@ -89,12 +105,7 @@ async function loadFolderStructure() {
   finally {
     loadingRootFoldersChildrenFolders.value = false
   }
-}
-
-onMounted(async () => {
-  await loadFolderStructure()
 })
-
 const newFolderName = ref('')
 const addFolderModal = ref<InstanceType<typeof NModal>>()
 const loadingCreatingFolder = ref(false)
@@ -135,10 +146,13 @@ async function createFolder() {
       v-if="loadingRootFoldersChildrenFolders"
       class="absolute left-1/2 top-1/2 translate-[-50%] text-[48px] text-[rgba(0,0,0,0.3)]"
     />
-    <div v-else-if="rootFolderChildrenFolders && rootFolderChildrenFolders.folders" class="library-grid mt-8">
+    <div v-else-if="(rootFolderChildrenFolders.folders.length > 0) || resources.length > 0" class="library-grid mt-8">
       <FolderThumbnail v-for="folder in rootFolderChildrenFolders.folders" :key="folder.id" :folder="folder" />
       <FileThumbnail v-for="resource in resources" :key="resource.id" :file="resource" />
     </div>
+    <p v-else class="absolute left-1/2 top-1/2 flex translate-[-50%] items-center justify-center text-center text-[48px] text-[rgba(0,0,0,0.3)]">
+      No folder or files yet <br> Right click to add
+    </p>
   </div>
   <ContextMenu container=".library-page">
     <ul class="flex flex-col cursor-pointer rounded-[0.375rem] p-[0.125rem] shadow-md transition">

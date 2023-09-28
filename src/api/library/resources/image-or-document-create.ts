@@ -19,7 +19,7 @@ export async function imageOrDocumentCreate(folderId: number, { file }: CreateIm
       },
     })
     if (result.status === 201) {
-      console.log(result.data)
+      // console.log(result.data)
       return result.data
     }
     return undefined
