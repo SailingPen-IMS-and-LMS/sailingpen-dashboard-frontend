@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { ref, toRefs } from 'vue'
+import { onClickOutside } from '@vueuse/core'
 
 const props = defineProps<{
   container: string
@@ -9,6 +10,10 @@ const { container } = toRefs(props)
 
 const isOpen = ref(false)
 const menu = ref<HTMLDivElement>()
+onClickOutside(menu, () => {
+  isOpen.value = false
+})
+
 const position = ref({
   x: 0,
   y: 0,
@@ -41,7 +46,8 @@ onMounted(() => {
   <Teleport to="body">
     <Transition name="context-menu">
       <div
-        v-if="isOpen" ref="menu" class="absolute z-[10] bg-[var(--bg-secondary)]" :style="{
+        v-if="isOpen"
+        ref="menu" class="absolute z-[10] bg-[var(--bg-secondary)]" :style="{
           top: `${position.y}px`,
           left: `${position.x}px`,
         }"

@@ -1,11 +1,15 @@
 <script setup lang="ts">
+import { storeToRefs } from 'pinia'
 import { NButton, NInput, NModal } from '@nethren-ui/vue'
 import PageHeading from '~/components/common/PageHeading.vue'
 import ContextMenu from '~/components/common/ContextMenu.vue'
 import CircularProgress from '~/components/common/CircularProgress.vue'
 import FolderThumbnail from '~/components/common/FolderThumbnail.vue'
+import FileThumbnail from '~/components/common/FileThumbnail.vue'
 import { api } from '~/api'
-import type { LibraryFolderChildrenFolders } from '~/types'
+import { useUploadsStore } from '~/stores'
+import { ResourceType } from '~/types'
+import type { LibraryFolderChildrenFolders, ResourceResults } from '~/types'
 
 const route = useRoute()
 const params = route.params
@@ -15,21 +19,26 @@ const folderId = ref(params.folderId as string)
 const fileInput = ref<HTMLInputElement>()
 const files = ref<Array<{
   file: File
-  type: 'video' | 'image' | 'document'
+  type: ResourceType
 }>>([])
 
-function getFileType(mimeType: string) {
+function getFileType(mimeType: string): ResourceType {
   if (mimeType.startsWith('image'))
-    return 'image'
+    return ResourceType.IMAGE
 
   else if (mimeType.startsWith('video'))
-    return 'video'
+    return ResourceType.VIDEO
 
   else if (mimeType.includes('pdf'))
-    return 'document'
+    return ResourceType.DOCUMENT
 
-  return 'document'
+  return ResourceType.DOCUMENT
 }
+
+const uploadsStore = useUploadsStore()
+const { uploads } = storeToRefs(uploadsStore)
+
+const resources = ref<ResourceResults>([])
 
 function onFilesSelect(e: InputEvent) {
   const targetEl = e.target as HTMLInputElement
@@ -38,7 +47,20 @@ function onFilesSelect(e: InputEvent) {
     const selectedFilesArray = Array.from(selectedFiles)
     files.value = selectedFilesArray.map(f => ({ file: f, type: getFileType(f.type) }))
     files.value.forEach((f) => {
-      console.log(f)
+      uploadsStore.addNewUpload(f.file.name, f.type)
+    })
+    selectedFilesArray.forEach(async (file) => {
+      console.log(file)
+      if (folderId.value) {
+        const result = await api.library.resources.imageOrDocumentCreate(Number(folderId.value), {
+          file,
+        })
+        uploadsStore.removeUpload(file.name)
+        if (result) {
+          resources.value = result
+          console.log(resources.value)
+        }
+      }
     })
   }
 }
@@ -48,7 +70,6 @@ const folderChildren = ref<LibraryFolderChildrenFolders>([])
 
 async function loadFolderStructure() {
   try {
-    loadingFoldersChildrenFolders.value = true
     const folderResponse = await api.library.folders.getChildren(Number(folderId.value))
     if (folderResponse)
       folderChildren.value = folderResponse
@@ -56,17 +77,36 @@ async function loadFolderStructure() {
   catch (e) {
     console.log(e)
   }
-  finally {
-    loadingFoldersChildrenFolders.value = false
+}
+
+async function loadFolderDocumentAndImageResources() {
+  try {
+    const resourcesResponse = await api.library.resources.imageOrDocumentGet(+folderId.value)
+    if (resourcesResponse)
+      resources.value = resourcesResponse
+  }
+  catch (e) {
+    console.log(e)
   }
 }
 
 onMounted(async () => {
-  await loadFolderStructure()
+  loadingFoldersChildrenFolders.value = true
+  try {
+    // await loadFolderStructure()
+    // await loadFolderDocumentAndImageResources()
+    await Promise.all([loadFolderStructure(), loadFolderDocumentAndImageResources()])
+  }
+  catch (e) {
+    console.log(e)
+  }
+  finally {
+    loadingFoldersChildrenFolders.value = false
+  }
 })
 
 watch(route, async (newVal) => {
-  if (route.fullPath !== '/tutor-dashboard/library') {
+  if (route.fullPath.includes('/tutor-dashboard/library/')) {
     folderId.value = newVal.params.folderId as string
     await loadFolderStructure()
   }
@@ -111,33 +151,13 @@ async function createFolder() {
       v-if="loadingFoldersChildrenFolders"
       class="absolute left-1/2 top-1/2 translate-[-50%] text-[48px] text-[rgba(0,0,0,0.3)]"
     />
-    <div v-else-if="!loadingFoldersChildrenFolders && folderChildren.length > 0" class="library-grid mt-8">
+    <div v-else-if="(!loadingFoldersChildrenFolders && folderChildren.length > 0) || resources.length > 0 " class="library-grid mt-8">
       <FolderThumbnail v-for="folder in folderChildren" :key="folder.id" :folder="folder" />
+      <FileThumbnail v-for="resource in resources" :key="resource.id" :file="resource" />
     </div>
     <p v-else class="absolute left-1/2 top-1/2 flex translate-[-50%] items-center justify-center text-center text-[48px] text-[rgba(0,0,0,0.3)]">
       No folder or files yet <br> Right click to add
     </p>
-
-    <div v-if="files.length > 0" class="absolute bottom-8 right-8 rounded-[0.375rem] shadow-lg">
-      <p class="bg-[var(--color-primary)] px-4 py-2 text-white" style="border-radius: 0.375rem 0.375rem 0 0;">
-        Uploading files
-      </p>
-      <ul class="max-h-[200px] overflow-y-auto">
-        <li v-for="{ file, type } in files" :key="file.name" class="flex items-center gap-4 px-4 py-2">
-          <streamline-entertainment-play-list1-screen-television-display-player-movies-movie-tv-media-players-video
-            v-if="type === 'video'"
-          />
-          <StreamlineImagePictureLandscape2PhotosPhotoLandscapePicturePhotographyCameraPictures
-            v-else-if="type === 'image'"
-          />
-          <fluent-document-pdf-24-regular v-else-if="type === 'document'" />
-          <span style="text-overflow: ellipsis; white-space: nowrap;overflow: hidden; width: 250px;">
-            {{ file.name }}
-          </span>
-          <CircularProgress style="max-width: 16px;max-height: 16px;" fill-color="#4647D3" />
-        </li>
-      </ul>
-    </div>
     <ContextMenu container=".library-page">
       <ul class="flex flex-col cursor-pointer rounded-[0.375rem] p-[0.125rem] shadow-md">
         <li
@@ -184,6 +204,30 @@ async function createFolder() {
         </li>
       </ul>
     </ContextMenu>
+    <div v-if="uploads.length > 0" class="absolute bottom-8 right-8 rounded-[0.375rem] shadow-lg">
+      <p class="bg-[var(--color-primary)] px-4 py-2 text-white" style="border-radius: 0.375rem 0.375rem 0 0;">
+        Uploading files
+      </p>
+      <ul class="max-h-[200px] overflow-y-auto">
+        <li v-for="{ name, progress, type } in uploads" :key="name" class="flex items-center gap-4 px-4 py-2">
+          <streamline-entertainment-play-list1-screen-television-display-player-movies-movie-tv-media-players-video
+            v-if="type === 'video'"
+          />
+          <StreamlineImagePictureLandscape2PhotosPhotoLandscapePicturePhotographyCameraPictures
+            v-else-if="type === 'image'"
+          />
+          <fluent-document-pdf-24-regular v-else-if="type === 'document'" />
+          <span style="text-overflow: ellipsis; white-space: nowrap;overflow: hidden; width: 250px;">
+            {{ name }}
+          </span>
+          <CircularProgress
+            v-if="progress < 100" style="max-width: 16px;max-height: 16px;" fill-color="#4647D3"
+            :percent="progress"
+          />
+          <material-symbols-check-circle-outline-rounded v-else class="text-[var(--n-color-success-400)]" />
+        </li>
+      </ul>
+    </div>
   </div>
 </template>
 
