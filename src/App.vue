@@ -26,6 +26,12 @@ async function setTutionClassesForAdmins() {
   tutionClassesStore.setLoadingTutionClasses(false)
 }
 
+async function setTutionClassesForLoggedInTutor() {
+  const classesListForLoggedInTutor = await api.tutionClasses.getMyClasses()
+  tutionClassesStore.setMyTutionClasses(classesListForLoggedInTutor || [])
+  tutionClassesStore.setLoadingMyTutionClasses(false)
+}
+
 async function setSubjectsForAdmins() {
   const subjectListForAdmins = await api.subjects.get()
   subjectsStore.setSubjects(subjectListForAdmins || [])
@@ -83,6 +89,7 @@ onMounted(async () => {
         // authStore.setTutorProfile(profile)
         await Promise.all([
           setProfile('tutor'),
+          setTutionClassesForLoggedInTutor(),
         ])
         break
 

@@ -2,10 +2,13 @@
 import { computed } from 'vue'
 import { useRoute } from 'vue-router'
 import PageHeading from '~/components/common/PageHeading.vue'
+import { useTutionClassesStore } from '~/stores'
 
 const route = useRoute()
 const params = route.params
 const classId = params.classId as string
+
+const tutionClassesStore = useTutionClassesStore()
 
 const tabPrefix = computed(() => route.fullPath.split('/')[4])
 console.log(tabPrefix)
@@ -14,7 +17,8 @@ console.log(tabPrefix)
 <template>
   <div class="class-home-page">
     <PageHeading>
-      Some tution class
+      {{
+        tutionClassesStore.getClassName(classId) }}
     </PageHeading>
     <div class="tabs-header mt-4 flex items-center gap-4">
       <RouterLink
