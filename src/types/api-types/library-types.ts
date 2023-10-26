@@ -38,6 +38,9 @@ export interface Resource {
 export interface CreateImageOrDocumentResourceCreateDto {
   file: File
 }
+export interface CreateVideoResourceCreateDto {
+  file: File
+}
 
 export interface ResourceResult {
   folder_id: number
@@ -45,6 +48,7 @@ export interface ResourceResult {
   name: string
   type: ResourceType | 'image' | 'video' | 'document'
   url: string
+  thumbnail_url?: string
 }
 
 export type ResourceResults = ResourceResult[]

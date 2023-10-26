@@ -33,6 +33,7 @@ declare module 'vue' {
     IcBaselineFolder: typeof import('~icons/ic/baseline-folder')['default']
     IconamoonMenuBurgerHorizontalBold: typeof import('~icons/iconamoon/menu-burger-horizontal-bold')['default']
     IcOutlinePersonPin: typeof import('~icons/ic/outline-person-pin')['default']
+    IcOutlinePlayCircle: typeof import('~icons/ic/outline-play-circle')['default']
     IcOutlineSettings: typeof import('~icons/ic/outline-settings')['default']
     IcRoundArrowBack: typeof import('~icons/ic/round-arrow-back')['default']
     IcRoundAttachMoney: typeof import('~icons/ic/round-attach-money')['default']

@@ -9,6 +9,41 @@ const tutionClassesStore = useTutionClassesStore()
 const subjectsStore = useSubjectsStore()
 const tutorsStore = useTutorsStore()
 
+async function setProfile(type: 'admin' | 'tutor') {
+  if (type === 'admin') {
+    const profile = await api.users.admins.getProfile() || null
+    authStore.setAdminProfile(profile)
+  }
+  else {
+    const profile = await api.users.tutors.getProfile() || null
+    authStore.setTutorProfile(profile)
+  }
+}
+
+async function setTutionClassesForAdmins() {
+  const classesListForAdmins = await api.tutionClasses.get()
+  tutionClassesStore.setTutionClasses(classesListForAdmins || [])
+  tutionClassesStore.setLoadingTutionClasses(false)
+}
+
+async function setSubjectsForAdmins() {
+  const subjectListForAdmins = await api.subjects.get()
+  subjectsStore.setSubjects(subjectListForAdmins || [])
+  subjectsStore.setLoadingSubjects(false)
+}
+
+async function setSubjectStreamsForAdmins() {
+  const subjectStreamListForAdmins = await api.subjects.streams.get()
+  subjectsStore.setSubjectStreams(subjectStreamListForAdmins || [])
+  subjectsStore.setLoadingSubjectStreams(false)
+}
+
+async function setTutorsForAdmins() {
+  const tutorListForAdmins = await api.users.tutors.getListForAdmin() || undefined
+  tutorsStore.setTutors(tutorListForAdmins || [])
+  tutorsStore.setLoadingTutors(false)
+}
+
 onMounted(async () => {
   const refreshResponse = await api.auth.refreshDashboard()
   console.log(refreshResponse)
@@ -20,25 +55,35 @@ onMounted(async () => {
     let tutorListForAdmins: undefined | ListOfTutorBasicDetails
     switch (refreshResponse) {
       case 'admin':
-        profile = await api.users.admins.getProfile() || null
-        authStore.setAdminProfile(profile)
-        classesListForAdmins = await api.tutionClasses.get()
-        tutionClassesStore.setTutionClasses(classesListForAdmins || [])
-        tutionClassesStore.setLoadingTutionClasses(false)
-        subjectListForAdmins = await api.subjects.get()
-        subjectsStore.setSubjects(subjectListForAdmins || [])
-        subjectsStore.setLoadingSubjects(false)
-        subjectStreamListForAdmins = await api.subjects.streams.get()
-        subjectsStore.setSubjectStreams(subjectStreamListForAdmins || [])
-        subjectsStore.setLoadingSubjectStreams(false)
-        tutorListForAdmins = await api.users.tutors.getListForAdmin() || undefined
-        tutorsStore.setTutors(tutorListForAdmins || [])
-        tutorsStore.setLoadingTutors(false)
+        // profile = await api.users.admins.getProfile() || null
+        // authStore.setAdminProfile(profile)
+        // classesListForAdmins = await api.tutionClasses.get()
+        // tutionClassesStore.setTutionClasses(classesListForAdmins || [])
+        // tutionClassesStore.setLoadingTutionClasses(false)
+        // subjectListForAdmins = await api.subjects.get()
+        // subjectsStore.setSubjects(subjectListForAdmins || [])
+        // subjectsStore.setLoadingSubjects(false)
+        // subjectStreamListForAdmins = await api.subjects.streams.get()
+        // subjectsStore.setSubjectStreams(subjectStreamListForAdmins || [])
+        // subjectsStore.setLoadingSubjectStreams(false)
+        // tutorListForAdmins = await api.users.tutors.getListForAdmin() || undefined
+        // tutorsStore.setTutors(tutorListForAdmins || [])
+        // tutorsStore.setLoadingTutors(false)
+        await Promise.all([
+          setProfile('admin'),
+          setTutionClassesForAdmins(),
+          setSubjectsForAdmins(),
+          setSubjectStreamsForAdmins(),
+          setTutorsForAdmins(),
+        ])
         break
 
       case 'tutor':
-        profile = await api.users.tutors.getProfile() || null
-        authStore.setTutorProfile(profile)
+        // profile = await api.users.tutors.getProfile() || null
+        // authStore.setTutorProfile(profile)
+        await Promise.all([
+          setProfile('tutor'),
+        ])
         break
 
       default:
