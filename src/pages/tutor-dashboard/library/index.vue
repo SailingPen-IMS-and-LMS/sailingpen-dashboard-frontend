@@ -49,12 +49,20 @@ function onFilesSelect(e: InputEvent) {
       uploadsStore.addNewUpload(f.file.name, f.type)
     })
     console.log(uploads.value)
-    selectedFilesArray.forEach(async (file) => {
-      console.log(file)
+    files.value.forEach(async ({ file, type }) => {
+      console.log(file, type)
       if (rootFolderChildrenFolders.value?.root_folder_id) {
-        const result = await api.library.resources.imageOrDocumentCreate(rootFolderChildrenFolders.value?.root_folder_id, {
-          file,
-        })
+        let result: ResourceResults | undefined
+        if (type === ResourceType.VIDEO) {
+          result = await api.library.resources.videoCreate(rootFolderChildrenFolders.value?.root_folder_id, {
+            file,
+          })
+        }
+        else {
+          result = await api.library.resources.imageOrDocumentCreate(rootFolderChildrenFolders.value?.root_folder_id, {
+            file,
+          })
+        }
         uploadsStore.removeUpload(file.name)
         if (result)
           resources.value = result
@@ -150,7 +158,10 @@ async function createFolder() {
       <FolderThumbnail v-for="folder in rootFolderChildrenFolders.folders" :key="folder.id" :folder="folder" />
       <FileThumbnail v-for="resource in resources" :key="resource.id" :file="resource" />
     </div>
-    <p v-else class="absolute left-1/2 top-1/2 flex translate-[-50%] items-center justify-center text-center text-[48px] text-[rgba(0,0,0,0.3)]">
+    <p
+      v-else
+      class="absolute left-1/2 top-1/2 flex translate-[-50%] items-center justify-center text-center text-[48px] text-[rgba(0,0,0,0.3)]"
+    >
       No folder or files yet <br> Right click to add
     </p>
   </div>

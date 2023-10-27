@@ -1,3 +1,5 @@
+import type { DayName } from '~/types'
+
 export interface EnrolledClass {
   class_id: string
   class_name: string
@@ -13,7 +15,7 @@ export interface NotEnrolledClass {
   class_description: string
   class_id: string
   class_name: string
-  schedule: null | Array<{ day: string; from_time: string; to_time: string }>
+  schedule: null | Array<{ day: DayName; from_time: string; to_time: string }>
   subject_id: string
   tutor_id: string
   admission_fee: number | string
@@ -28,7 +30,10 @@ export interface TutionClassDetails {
   class_id: string
   class_name: string
   class_description: string
-  schedule: any
+  schedule: null | {
+    day: DayName
+    time: string
+  }
   admission_fee: string
   monthly_fee: string
   subject_id: string
