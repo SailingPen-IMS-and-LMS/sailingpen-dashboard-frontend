@@ -11,7 +11,7 @@ const subjects = ref([
   },
   {
     label: 'Physics',
-    subjectId: 'subject_9a358653-c1a5-46d7-86ba-ee6312a5b6ae',
+    subjectId: 'subject_a95a37b1-8854-4e72-a82c-5ddcc34adffe',
   },
   {
     label: 'Chemistry',

@@ -31,8 +31,8 @@ const days = computed(() => {
   return []
 })
 
-console.log(tutionClass)
-console.log(days)
+console.log(tutionClass.value)
+console.log(days.value)
 
 const startDate = ref('')
 const endDate = ref('')
@@ -133,7 +133,7 @@ const resourceInfoCards: ResourceInfoCard[] = [
       </div>
 
       <RouterLink to="/tutor-dashboard/library?mode=resource-upload">
-        <NButton>Upload class resource</NButton>
+        <NButton>Upload Weekly Resources</NButton>
       </RouterLink>
     </div>
 
