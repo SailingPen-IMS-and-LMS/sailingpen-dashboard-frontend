@@ -1,12 +1,38 @@
 <script setup lang="ts">
 import { ref } from 'vue'
+import { NButton } from '@nethren-ui/vue'
+import { storeToRefs } from 'pinia'
+import { useTutionClassesStore } from '~/stores'
 
 import type { ResourceInfoCard } from '~/types'
 import ResourceCard from '~/components/ResourceCard.vue'
+import { getDaysInCurrentMonth } from '~/utils/date-utils'
 
 // import { NInput } from '@nethren-ui/vue';
 
+const route = useRoute()
 
+const tutionClassesStore = useTutionClassesStore()
+const { myTutionClasses } = storeToRefs(tutionClassesStore)
+
+const tutionClass = computed(() => {
+  return myTutionClasses.value.find(e => e.class_id === route.params.classId)
+})
+
+const days = computed(() => {
+  if (tutionClass.value) {
+    const classSchedule = tutionClass.value.schedule
+    if (classSchedule) {
+      const day = classSchedule.day
+      return getDaysInCurrentMonth(day)
+    }
+    return []
+  }
+  return []
+})
+
+console.log(tutionClass.value)
+console.log(days.value)
 
 const startDate = ref('')
 const endDate = ref('')
@@ -88,20 +114,34 @@ const resourceInfoCards: ResourceInfoCard[] = [
 <template>
   <div class="class-home mt-10">
     <!-- date filter -->
-    <div class="date-filter flex flex-row">
-      <label for="from-date">From : </label>
-      <input
-        v-model="startDate" type="date"
-        class=""
-      >
-      <label class="ml-14" for="to-date">To : </label>
-      <input
-        v-model="endDate" type="date" label="to-date"
-        class=""
-      >
+    <div class="date-filter flex flex-row items-center justify-between">
+      <div class="flex items-center gap-4">
+        <div>
+          <label for="from-date">From : </label>
+          <input
+            v-model="startDate" type="date"
+            class=""
+          >
+        </div>
+        <div>
+          <label class="ml-14" for="to-date">To : </label>
+          <input
+            v-model="endDate" type="date" label="to-date"
+            class=""
+          >
+        </div>
+      </div>
+
+      <RouterLink to="/tutor-dashboard/library?mode=resource-upload">
+        <NButton>Upload Weekly Resources</NButton>
+      </RouterLink>
     </div>
 
     <div class="resource-cards">
+      <p v-if="tutionClass">
+        {{
+          tutionClass }}
+      </p>
       <ResourceCard
         v-for="resourceInfoCard in resourceInfoCards"
         :key="resourceInfoCard.id"

@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import { ref, toRefs } from 'vue'
-import { onClickOutside } from '@vueuse/core'
 
 const props = defineProps<{
   container: string
@@ -10,9 +9,9 @@ const { container } = toRefs(props)
 
 const isOpen = ref(false)
 const menu = ref<HTMLDivElement>()
-onClickOutside(menu, () => {
-  isOpen.value = false
-})
+// onClickOutside(menu, () => {
+//   isOpen.value = false
+// })
 
 const position = ref({
   x: 0,

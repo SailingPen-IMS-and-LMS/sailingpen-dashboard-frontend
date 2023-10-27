@@ -7,11 +7,11 @@ import { api } from '~/api'
 const subjects = ref([
   {
     label: 'Combined Mathematics',
-    subjectId: 'subject_ff178f7f-a3e6-4271-a12e-69d5e7bf5178',
+    subjectId: 'subject_66a457ef-0f27-44ff-8d58-46ea784dab77',
   },
   {
     label: 'Physics',
-    subjectId: 'subject_9a358653-c1a5-46d7-86ba-ee6312a5b6ae',
+    subjectId: 'subject_a95a37b1-8854-4e72-a82c-5ddcc34adffe',
   },
   {
     label: 'Chemistry',

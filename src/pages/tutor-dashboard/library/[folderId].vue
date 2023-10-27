@@ -49,12 +49,21 @@ function onFilesSelect(e: InputEvent) {
     files.value.forEach((f) => {
       uploadsStore.addNewUpload(f.file.name, f.type)
     })
-    selectedFilesArray.forEach(async (file) => {
+    files.value.forEach(async ({ file, type }) => {
       console.log(file)
       if (folderId.value) {
-        const result = await api.library.resources.imageOrDocumentCreate(Number(folderId.value), {
-          file,
-        })
+        let result: ResourceResults | undefined
+        if (type === ResourceType.VIDEO) {
+          result = await api.library.resources.videoCreate(Number(folderId.value), {
+            file,
+          })
+        }
+        else {
+          result = await api.library.resources.imageOrDocumentCreate(Number(folderId.value), {
+            file,
+          })
+        }
+
         uploadsStore.removeUpload(file.name)
         if (result) {
           resources.value = result
@@ -151,11 +160,17 @@ async function createFolder() {
       v-if="loadingFoldersChildrenFolders"
       class="absolute left-1/2 top-1/2 translate-[-50%] text-[48px] text-[rgba(0,0,0,0.3)]"
     />
-    <div v-else-if="(!loadingFoldersChildrenFolders && folderChildren.length > 0) || resources.length > 0 " class="library-grid mt-8">
+    <div
+      v-else-if="(!loadingFoldersChildrenFolders && folderChildren.length > 0) || resources.length > 0"
+      class="library-grid mt-8"
+    >
       <FolderThumbnail v-for="folder in folderChildren" :key="folder.id" :folder="folder" />
       <FileThumbnail v-for="resource in resources" :key="resource.id" :file="resource" />
     </div>
-    <p v-else class="absolute left-1/2 top-1/2 flex translate-[-50%] items-center justify-center text-center text-[48px] text-[rgba(0,0,0,0.3)]">
+    <p
+      v-else
+      class="absolute left-1/2 top-1/2 flex translate-[-50%] items-center justify-center text-center text-[48px] text-[rgba(0,0,0,0.3)]"
+    >
       No folder or files yet <br> Right click to add
     </p>
     <ContextMenu container=".library-page">
