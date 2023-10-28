@@ -90,6 +90,9 @@ const sidebarLinks = computed<SidebarItems>(() => {
         to: '/tutor-dashboard/my-classes', text: 'My classes',
       },
       {
+        to: '/tutor-dashboard/library', text: 'Library',
+      },
+      {
         to: '/tutor-dashboard/lesson-packs', text: 'Lesson packs',
       },
 

@@ -16,11 +16,10 @@ interface SidebarLinkProps {
 const props = withDefaults(defineProps<SidebarLinkProps>(), {
   isButton: false,
   children: () => [] as SidebarLinkProps[],
-  isChild: true
+  isChild: true,
 })
 
-const { to, text, isSidebarOpen, isButton, children, isChild } = toRefs(props)
-console.log(isChild.value)
+const { to, text, isSidebarOpen, isButton, children } = toRefs(props)
 
 const route = useRoute()
 const authStore = useAuthStore()

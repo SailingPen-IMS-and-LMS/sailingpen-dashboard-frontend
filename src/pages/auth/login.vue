@@ -72,6 +72,7 @@ async function onLoginFormSubmit() {
           <NInput
             id="password" v-model="loginFormData.password" type="password" label="Password"
             placeholder="Enter your password" name="password"
+            :with-visibility-toggle="true"
           />
         </div>
         <div class="flex flex-row justify-between">
