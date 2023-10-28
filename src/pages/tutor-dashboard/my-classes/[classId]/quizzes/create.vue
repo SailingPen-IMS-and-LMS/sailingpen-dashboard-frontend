@@ -1,16 +1,25 @@
-<script setup>
+<script setup lang="ts">
 import { computed, ref } from 'vue'
 import { useRouter } from 'vue-router'
 
 const router = useRouter()
 
+type Question = {
+  text: string
+  answers: string[]
+  showError: boolean
+  answersShowError: boolean[]
+  correctAnswers: number[]
+}
+
 const topic = ref('')
-const questions = ref([
+const questions = ref<Question[]>([
   {
     text: '',
     answers: ['', '', '', ''],
     showError: false,
     answersShowError: [false, false, false, false],
+    correctAnswers: []
   },
 ])
 
@@ -21,6 +30,7 @@ function addQuestion() {
       answers: ['', '', '', ''],
       showError: false,
       answersShowError: [false, false, false, false],
+      correctAnswers: []
     })
   }
   else {
@@ -31,16 +41,16 @@ function addQuestion() {
   }
 }
 
-function updateAnswer(questionIndex, answerIndex, value) {
+function updateAnswer(questionIndex: number, answerIndex: number, value: string) {
   questions.value[questionIndex].answers[answerIndex] = value
   questions.value[questionIndex].answersShowError[answerIndex] = false
 }
 
-function isQuestionInvalid(question) {
+function isQuestionInvalid(question: Question) {
   return question.text.trim() === '' || question.answers.some(answer => answer.trim() === '')
 }
 
-function isAnswerInvalid(question, answerIndex) {
+function isAnswerInvalid(question: Question, answerIndex: number) {
   return question.answers[answerIndex].trim() === ''
 }
 
@@ -59,7 +69,12 @@ function submitQuiz() {
   <div class="p-4">
     <div class="mb-4">
       <label for="quiz-topic" class="text-lg font-semibold">Quiz Topic:</label>
-      <input id="quiz-topic" v-model="topic" class="w-full border rounded p-2 outline-none focus:border-blue-500">
+      <input 
+        id="quiz-topic" 
+        v-model="topic" 
+        class="w-full border rounded p-2 outline-none focus:border-blue-500"
+        placeholder="Enter quiz topic"
+      >
     </div>
     <div v-for="(question, questionIndex) in questions" :key="questionIndex" class="mb-4 rounded bg-white p-4 shadow-md">
       <h3 class="mb-2 text-lg font-semibold">
@@ -71,19 +86,40 @@ function submitQuiz() {
           Please enter a question.
         </p>
       </div>
+
+      <div class="answer-split">
+        <div>&nbsp;</div>
+        <div class="right">
+          Correct?
+        </div>
+      </div>
+
       <div v-for="(answer, answerIndex) in question.answers" :key="answerIndex" class="answer-container">
-        <input
-          :value="answer"
-          :placeholder="`Enter answer ${answerIndex + 1}`"
-          :class="{ 'w-full p-2 border rounded focus:border-blue-500 outline-none': question.answersShowError[answerIndex] && isAnswerInvalid(question, answerIndex) }"
-          class="mb-2 w-full rounded p-2"
-          @input="updateAnswer(questionIndex, answerIndex, $event.target.value)"
-          @focus="question.answersShowError[answerIndex] = true"
-        >
+
+        <div class="answer-split">
+          <input
+            :value="answer"
+            :placeholder="`Enter answer ${answerIndex + 1}`"
+            :class="{ 'w-full p-2 border rounded focus:border-blue-500 outline-none mr-4': question.answersShowError[answerIndex] && isAnswerInvalid(question, answerIndex) }"
+            class="mb-2 w-full rounded p-2"
+            @input="updateAnswer(questionIndex, answerIndex, ($event.target as HTMLInputElement).value)"
+            @focus="question.answersShowError[answerIndex] = true"
+          >
+          <div class="right">
+            <input
+              type="checkbox"
+              :checked="question.correctAnswers.includes(answerIndex)"
+              @change="question.correctAnswers.includes(answerIndex) ? question.correctAnswers.splice(question.correctAnswers.indexOf(answerIndex), 1) : question.correctAnswers.push(answerIndex)"
+              class="w-6 h-6 cursor-pointer"
+            />
+          </div>
+        </div>
+        
         <p v-if="question.answersShowError[answerIndex] && isAnswerInvalid(question, answerIndex)" class="mt-1 text-sm text-red-300">
           Please add the optional answer.
         </p>
       </div>
+
     </div>
     <button class="mr-2 rounded bg-blue-500 px-4 py-2 text-white hover:bg-blue-600" @click="addQuestion">
       Add Question
@@ -113,5 +149,16 @@ function submitQuiz() {
 
 .answer-container {
   margin-top: 10px;
+}
+.answer-split {
+  display: flex;
+  align-items: center;
+  > div:first-child {
+    flex: 1;
+  }  
+  .right {
+    width: 60px;
+    text-align: center;
+  }
 }
 </style>
