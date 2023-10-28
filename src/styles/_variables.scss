@@ -1,0 +1,26 @@
+:root {
+  --color-primary: var(--n-color-primary-400);
+  --color-secondary: var(--n-color-secondary-400);
+  --color-success: var(--n-color-success-400);
+  --color-warning: var(--n-color-warning-400);
+  --color-danger: var(--n-color-danger-400);
+  --color-info: var(--n-color-info-400);
+  --color-dark: var(--n-color-dark-400);
+
+}
+
+html{
+  --bg-primary: #FAFAFA;
+  --bg-secondary: #FFFFFF;
+  &.dark{
+    --bg-primary: #121212;
+    --bg-secondary: #242424;
+  }
+
+}
+
+// html.dark{
+//   --bg-primary: #121212;
+//   --bg-secondary: #242424;
+// }
+

@@ -1,336 +1,241 @@
 <script setup lang="ts">
-/* import { SVGAttributes } from 'vue';
-import { FunctionalComponent } from 'vue'; */
-import SidebarLink from '~/components/SidebarLink.vue'
-import IconAccessibility from '~icons/carbon/accessibility'
- import MaterialSymbolsDashboard from '~icons/material-symbols/dashboard'
- import IcSharpMenuBook from '~icons/ic/sharp-menu-book'
- import PhExamFill from '~icons/ph/exam-fill'
- import FluentPlayingCards20Filled from '~icons/fluent/playing-cards-20-filled'
- import MaterialSymbolsSettings from '~icons/material-symbols/settings'
- import MaterialSymbolsHelp from '~icons/material-symbols/help'
- import IcBaselinePowerSettingsNew from '~icons/ic/baseline-power-settings-new'
- import IconamoonMenuBurgerHorizontalBold from '~icons/iconamoon/menu-burger-horizontal-bold'
-import MakiCross from '~icons/maki/cross'
+import { NButton } from '@nethren-ui/vue'
+import { storeToRefs } from 'pinia'
+import { useAuthStore } from '~/stores'
 
-import MaterialSymbolsNotifications from '~icons/material-symbols/notifications'
-import MaterialSymbolsShoppingCartOutlineRounded from '~icons/material-symbols/shopping-cart-outline-rounded'
-import MaterialSymbolsToggleOffOutline from '~icons/material-symbols/toggle-off-outline'
-import MaterialSymbolsPlayCircleOutline from '~icons/material-symbols/play-circle-outline'
+const authStore = useAuthStore()
+const { userType } = storeToRefs(authStore)
 
-
-
-const sidebarLinks: Array<{
-  to: string
-  text: string
- }> = [
+const blogs = [
   {
-  to: "/", text: "Dashboard",
-},
-
-{
-  to: "/lesson-packs", text: "Lesson Packs",
-},
-
-{
-  to: "/exams", text: "Exams",
-},
-
-{
-  to: "/flash-cards", text: "Flash Cards",
-},
-
-{
-  to: "/settings", text: "Settings",
-},
-
-{
-  to: "/help", text: "Help",
-},
-
-{
-  to: "/logout", text: "Logout",
-},
+    id: 1, title: 'Blog Post 1',
+  },
+  {
+    id: 2, title: 'Blog Post 2',
+  },
+  {
+    id: 3, title: 'Blog Post 3',
+  },
+  {
+    id: 4, title: 'Blog Post 4',
+  },
 ]
 
-const isSidebarOpen = ref(true)
+const announcements = [
+  {
+    id: 1, title: 'Announcement 1',
+  },
+  {
+    id: 2, title: 'Announcement 2',
+  },
+  {
+    id: 3, title: 'Announcement 3',
+  },
+  {
+    id: 4, title: 'Announcement 4',
+  },
+]
 
-function toggleSidebar() {
-  isSidebarOpen.value = !isSidebarOpen.value
-}
+const tutors = [
+  {
+    id: 1, name: 'Tutor 1',
+  },
+  {
+    id: 2, name: 'Tutor 2',
+  },
+  {
+    id: 3, name: 'Tutor 3',
+  },
+  {
+    id: 4, name: 'Tutor 4',
+  },
+  {
+    id: 5, name: 'Tutor 5',
+  },
 
+]
+
+const staffs = [
+  {
+    id: 1, name: 'Staff 1',
+  },
+  {
+    id: 2, name: 'Staff 2',
+  },
+  {
+    id: 3, name: 'Staff 3',
+  },
+  {
+    id: 4, name: 'Staff 4',
+  },
+  {
+    id: 5, name: 'Staff 5',
+  },
+
+]
+
+const students = [
+  {
+    id: 1, name: 'Student 1',
+  },
+  {
+    id: 2, name: 'Student 2',
+  },
+  {
+    id: 3, name: 'Student 3',
+  },
+  {
+    id: 4, name: 'Student 4',
+  },
+  {
+    id: 5, name: 'Student 5',
+  },
+
+]
 </script>
 
-
-
 <template>
-  
-
-  <div class="default-layout">
-
-<aside class="default-sidebar" :class="[isSidebarOpen ? '' : 'default-sidebar--close']">
-
-  <img src="../../logo.jpeg" alt="">
-  <button @click="toggleSidebar">
-        <MakiCross v-if="isSidebarOpen" />
-        <IconamoonMenuBurgerHorizontalBold v-else />
-      </button>
-
-    <nav class="navigation-bar flex flex-col justify-between">
-      <ul>
-        <SidebarLink v-for="sidebarLink in sidebarLinks" :key="sidebarLink.to" :to="sidebarLink.to" :text="sidebarLink.text" :is-sidebar-open="isSidebarOpen">
-          <template #icon>
-            <MaterialSymbolsDashboard v-if="sidebarLink.text === 'Dashboard' " />
-            <IcSharpMenuBook v-else-if="sidebarLink.text === 'Lesson Packs' " />
-            <PhExamFill v-else-if="sidebarLink.text === 'Exams' " />
-            <FluentPlayingCards20Filled v-else-if="sidebarLink.text === 'Flash Cards' " />
-            <MaterialSymbolsSettings v-else-if="sidebarLink.text === 'Settings' " />
-            <MaterialSymbolsHelp v-else-if="sidebarLink.text === 'Help' " />
-            <IcBaselinePowerSettingsNew v-else-if="sidebarLink.text === 'Logout' " />
-          </template>
-        </SidebarLink>
-      </ul>
-    </nav>
-</aside>
-
-
-<header class="default-header flex items-center justify-between gap-4">
-  <h1 class="text-2xl font-bold">
-        Hello Ruwan
-      </h1>
-
-      <div class="flex items-center gap-4">
-        <button><MaterialSymbolsNotifications class="text-[1.3rem]" /></button>
-        <button><MaterialSymbolsShoppingCartOutlineRounded class="text-[1.3rem]" /></button>
-        <button><MaterialSymbolsToggleOffOutline class="text-[1.3rem]" /></button>
-
-        <p>
-          Ruwan Darshana
-        </p>
-
-        <img src="../assets/images/student-profile.jpg" alt="" class="profile-picture">
+  <template v-if="userType === 'admin'">
+    <div class="admin-dash-top-row grid grid-cols-5 mb-5 mt-5 gap-6">
+      <div class="no-of-tut admin-dash-top-row-card">
+        <h3>No. of Tutors</h3>
+        <span>13</span>
       </div>
-</header>
+      <div class="no-of-tut-assists admin-dash-top-row-card">
+        <h3>No. of Tutor Assistants</h3>
+        <span>25</span>
+      </div>
+      <div class="no-of-staff admin-dash-top-row-card">
+        <h3>No. of Staff</h3>
+        <span>9</span>
+      </div>
+      <div class="no-of-announce admin-dash-top-row-card">
+        <h3>No. of Announcements</h3>
+        <span>20</span>
+      </div>
+      <div class="no-of-posts admin-dash-top-row-card">
+        <h3>No. of Blog Posts</h3>
+        <span>22</span>
+      </div>
+    </div>
 
-
-<main class="default-page-container">
-  <div class="left-side-container">
-            <div class="top-left-container">
-                <h2 class="font-semibold">
-                     My Classes
-                </h2>
-
-                <div class="flex gap-2">
-                    <div class="continue-watch-video">
-                        <p class="text-xs">
-                            Unit - 1
-                        </p>
-
-                        <p>Measurements</p>
-
-                        <p class="text-base">
-                            Physics - Nilantha Jayasuriya
-                        </p>
-
-                        <MaterialSymbolsPlayCircleOutline class="text-center text-4xl" />
-                    </div>
-
-                    <div class="continue-watch-video">
-                        <p class="text-xs">
-                            Unit - 1
-                        </p>
-
-                        <p>Measurements</p>
-
-                        <p class="text-base">
-                            Physics - Nilantha Jayasuriya
-                        </p>
-
-                        <MaterialSymbolsPlayCircleOutline class="text-center text-4xl" />
-                    </div>
-
-                    <div class="continue-watch-video">
-                        <p class="text-xs">
-                            Unit - 1
-                        </p>
-
-                        <p>Measurements</p>
-
-                        <p class="text-base">
-                            Physics - Nilantha Jayasuriya
-                        </p>
-
-                        <MaterialSymbolsPlayCircleOutline class="text-center text-4xl" />
-                    </div>
-                </div>
-            </div>
-
-        <div class="middle-left-container">
-            <div>
-                <h2 class="font-semibold">
-                    Pinned
-                </h2>
-
-                <div class="flex gap-2">
-                    <div class="continue-watch-video">
-                        <p class="text-xs">
-                            Unit - 6
-                        </p>
-                        <p>Trigonometric</p>
-                        <p class="text-base">
-                            Physics - Ruwan Darshana
-                        </p>
-                        <MaterialSymbolsPlayCircleOutline class="text-center text-4xl" />
-                    </div>
-
-                    <div class="continue-watch-video">
-                        <p class="text-xs">
-                            Unit - 6
-                        </p>
-                        <p>Trigonometric</p>
-                        <p class="text-base">
-                            Physics - Ruwan Darshana
-                        </p>
-                        <MaterialSymbolsPlayCircleOutline class="text-center text-4xl" />
-                    </div>
-
-                    <div class="continue-watch-video">
-                        <p class="text-xs">
-                            Unit - 6
-                        </p>
-                        <p>Trigonometric</p>
-                        <p class="text-base">
-                            Physics - Ruwan Darshana
-                        </p>
-                        <MaterialSymbolsPlayCircleOutline class="text-center text-4xl" />
-                    </div>
-                </div>
-            </div>
+    <div class="admin-dash-middle-row grid grid-cols-3 mb-5 gap-6">
+      <!-- participation count -->
+      <div class="ongoing-classes admin-dash-middle-row-card">
+        <div class="ongoing-classes-title flex justify-between">
+          <h3> Class Participation </h3>
+          <NButton color="info" style="border-radius: 15px ; height: 1.5rem">
+            View All
+          </NButton>
         </div>
-
-        <div class="bottom-left-container">
-            <h2 class="font-semibold">
-                Your Progress
-            </h2>
-
-            <img src="../assets/images/chart-1.webp" alt="">
+        <div class="grid mt-2.5 justify-items-center">
+          <img src="../../src/assets/images/class-part.png" alt="" class="h-8/9">
         </div>
+      </div>
 
-        <div class="right-side-container">
-            <div class="top-right-container">
-                <h1 class="text-slate-300">
-                    Calendar
-                </h1>
-            </div>
-
-            <div class="right-middle-container">
-                <h1>Upcoming events</h1>
-            </div>
-
-            <div class="right-bottom-container">
-                <h1>Your Achievements</h1>
-            </div>
+      <!-- Blog posts  -->
+      <div class="blog-posts admin-dash-middle-row-card">
+        <div class="blog-posts-title-classes-title flex justify-between">
+          <h3> Blog Posts </h3>
+          <NButton color="info" style="border-radius: 15px ; height: 1.5rem">
+            View All
+          </NButton>
         </div>
-</div>
-</main>
-</div>
+        <div v-for="blog in blogs" :key="blog.id" class="blog-card-cont mx-7">
+          <div class="blog-card-cont-row">
+            <span>{{ blog.title }}</span>
+            <NButton mode="outline" style="border-radius: 5px ; height: 1.5rem">
+              View
+            </NButton>
+          </div>
+        </div>
+      </div>
 
-  
-  <IconAccessibility />
+      <!-- announcements -->
+      <div class="announcement-card admin-dash-middle-row-card">
+        <div class="ongoing-classes-title flex justify-between">
+          <h3> Announcements </h3>
+          <NButton color="info" style="border-radius: 15px ; height: 1.5rem">
+            View All
+          </NButton>
+        </div>
+        <div v-for="announcement in announcements" :key="announcement.id" class="blog-card-cont mx-7">
+          <div class="blog-card-cont-row">
+            <span>{{ announcement.title }}</span>
+            <NButton mode="outline" style="border-radius: 5px ; height: 1.5rem">
+              View
+            </NButton>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="admin-dash-bottom-row grid grid-cols-3 mb-10 gap-6">
+      <!-- tutor details  -->
+      <div class="tutor-details admin-dash-bottom-row-card">
+        <div class="ongoing-classes-title flex justify-between">
+          <h3> Tutors </h3>
+          <NButton color="info" style="border-radius: 15px ; height: 1.5rem">
+            View All
+          </NButton>
+        </div>
+        <h4 class="mx-8 mb-1 text-sm text-gray-400">
+          Name
+        </h4>
+        <div v-for="tutor in tutors" :key="tutor.id" class="blog-card-cont mx-7">
+          <div class="blog-card-cont-row">
+            <span>{{ tutor.name }}</span>
+            <NButton mode="outline" style="border-radius: 5px ; height: 1.5rem">
+              View
+            </NButton>
+          </div>
+        </div>
+      </div>
+
+      <!-- Staff -->
+      <div class="student-details admin-dash-bottom-row-card">
+        <div class="ongoing-classes-title flex justify-between">
+          <h3> Staff </h3>
+          <NButton color="info" style="border-radius: 15px ; height: 1.5rem">
+            View All
+          </NButton>
+        </div>
+        <h4 class="mx-8 mb-1 text-sm text-gray-400">
+          Name
+        </h4>
+        <div v-for="staff in staffs" :key="staff.id" class="blog-card-cont mx-7">
+          <div class="blog-card-cont-row">
+            <span>{{ staff.name }}</span>
+            <NButton mode="outline" style="border-radius: 5px ; height: 1.5rem">
+              View
+            </NButton>
+          </div>
+        </div>
+      </div>
+      <div class="staff-details admin-dash-bottom-row-card">
+        <div class="ongoing-classes-title flex justify-between">
+          <h3> Student </h3>
+          <NButton color="info" style="border-radius: 15px ; height: 1.5rem">
+            View All
+          </NButton>
+        </div>
+        <h4 class="mx-8 mb-1 text-sm text-gray-400">
+          Name
+        </h4>
+        <div v-for="student in students" :key="student.id" class="blog-card-cont mx-7">
+          <div class="blog-card-cont-row">
+            <span>{{ student.name }}</span>
+            <NButton mode="outline" style="border-radius: 5px ; height: 1.5rem">
+              View
+            </NButton>
+          </div>
+        </div>
+      </div>
+    </div>
+  </template>
 </template>
 
-
 <style lang="scss" scoped>
-.default-sidebar{
-  transition: all 300ms ease-in-out;
-  background-color: var(--bg-primary);
-  width: 225px;
-grid-column: 1/2;
-grid-row: 1/3;
-
-display: flex;
-flex-direction: column;
-align-items: center;
-
-img {
-  width: 200px;
-  height: 60px;
-  margin-top: 1.5rem;
-  
-}
-
-/* ul{
-    display: flex;
-    flex-direction: column;
-    
-  } */
-}
-
-
-
-.default-sidebar--close {
-  width: 100px;
-
-}
-
-
-.navigation-bar{
-  background-color: #f8f8f8;
-  height: 100%;
-
-}
-
-.default-header{
-  grid-column: 2/3;
-  grid-row: 1/2;
-  padding: 2rem;
-
-}
-
-.default-page-container{
-  padding: 0 2rem;
-}
-
-.default-layout{
-  overflow: hidden;
-  height: 100vh;
-  width: 100vw;
-  display: grid;
-  grid-template-columns: min-content 1fr;
-  grid-template-rows: 80px 1fr;
-  grid-column: 2/3;
-  grid-row: 2/3;
-}
-
-
-.profile-picture{
-  width: 50px;
-  height: 50px;
-  aspect-ratio: 1;
-  border-radius: 50%;
-}
-
-.continue-watch-video{
-  width: 320px;
-  height: 180px;
-  background-image: linear-gradient(to left, rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url(../assets/images/video-1.jpg);
-  background-repeat: no-repeat;
-  border-radius: 8px;
-  background-position: center;
-  background-size: cover;
-  margin-block: 1rem;
-  color: white;
-  padding: 1rem 2rem;
-  position: relative;
-
-  svg{
-    position: absolute;
-    top: 60%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-  }
-}
-
 .top-right-container{
   width: 250px;
   height: 250px;
@@ -339,8 +244,76 @@ img {
   border-radius: 8px;
 }
 
-/* .top-left-container{
-    // overflow-x: scroll;
-    // width: 900px;
-} */
+.admin-dash-top-row-card{
+  // background-color: #f2f2f2 ;
+    background-color: #ffffff;
+    box-shadow: 0 0.25rem 1rem rgba(0, 0, 0, 0.1);
+  height: 7rem;
+  border-radius: 15px;
+  // padding: 10px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  span{
+    font-size: 2.5rem;
+    font-weight: bold;
+    color:#5e5cba;
+  }
+
+  h3{
+    font-weight: 600;
+    margin-bottom: .5em;
+
+  }
+
+}
+
+.admin-dash-middle-row-card{
+  // background-color: #f2f2f2;
+  background-color: #ffffff;
+  box-shadow: 0 0.25rem 1rem rgba(0, 0, 0, 0.1);
+  height: 15rem;
+  border-radius: 15px;
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  // justify-content: center;
+  // align-items: center;
+
+  h3{
+    font-weight: 600;
+    margin-bottom: .5em;
+
+  }
+}
+
+.admin-dash-bottom-row-card{
+  // background-color:#f2f2f2;
+  background-color: #ffffff;
+  box-shadow: 0 0.25rem 1rem rgba(0, 0, 0, 0.1);
+  height: 20rem;
+  border-radius: 15px;
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  // justify-content: center;
+  // align-items: center;
+
+  h3{
+    font-weight: 600;
+    margin-bottom: .5em;
+
+  }
+
+}
+
+.blog-card-cont-row{
+  display: flex;
+  justify-content: space-between;
+  padding: 6px;
+  margin-bottom: 6px;
+  border-bottom: solid #c4c4c442;
+}
 </style>
