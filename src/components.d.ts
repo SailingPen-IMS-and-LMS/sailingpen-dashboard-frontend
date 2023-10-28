@@ -54,7 +54,7 @@ declare module 'vue' {
     MdiDeleteOutline: typeof import('~icons/mdi/delete-outline')['default']
     MdiEyeOutline: typeof import('~icons/mdi/eye-outline')['default']
     MdiHelpCircle: typeof import('~icons/mdi/help-circle')['default']
-    Myclass: typeof import('./components/MyClass.vue')['default']
+    Myclass: typeof import('./components/Myclass.vue')['default']
     MyClass: typeof import('./components/MyClass.vue')['default']
     PageHeading: typeof import('./components/common/PageHeading.vue')['default']
     PhChalkboardTeacher: typeof import('~icons/ph/chalkboard-teacher')['default']
