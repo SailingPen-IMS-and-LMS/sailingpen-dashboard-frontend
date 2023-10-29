@@ -6,8 +6,8 @@ import QuizLeaderboard from '~/components/QuizLeaderboard.vue'
 const activeTab = ref('Quizzes') // Set the default active tab
 
 const quizzes = [
-  { title: 'Quiz 1', topic: 'Math Fundamentals', questions: 10 },
-  { title: 'Quiz 2', topic: 'Algebra', questions: 15 },
+  { id: 1, title: 'Quiz 1', topic: 'Math Fundamentals', questions: 10 },
+  { id: 2, title: 'Quiz 2', topic: 'Algebra', questions: 15 },
 
   // Add more quiz objects as needed
 ]
@@ -25,17 +25,19 @@ const quizzes = [
     <div class="content-wrapper">
       <div class="left-section">
         <div v-for="(quiz, index) in quizzes" :key="index" class="quiz-card">
-          <div class="quiz-card-header">
-            {{ quiz.title }}
-          </div>
-          <div class="quiz-card-content">
-            <div class="quiz-topic">
-              Topic: {{ quiz.topic }}
+          <RouterLink :to="'/tutor-dashboard/my-classes/class_123_D45/quizzes/' + quiz.id">
+            <div class="quiz-card-header">
+              {{ quiz.title }}
             </div>
-            <div class="quiz-questions">
-              Questions: {{ quiz.questions }}
+            <div class="quiz-card-content">
+              <div class="quiz-topic">
+                Topic: {{ quiz.topic }}
+              </div>
+              <div class="quiz-questions">
+                Questions: {{ quiz.questions }}
+              </div>
             </div>
-          </div>
+          </RouterLink>
         </div>
       </div>
       <div class="right-section">
