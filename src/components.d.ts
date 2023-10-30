@@ -25,7 +25,6 @@ declare module 'vue' {
     DefaultSidebar: typeof import('./components/layout-components/DefaultSidebar.vue')['default']
     Fa6SolidUsersLine: typeof import('~icons/fa6-solid/users-line')['default']
     FileThumbnail: typeof import('./components/common/FileThumbnail.vue')['default']
-    FileTumbnail: typeof import('./components/common/FileTumbnail.vue')['default']
     FluentDocumentPdf24Regular: typeof import('~icons/fluent/document-pdf24-regular')['default']
     FluentTasksApp28Regular: typeof import('~icons/fluent/tasks-app28-regular')['default']
     FolderThumbnail: typeof import('./components/common/FolderThumbnail.vue')['default']
@@ -41,7 +40,6 @@ declare module 'vue' {
     IcSharpAssignment: typeof import('~icons/ic/sharp-assignment')['default']
     IcSharpMenuBook: typeof import('~icons/ic/sharp-menu-book')['default']
     MaterialSymbolsAndroidCameraOutline: typeof import('~icons/material-symbols/android-camera-outline')['default']
-    MaterialSymbolsAttachFileAddRounded: typeof import('~icons/material-symbols/attach-file-add-rounded')['default']
     MaterialSymbolsCheckCircleOutlineRounded: typeof import('~icons/material-symbols/check-circle-outline-rounded')['default']
     MaterialSymbolsLogin: typeof import('~icons/material-symbols/login')['default']
     MaterialSymbolsNotifications: typeof import('~icons/material-symbols/notifications')['default']
@@ -54,7 +52,6 @@ declare module 'vue' {
     MdiDeleteOutline: typeof import('~icons/mdi/delete-outline')['default']
     MdiEyeOutline: typeof import('~icons/mdi/eye-outline')['default']
     MdiHelpCircle: typeof import('~icons/mdi/help-circle')['default']
-    Myclass: typeof import('./components/MyClass.vue')['default']
     MyClass: typeof import('./components/MyClass.vue')['default']
     PageHeading: typeof import('./components/common/PageHeading.vue')['default']
     PhChalkboardTeacher: typeof import('~icons/ph/chalkboard-teacher')['default']
@@ -78,5 +75,6 @@ declare module 'vue' {
     TabsWrapper: typeof import('./components/TabsWrapper.vue')['default']
     UilAngleDown: typeof import('~icons/uil/angle-down')['default']
     VideoThumbnail: typeof import('./components/VideoThumbnail.vue')['default']
+    WeeklyResourceCard: typeof import('./components/WeeklyResourceCard.vue')['default']
   }
 }
