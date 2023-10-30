@@ -1,3 +1,4 @@
+import { format } from 'date-fns'
 import type { DayName } from '~/types'
 
 const dayMap: Record<DayName, number> = {
@@ -10,17 +11,17 @@ const dayMap: Record<DayName, number> = {
   Saturday: 6,
 }
 
-export function getDaysInCurrentMonth(dayName: DayName): Date[] {
+export function getDaysInCurrentMonth(dayName: DayName) {
   const today = new Date()
   const currentMonth = today.getMonth()
   const currentYear = today.getFullYear()
-  const days = []
+  const days: string[] = []
 
   for (let day = 1; day <= 31; day++) {
     const date = new Date(currentYear, currentMonth, day)
     if (date.getMonth() === currentMonth && date.getDay() === dayMap[dayName]) {
       // Day 6 corresponds to Saturday (0 = Sunday, 1 = Monday, ..., 6 = Saturday)
-      days.push(date)
+      days.push(format(date, 'yyyy-MM-dd'))
     }
   }
 
