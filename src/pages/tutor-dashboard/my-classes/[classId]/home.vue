@@ -1,11 +1,11 @@
 <script setup lang="ts">
 import { ref } from 'vue'
-import { NButton } from '@nethren-ui/vue'
 import { storeToRefs } from 'pinia'
 import { useTutionClassesStore } from '~/stores'
 
-import type { ResourceInfoCard } from '~/types'
-import ResourceCard from '~/components/ResourceCard.vue'
+import type { WeeklySessions } from '~/types'
+import { ResourceType } from '~/types'
+import WeeklyResourceCard from '~/components/WeeklyResourceCard.vue'
 import { getDaysInCurrentMonth } from '~/utils/date-utils'
 
 // import { NInput } from '@nethren-ui/vue';
@@ -47,68 +47,104 @@ onMounted(() => {
   endDate.value = today.toISOString().slice(0, 10)
 })
 
-const resourceInfoCards: ResourceInfoCard[] = [
+const weeklySessions: WeeklySessions = [
   {
-    id: 1,
-    title: 'Introduction to Permutations and Combinations Recording ',
-    image: '/resource-vid-thumb.jpg',
+    id: 'ws-1',
+    video_url: '/resource-vid-thumb.jpg',
+    video_thumbnail_url: '/resource-vid-thumb.jpg',
     description: 'Introduction to Permutations and Combinations Recording" provides a concise overview of the fundamental concepts of permutations and combinations. This recording offers a beginner-friendly introduction to these mathematical principles, explaining their significance and applications in various fields',
-    date: '2023-3-10',
+    date: '2023-10-07',
     attachments: [
       {
         id: 1,
-        link: '/path/to/attachment-1.pdf',
-        text: 'Attachment 1',
+        url: '/path/to/attachment-1.pdf',
+        name: 'Attachment 1',
+        thumbnail_url: '/path/to/attachment-1.pdf',
+        type: ResourceType.DOCUMENT,
       },
       {
         id: 2,
-        link: '/path/to/attachment-2.pdf',
-        text: 'Attachment 2',
+        url: '/path/to/attachment-2.pdf',
+        name: 'Attachment 2',
+        thumbnail_url: '/path/to/attachment-1.pdf',
+        type: ResourceType.DOCUMENT,
       },
     ],
   },
   {
-    id: 2,
-    title: 'Introduction to Permutations and Combinations Recording ',
-    image: '/resource-vid-thumb.jpg',
+    id: 'ws-2',
+    video_url: '/resource-vid-thumb.jpg',
+    video_thumbnail_url: '/resource-vid-thumb.jpg',
     description: 'Introduction to Permutations and Combinations Recording" provides a concise overview of the fundamental concepts of permutations and combinations. This recording offers a beginner-friendly introduction to these mathematical principles, explaining their significance and applications in various fields',
-    date: '2023-3-10',
+    date: '2023-10-14',
     attachments: [
       {
         id: 1,
-        link: '/path/to/attachment-1.pdf',
-        text: 'Attachment 1',
+        url: '/path/to/attachment-1.pdf',
+        name: 'Attachment 1',
+        thumbnail_url: '/path/to/attachment-1.pdf',
+        type: ResourceType.DOCUMENT,
       },
       {
         id: 2,
-        link: '/path/to/attachment-2.pdf',
-        text: 'Attachment 2',
+        url: '/path/to/attachment-2.pdf',
+        name: 'Attachment 2',
+        thumbnail_url: '/path/to/attachment-1.pdf',
+        type: ResourceType.DOCUMENT,
       },
     ],
   },
-
-  {
-    id: 3,
-
-    title: 'Introduction to Permutations and Combinations Recording ',
-    image: '/resource-vid-thumb.jpg',
-    description: 'Introduction to Permutations and Combinations Recording" provides a concise overview of the fundamental concepts of permutations and combinations. This recording offers a beginner-friendly introduction to these mathematical principles, explaining their significance and applications in various fields',
-    date: '2023-3-10',
-    attachments: [
-      {
-        id: 1,
-        link: '/path/to/attachment-1.pdf',
-        text: 'Attachment 1',
-      },
-      {
-        id: 2,
-        link: '/path/to/attachment-2.pdf',
-        text: 'Attachment 2',
-      },
-    ],
-  },
-
+  // {
+  //   id: 'ws-3',
+  //   video_url: '/resource-vid-thumb.jpg',
+  //   video_thumbnail_url: '/resource-vid-thumb.jpg',
+  //   description: 'Introduction to Permutations and Combinations Recording" provides a concise overview of the fundamental concepts of permutations and combinations. This recording offers a beginner-friendly introduction to these mathematical principles, explaining their significance and applications in various fields',
+  //   date: '2023-10-21',
+  //   attachments: [
+  //     {
+  //       id: 1,
+  //       url: '/path/to/attachment-1.pdf',
+  //       name: 'Attachment 1',
+  //       thumbnail_url: '/path/to/attachment-1.pdf',
+  //       type: ResourceType.DOCUMENT,
+  //     },
+  //     {
+  //       id: 2,
+  //       url: '/path/to/attachment-2.pdf',
+  //       name: 'Attachment 2',
+  //       thumbnail_url: '/path/to/attachment-1.pdf',
+  //       type: ResourceType.DOCUMENT,
+  //     },
+  //   ],
+  // },
+  // {
+  //   id: 'ws-4',
+  //   video_url: '/resource-vid-thumb.jpg',
+  //   video_thumbnail_url: '/resource-vid-thumb.jpg',
+  //   description: 'Introduction to Permutations and Combinations Recording" provides a concise overview of the fundamental concepts of permutations and combinations. This recording offers a beginner-friendly introduction to these mathematical principles, explaining their significance and applications in various fields',
+  //   date: '2023-10-28',
+  //   attachments: [
+  //     {
+  //       id: 1,
+  //       url: '/path/to/attachment-1.pdf',
+  //       name: 'Attachment 1',
+  //       thumbnail_url: '/path/to/attachment-1.pdf',
+  //       type: ResourceType.DOCUMENT,
+  //     },
+  //     {
+  //       id: 2,
+  //       url: '/path/to/attachment-2.pdf',
+  //       name: 'Attachment 2',
+  //       thumbnail_url: '/path/to/attachment-1.pdf',
+  //       type: ResourceType.DOCUMENT,
+  //     },
+  //   ],
+  // },
 ]
+
+function getWeeklySession(date: string) {
+  return weeklySessions.find(ws => ws.date === date) || false
+}
 </script>
 
 <template>
@@ -132,25 +168,21 @@ const resourceInfoCards: ResourceInfoCard[] = [
         </div>
       </div>
 
-      <RouterLink to="/tutor-dashboard/library?mode=resource-upload">
-        <NButton>Upload Weekly Resources</NButton>
-      </RouterLink>
+      <!--      <RouterLink to="/tutor-dashboard/library?mode=resource-upload"> -->
+      <!--        <NButton>Upload Weekly Resources</NButton> -->
+      <!--      </RouterLink> -->
     </div>
 
-    <div class="resource-cards">
-      <p v-if="tutionClass">
-        {{
-          tutionClass }}
-      </p>
-      <ResourceCard
-        v-for="resourceInfoCard in resourceInfoCards"
-        :key="resourceInfoCard.id"
-        :details="resourceInfoCard"
+    <div v-if="tutionClass" class="mt-8 flex flex-col gap-6">
+      <WeeklyResourceCard
+        v-for="day in days"
+        :key="day"
+        :date="day"
+        :details="getWeeklySession(day)"
+        :class-id="route.params.classId as string"
       />
     </div>
 
     <!-- resource cards -->
   </div>
 </template>
-
-<style lang="scss" scoped></style>
