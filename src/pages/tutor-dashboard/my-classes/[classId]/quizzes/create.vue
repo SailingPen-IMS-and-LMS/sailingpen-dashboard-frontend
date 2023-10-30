@@ -87,6 +87,11 @@ function submitQuiz() {
         </p>
       </div>
 
+      <div class="pb-4 border-b-1">
+            Optional image: 
+            <input type="file" />
+         </div>
+
       <div class="answer-split">
         <div>&nbsp;</div>
         <div class="right">
