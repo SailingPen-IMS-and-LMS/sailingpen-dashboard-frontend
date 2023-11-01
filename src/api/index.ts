@@ -3,6 +3,7 @@ import { users } from './users'
 import { tutionClasses } from './tution-classes'
 import { subjects } from './subjects'
 import { library } from './library'
+import { lessonPacks } from './lesson-packs'
 
 export const api = {
   auth,
@@ -10,4 +11,5 @@ export const api = {
   tutionClasses,
   subjects,
   library,
+  lessonPacks,
 }

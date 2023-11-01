@@ -4,6 +4,7 @@ import { enrollByStudent } from './enroll-by-student'
 import { get } from './get'
 import { getMyClasses } from './get-my-classes'
 import { create } from './create'
+import { weeklySessions } from './weekly-sessions'
 
 export const tutionClasses = {
   enrolled,
@@ -12,4 +13,5 @@ export const tutionClasses = {
   get,
   getMyClasses,
   create,
+  weeklySessions,
 }
