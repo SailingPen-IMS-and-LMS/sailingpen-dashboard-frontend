@@ -7,19 +7,19 @@ import { api } from '~/api'
 const subjects = ref([
   {
     label: 'Combined Mathematics',
-    subjectId: 'subject_66a457ef-0f27-44ff-8d58-46ea784dab77',
+    subjectId: 'subject_762cf227-c280-45f8-baec-0380953d7a73',
   },
   {
     label: 'Physics',
-    subjectId: 'subject_a95a37b1-8854-4e72-a82c-5ddcc34adffe',
+    subjectId: 'subject_fe9748c4-e409-440d-9324-d026aa07aead',
   },
   {
     label: 'Chemistry',
-    subjectId: 'subject_9cbab584-b9d4-4bcb-93be-23cf21e809c4',
+    subjectId: 'subject_d95be18b-e4a3-4f8a-b9a7-b94376e4ba15',
   },
   {
     label: 'Biology',
-    subjectId: 'subject_1733216d-b4c0-4550-ab89-450cf5e7da9f',
+    subjectId: 'subject_272a4e7c-bc6c-4dab-ad67-3e1fd755f536',
   },
 ])
 

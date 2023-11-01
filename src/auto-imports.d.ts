@@ -274,6 +274,8 @@ declare global {
   const useWebSocket: typeof import('@vueuse/core')['useWebSocket']
   const useWebWorker: typeof import('@vueuse/core')['useWebWorker']
   const useWebWorkerFn: typeof import('@vueuse/core')['useWebWorkerFn']
+  const useWeeklySessionCreation: typeof import('./composables/use-weekly-session-creation')['useWeeklySessionCreation']
+  const useWeeklySessionsCreationStore: typeof import('./stores/weekly-sessions-creation.store')['useWeeklySessionsCreationStore']
   const useWindowFocus: typeof import('@vueuse/core')['useWindowFocus']
   const useWindowScroll: typeof import('@vueuse/core')['useWindowScroll']
   const useWindowSize: typeof import('@vueuse/core')['useWindowSize']
@@ -297,7 +299,7 @@ declare global {
 // for type re-export
 declare global {
   // @ts-ignore
-  export type { Component, ComponentPublicInstance, ComputedRef, InjectionKey, PropType, Ref, VNode } from 'vue'
+  export type { Component, ComponentPublicInstance, ComputedRef, ExtractDefaultPropTypes, ExtractPropTypes, ExtractPublicPropTypes, InjectionKey, PropType, Ref, VNode, WritableComputedRef } from 'vue'
 }
 // for vue template auto import
 import { UnwrapRef } from 'vue'
@@ -570,6 +572,8 @@ declare module 'vue' {
     readonly useWebSocket: UnwrapRef<typeof import('@vueuse/core')['useWebSocket']>
     readonly useWebWorker: UnwrapRef<typeof import('@vueuse/core')['useWebWorker']>
     readonly useWebWorkerFn: UnwrapRef<typeof import('@vueuse/core')['useWebWorkerFn']>
+    readonly useWeeklySessionCreation: UnwrapRef<typeof import('./composables/use-weekly-session-creation')['useWeeklySessionCreation']>
+    readonly useWeeklySessionsCreationStore: UnwrapRef<typeof import('./stores/weekly-sessions-creation.store')['useWeeklySessionsCreationStore']>
     readonly useWindowFocus: UnwrapRef<typeof import('@vueuse/core')['useWindowFocus']>
     readonly useWindowScroll: UnwrapRef<typeof import('@vueuse/core')['useWindowScroll']>
     readonly useWindowSize: UnwrapRef<typeof import('@vueuse/core')['useWindowSize']>
@@ -860,6 +864,8 @@ declare module '@vue/runtime-core' {
     readonly useWebSocket: UnwrapRef<typeof import('@vueuse/core')['useWebSocket']>
     readonly useWebWorker: UnwrapRef<typeof import('@vueuse/core')['useWebWorker']>
     readonly useWebWorkerFn: UnwrapRef<typeof import('@vueuse/core')['useWebWorkerFn']>
+    readonly useWeeklySessionCreation: UnwrapRef<typeof import('./composables/use-weekly-session-creation')['useWeeklySessionCreation']>
+    readonly useWeeklySessionsCreationStore: UnwrapRef<typeof import('./stores/weekly-sessions-creation.store')['useWeeklySessionsCreationStore']>
     readonly useWindowFocus: UnwrapRef<typeof import('@vueuse/core')['useWindowFocus']>
     readonly useWindowScroll: UnwrapRef<typeof import('@vueuse/core')['useWindowScroll']>
     readonly useWindowSize: UnwrapRef<typeof import('@vueuse/core')['useWindowSize']>

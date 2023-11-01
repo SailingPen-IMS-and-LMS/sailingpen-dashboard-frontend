@@ -25,7 +25,6 @@ declare module 'vue' {
     DefaultSidebar: typeof import('./components/layout-components/DefaultSidebar.vue')['default']
     Fa6SolidUsersLine: typeof import('~icons/fa6-solid/users-line')['default']
     FileThumbnail: typeof import('./components/common/FileThumbnail.vue')['default']
-    FileTumbnail: typeof import('./components/common/FileTumbnail.vue')['default']
     FlashCard: typeof import('./components/flashCard.vue')['default']
     FluentDocumentPdf24Regular: typeof import('~icons/fluent/document-pdf24-regular')['default']
     FluentTasksApp28Regular: typeof import('~icons/fluent/tasks-app28-regular')['default']
@@ -42,7 +41,6 @@ declare module 'vue' {
     IcSharpAssignment: typeof import('~icons/ic/sharp-assignment')['default']
     IcSharpMenuBook: typeof import('~icons/ic/sharp-menu-book')['default']
     MaterialSymbolsAndroidCameraOutline: typeof import('~icons/material-symbols/android-camera-outline')['default']
-    MaterialSymbolsAttachFileAddRounded: typeof import('~icons/material-symbols/attach-file-add-rounded')['default']
     MaterialSymbolsCheckCircleOutlineRounded: typeof import('~icons/material-symbols/check-circle-outline-rounded')['default']
     MaterialSymbolsLogin: typeof import('~icons/material-symbols/login')['default']
     MaterialSymbolsNotifications: typeof import('~icons/material-symbols/notifications')['default']
@@ -80,5 +78,6 @@ declare module 'vue' {
     TabsWrapper: typeof import('./components/TabsWrapper.vue')['default']
     UilAngleDown: typeof import('~icons/uil/angle-down')['default']
     VideoThumbnail: typeof import('./components/VideoThumbnail.vue')['default']
+    WeeklyResourceCard: typeof import('./components/WeeklyResourceCard.vue')['default']
   }
 }
