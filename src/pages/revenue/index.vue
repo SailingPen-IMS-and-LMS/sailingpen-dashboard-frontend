@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { NButton } from '@nethren-ui/vue'
 import TotalPayments from '../../components/charts/TotalPayments.vue'
+import PaymentInflow from '~/components/charts/PaymentInflow.vue';
 
 const classes = [
   {
@@ -118,16 +119,18 @@ const tutors = [
 
     <div class="admin-rev-btm grid grid-cols-2 mb-15 gap-5">
       <div class="income-summery admin-rev-btm--card">
-        <h3>Income Summery</h3>
-        <div class="flex justify-center">
-          <img src="../../assets/images/income-sum.png" alt="" class=" ">
+        <h3>Income Summary</h3>
+        <div class="flex justify-center min-h-0">
+          <IncomeSummary />
+          <!-- <img src="../../assets/images/income-sum.png" alt="" class=" "> -->
         </div>
       </div>
 
       <div class="student-participation admin-rev-btm--card">
         <h3>Payment Inflow</h3>
-        <div class="flex justify-center">
-          <img src="../..//assets/images/income-flow.png" alt="" class=" " style="height: 80%; width: 80%;">
+        <div class="flex justify-center min-h-0">
+          <PaymentInflow />
+          <!-- <img src="../..//assets/images/income-flow.png" alt="" class=" " style="height: 80%; width: 80%;"> -->
         </div>
       </div>
     </div>
@@ -171,6 +174,8 @@ const tutors = [
   height: 18rem;
   border-radius: 15px;
   padding: 1rem;
+  display: flex;
+  flex-direction: column;
 
 }
 
