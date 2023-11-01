@@ -2,6 +2,7 @@
 import { ref } from 'vue'
 import { NButton } from '@nethren-ui/vue'
 import QuizLeaderboard from '~/components/QuizLeaderboard.vue'
+import { useRoute } from 'vue-router'
 
 const activeTab = ref('Quizzes') // Set the default active tab
 
@@ -11,13 +12,18 @@ const quizzes = [
 
   // Add more quiz objects as needed
 ]
+
+const route = useRoute()
+const params = route.params
+const classId = params.classId as string
+
 </script>
 
 <template>
   <div v-if="activeTab === 'Quizzes'" class="quizzes-tab">
     <div class="quizzes-header">
       <NButton mode="text" class="add-quiz-button">
-        <RouterLink to="/tutor-dashboard/my-classes/class_123_D45/quizzes/create">
+        <RouterLink :to="`/tutor-dashboard/my-classes/${classId}/quizzes/create`">
           + Create new quiz
         </RouterLink>
       </NButton>
@@ -25,7 +31,7 @@ const quizzes = [
     <div class="content-wrapper">
       <div class="left-section">
         <div v-for="(quiz, index) in quizzes" :key="index" class="quiz-card">
-          <RouterLink :to="'/tutor-dashboard/my-classes/class_123_D45/quizzes/' + quiz.id">
+          <RouterLink :to="`/tutor-dashboard/my-classes/${classId}/quizzes/${quiz.id}`">
             <div class="quiz-card-header">
               {{ quiz.title }}
             </div>
