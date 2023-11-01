@@ -2,6 +2,7 @@
 import { NButton } from '@nethren-ui/vue'
 import { storeToRefs } from 'pinia'
 import { useAuthStore } from '~/stores'
+import Participation from '~/components/charts/Participation.vue'
 
 const authStore = useAuthStore()
 const { userType } = storeToRefs(authStore)
@@ -128,8 +129,8 @@ const students = [
             View All
           </NButton>
         </div>
-        <div class="grid mt-2.5 justify-items-center">
-          <img src="../../src/assets/images/class-part.png" alt="" class="h-8/9">
+        <div class="grid mt-2.5 justify-items-center min-h-0">
+          <Participation />
         </div>
       </div>
 

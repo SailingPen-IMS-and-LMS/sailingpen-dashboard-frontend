@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { NButton } from '@nethren-ui/vue'
+import TotalPayments from '../../components/charts/TotalPayments.vue'
 
 const classes = [
   {
@@ -108,8 +109,8 @@ const tutors = [
         </div>
         <div class="online-physical-payment class-top-right--card col-span-2">
           <h3>Total Payments</h3>
-          <div class="flex justify-center">
-            <img src="../../assets/images/pie.png" alt="" class=" " style="height: 90%; width: 60%;">
+          <div class="flex justify-center min-h-0">
+            <TotalPayments />
           </div>
         </div>
       </div>
