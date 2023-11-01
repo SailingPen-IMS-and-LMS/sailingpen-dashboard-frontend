@@ -3,10 +3,10 @@ import { ref } from 'vue'
 import { storeToRefs } from 'pinia'
 import { useTutionClassesStore } from '~/stores'
 
-import type { WeeklySessions } from '~/types'
-import { ResourceType } from '~/types'
+import type { ClassDetailedWeeklySessions } from '~/types'
 import WeeklyResourceCard from '~/components/WeeklyResourceCard.vue'
 import { getDaysInCurrentMonth } from '~/utils/date-utils'
+import { api } from '~/api'
 
 // import { NInput } from '@nethren-ui/vue';
 
@@ -37,113 +37,30 @@ console.log(days.value)
 const startDate = ref('')
 const endDate = ref('')
 
+const weeklySessions = ref<ClassDetailedWeeklySessions>([])
+
+async function loadWeeklyResources() {
+  const result = await api.tutionClasses.weeklySessions.resources.getCurrentMonthWeeklyResources(route.params.classId as string)
+  if (result)
+    weeklySessions.value = result
+  else
+    alert('Something went wrong, please try again later or contact support')
+}
+
 // set dates initially
-onMounted(() => {
+onMounted(async () => {
   const today = new Date()
   const sevenDaysAgo = new Date()
   sevenDaysAgo.setDate(today.getDate() - 7)
 
   startDate.value = sevenDaysAgo.toISOString().slice(0, 10)
   endDate.value = today.toISOString().slice(0, 10)
+
+  await loadWeeklyResources()
 })
 
-const weeklySessions: WeeklySessions = [
-  {
-    id: 'ws-1',
-    video_url: '/resource-vid-thumb.jpg',
-    video_thumbnail_url: '/resource-vid-thumb.jpg',
-    description: 'Introduction to Permutations and Combinations Recording" provides a concise overview of the fundamental concepts of permutations and combinations. This recording offers a beginner-friendly introduction to these mathematical principles, explaining their significance and applications in various fields',
-    date: '2023-10-07',
-    attachments: [
-      {
-        id: 1,
-        url: '/path/to/attachment-1.pdf',
-        name: 'Attachment 1',
-        thumbnail_url: '/path/to/attachment-1.pdf',
-        type: ResourceType.DOCUMENT,
-      },
-      {
-        id: 2,
-        url: '/path/to/attachment-2.pdf',
-        name: 'Attachment 2',
-        thumbnail_url: '/path/to/attachment-1.pdf',
-        type: ResourceType.DOCUMENT,
-      },
-    ],
-  },
-  {
-    id: 'ws-2',
-    video_url: '/resource-vid-thumb.jpg',
-    video_thumbnail_url: '/resource-vid-thumb.jpg',
-    description: 'Introduction to Permutations and Combinations Recording" provides a concise overview of the fundamental concepts of permutations and combinations. This recording offers a beginner-friendly introduction to these mathematical principles, explaining their significance and applications in various fields',
-    date: '2023-10-14',
-    attachments: [
-      {
-        id: 1,
-        url: '/path/to/attachment-1.pdf',
-        name: 'Attachment 1',
-        thumbnail_url: '/path/to/attachment-1.pdf',
-        type: ResourceType.DOCUMENT,
-      },
-      {
-        id: 2,
-        url: '/path/to/attachment-2.pdf',
-        name: 'Attachment 2',
-        thumbnail_url: '/path/to/attachment-1.pdf',
-        type: ResourceType.DOCUMENT,
-      },
-    ],
-  },
-  // {
-  //   id: 'ws-3',
-  //   video_url: '/resource-vid-thumb.jpg',
-  //   video_thumbnail_url: '/resource-vid-thumb.jpg',
-  //   description: 'Introduction to Permutations and Combinations Recording" provides a concise overview of the fundamental concepts of permutations and combinations. This recording offers a beginner-friendly introduction to these mathematical principles, explaining their significance and applications in various fields',
-  //   date: '2023-10-21',
-  //   attachments: [
-  //     {
-  //       id: 1,
-  //       url: '/path/to/attachment-1.pdf',
-  //       name: 'Attachment 1',
-  //       thumbnail_url: '/path/to/attachment-1.pdf',
-  //       type: ResourceType.DOCUMENT,
-  //     },
-  //     {
-  //       id: 2,
-  //       url: '/path/to/attachment-2.pdf',
-  //       name: 'Attachment 2',
-  //       thumbnail_url: '/path/to/attachment-1.pdf',
-  //       type: ResourceType.DOCUMENT,
-  //     },
-  //   ],
-  // },
-  // {
-  //   id: 'ws-4',
-  //   video_url: '/resource-vid-thumb.jpg',
-  //   video_thumbnail_url: '/resource-vid-thumb.jpg',
-  //   description: 'Introduction to Permutations and Combinations Recording" provides a concise overview of the fundamental concepts of permutations and combinations. This recording offers a beginner-friendly introduction to these mathematical principles, explaining their significance and applications in various fields',
-  //   date: '2023-10-28',
-  //   attachments: [
-  //     {
-  //       id: 1,
-  //       url: '/path/to/attachment-1.pdf',
-  //       name: 'Attachment 1',
-  //       thumbnail_url: '/path/to/attachment-1.pdf',
-  //       type: ResourceType.DOCUMENT,
-  //     },
-  //     {
-  //       id: 2,
-  //       url: '/path/to/attachment-2.pdf',
-  //       name: 'Attachment 2',
-  //       thumbnail_url: '/path/to/attachment-1.pdf',
-  //       type: ResourceType.DOCUMENT,
-  //     },
-  //   ],
-  // },
-]
-
 function getWeeklySession(date: string) {
-  return weeklySessions.find(ws => ws.date === date) || false
+  return weeklySessions.value.find(ws => ws.date === date) || false
 }
 </script>
 
@@ -180,6 +97,7 @@ function getWeeklySession(date: string) {
         :date="day"
         :details="getWeeklySession(day)"
         :class-id="route.params.classId as string"
+        @added-weekly-resource="loadWeeklyResources"
       />
     </div>
 
