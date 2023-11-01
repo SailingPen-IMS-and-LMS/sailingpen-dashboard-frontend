@@ -67,6 +67,7 @@ async function dashboardSetup(refreshResponse: 'admin' | 'tutor' | 'adminassista
       await Promise.all([
         setProfile('tutor'),
         setTutionClassesForLoggedInTutor(),
+        router.replace('/tutor-dashboard/my-classes'),
       ])
       break
 
