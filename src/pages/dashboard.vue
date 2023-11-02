@@ -1,5 +1,6 @@
 <script setup lag="ts">
 import { NButton } from '@nethren-ui/vue'
+import { Bar } from 'vue-chartjs'
 
 const blogs = [
   {
@@ -87,6 +88,8 @@ const students = [
   }
 
 ]
+
+
 
 </script>
 
