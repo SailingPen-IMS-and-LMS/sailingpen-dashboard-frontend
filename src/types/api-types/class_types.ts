@@ -30,6 +30,7 @@ export interface TutionClassDetails {
   class_id: string
   class_name: string
   class_description: string
+  banner_url: string | null
   schedule: null | {
     day: DayName
     time: string

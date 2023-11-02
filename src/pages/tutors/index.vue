@@ -84,9 +84,9 @@ onMounted(() => {
           </DataTableData>
           <DataTableData>
             <div class="flex items-center justify-end gap-2">
-              <NButton style="height:2rem !important;" mode="outline" color="info" @click="viewTutorModal?.openModal()">
+              <!-- <NButton style="height:2rem !important;" mode="outline" color="info" @click="viewTutorModal?.openModal()">
                 <mdi-eye-outline />
-              </NButton>
+              </NButton> -->
               <RouterLink
                 :to="{
                   path: `/tutors/${tutor.tutor_id}/edit`,

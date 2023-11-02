@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { toRefs } from 'vue'
+import classPlaceholderUrl from '../assets/images/placeholders/class-placeholder.jpg'
 import type { TutionClassDetails } from '~/types'
 
 const props = defineProps<{
@@ -11,16 +12,16 @@ const { classDetails } = toRefs(props)
 
 <template>
   <RouterLink
-    class="continue-watch-video min-h-[20%] flex flex-col bg-black/50"
+    class="continue-watch-video min-h-[20%] flex flex-col"
+    :style="{
+      backgroundImage: classDetails.banner_url ? `url(${classDetails.banner_url})` : `url(${classPlaceholderUrl})`,
+    }"
     :to="`/tutor-dashboard/my-classes/${classDetails.class_id}/home`"
   >
     <div class="overlay-card flex flex-row items-center">
       <p class="mx-px py-2.5 pl-3.5 pr-2">
         {{ classDetails.class_name }}
       </p>
-      <div class="flex items-center">
-        <CharmChevronsRight class="my--1 ml-6" />
-      </div>
     </div>
   </RouterLink>
 </template>
@@ -51,7 +52,7 @@ const { classDetails } = toRefs(props)
   position: absolute;
   width: 100%; /* 1/4 width of main card */
   height: 25%; /* 1/4 height of main card */
-  background-color: rgba(255, 255, 255, 0.5); /* Transparent white */
+  background-color: rgba(0, 0, 0, 0.5); /* Transparent white */
   border-radius: 5px;
   top: 75%;
   left: 50%;
