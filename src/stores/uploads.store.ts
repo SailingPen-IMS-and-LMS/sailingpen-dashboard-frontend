@@ -26,8 +26,12 @@ export const useUploadsStore = defineStore('uploads', {
 
     setProgress(name: string, progress: number) {
       const upload = this.uploads.find(u => u.name === name)
-      if (upload)
+      if (upload) {
         upload.progress = progress
+        if(progress >= 100 && upload.type == 'video') {
+          upload.progress = progress / 2
+        }
+      }
     },
   },
 })

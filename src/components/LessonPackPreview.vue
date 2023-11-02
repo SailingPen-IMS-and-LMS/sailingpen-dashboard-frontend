@@ -1,17 +1,23 @@
 <script setup lang="ts">
 import type { LessonPackBrief } from '~/types'
+import pvu from "../assets/images/placeholders/video-1.jpg"
 
 const props = defineProps<{
   lessonPack: LessonPackBrief
 }>()
 
 const { lessonPack } = toRefs(props)
+
+const shortDescription = computed(() => {
+  return lessonPack.value.description.length > 100 ? `${lessonPack.value.description.slice(0, 101)}...` : lessonPack.value.description
+})
+
 </script>
 
 <template>
   <RouterLink
     class="video-thumbnail flex flex-col gap-2" :style="{
-      backgroundImage: `linear-gradient(to left, rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), ${lessonPack.cover_image_url ? `url(${lessonPack.cover_image_url})` : 'url(../assets/images/placeholders/video-1.jpg)'}`,
+      backgroundImage: `linear-gradient(to left, rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), ${lessonPack.cover_image_url ? `url(${lessonPack.cover_image_url})` : `url(${pvu})`}`,
     }" :to="`/tutor-dashboard/lesson-packs/${lessonPack.id}`"
   >
     <h3 class="text-lg font-semibold">
@@ -19,7 +25,7 @@ const { lessonPack } = toRefs(props)
     </h3>
     <p>
       {{
-        lessonPack.description
+        shortDescription
       }}
     </p>
   </RouterLink>
@@ -33,7 +39,6 @@ const { lessonPack } = toRefs(props)
   border-radius: 8px;
   background-position: center;
   background-size: cover;
-  margin-block: 1rem;
   color: white;
   padding: 1rem 1.5rem;
   position: relative;

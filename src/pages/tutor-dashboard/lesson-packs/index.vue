@@ -130,7 +130,7 @@ onMounted(async () => {
           </NButton>
         </div>
 
-        <div class="grid grid-cols-4">
+        <div class="flex flex-wrap gap-16">
           <LessonPackPreview v-for="lessonPack in lessonPacks" :key="lessonPack.id" :lesson-pack="lessonPack" />
         </div>
       </div>

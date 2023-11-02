@@ -227,17 +227,32 @@ async function createFolder() {
         <span style="text-overflow: ellipsis; white-space: nowrap;overflow: hidden; width: 250px;">
           {{ name }}
         </span>
-        <CircularProgress
-          v-if="progress < 100" style="max-width: 16px;max-height: 16px;" fill-color="#4647D3"
+        <span :style="{animation: progress >= 100 && type === 'video' ? 'spin linear 1s infinite' : ''}">
+          <CircularProgress
+           :style="{'maxWidth': '16px','maxHeight': '16px'}" fill-color="#4647D3"
           :percent="progress"
+
         />
-        <material-symbols-check-circle-outline-rounded v-else class="text-[var(--n-color-success-400)]" />
+        </span>
+
+        <material-symbols-check-circle-outline-rounded v-if="progress >= 100 && type !== 'video'" class="text-[var(--n-color-success-400)]" />
       </li>
     </ul>
   </div>
 </template>
 
 <style lang="scss" scoped>
+
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+
+  100% {
+    transform: rotate(360deg);
+  }
+}
 .library-grid {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
