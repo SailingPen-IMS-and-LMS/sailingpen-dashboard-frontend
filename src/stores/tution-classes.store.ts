@@ -34,7 +34,7 @@ export const useTutionClassesStore = defineStore('tution-classes', {
 
     getClassName(classId: string) {
       return this.myTutionClasses.find(c => c.class_id === classId)?.class_name
-    }
+    },
   },
 })
 

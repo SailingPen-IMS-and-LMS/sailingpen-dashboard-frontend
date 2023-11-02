@@ -78,4 +78,9 @@ export interface CreateClassDto {
   monthly_fee: number
   subject_id: string
   tutor_id: string
+  day: DayName | ''
+  time: string
+  start_date: string
+  end_date: string
+  banner: File | null
 }
