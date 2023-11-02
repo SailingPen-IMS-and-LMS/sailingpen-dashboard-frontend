@@ -2,6 +2,7 @@
 import { storeToRefs } from 'pinia'
 import { useAuthStore, useSubjectsStore, useTutionClassesStore, useTutorsStore } from '~/stores'
 import { api } from '~/api'
+import ISvgSpinnersBlocksShuffle3 from '~icons/svg-spinners/blocks-shuffle-3'
 
 const router = useRouter()
 const authStore = useAuthStore()
@@ -76,7 +77,14 @@ async function dashboardSetup(refreshResponse: 'admin' | 'tutor' | 'adminassista
   }
 }
 
+// function sleep(ms: number) {
+//   return new Promise(resolve => setTimeout(resolve, ms))
+// }
+
+const loadingApp = ref(false)
 onMounted(async () => {
+  loadingApp.value = true
+  // await sleep(1000000)
   const refreshResponse = await api.auth.refreshDashboard()
   if (refreshResponse) {
     await dashboardSetup(refreshResponse)
@@ -88,14 +96,26 @@ onMounted(async () => {
   else {
     await router.replace('/auth/login')
   }
+  loadingApp.value = false
 })
 
 watch(userType, async (newUserType) => {
-  if (newUserType)
+  if (newUserType) {
+    loadingApp.value = true
     await dashboardSetup(newUserType)
+    loadingApp.value = false
+  }
 })
 </script>
 
 <template>
-  <RouterView />
+  <RouterView v-if="!loadingApp" />
+  <div v-else class="h-screen w-screen flex items-center justify-center">
+    <div class="flex flex-col items-center justify-center gap-6 text-[var(--n-color-primary-400)]">
+      <ISvgSpinnersBlocksShuffle3 class="text-[3.5rem]" />
+      <p class="text-center text-2xl">
+        Loading your dashboard...
+      </p>
+    </div>
+  </div>
 </template>

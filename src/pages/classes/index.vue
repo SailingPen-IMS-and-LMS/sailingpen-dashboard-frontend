@@ -8,6 +8,7 @@ import DataTableData from '~/components/common/table-components/DataTableData.vu
 import DataTableHeading from '~/components/common/table-components/DataTableHeading.vue'
 import DataTableRow from '~/components/common/table-components/DataTableRow.vue'
 import { useSubjectsStore, useTutionClassesStore, useTutorsStore } from '~/stores'
+import type { DayName } from '~/types'
 
 const tutionClassesStore = useTutionClassesStore()
 const { loadingTutionClasses, tutionClasses } = storeToRefs(tutionClassesStore)
@@ -15,6 +16,8 @@ const tutorsStore = useTutorsStore()
 const { tutors } = storeToRefs(tutorsStore)
 const subjectsStore = useSubjectsStore()
 const { subjects } = storeToRefs(subjectsStore)
+
+const dayNames: DayName[] = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday']
 
 const deleteTutorModal = ref<InstanceType<typeof NModal>>()
 
@@ -33,7 +36,21 @@ const newSubjectFormData = ref({
   monthly_fee: 0,
   subject_id: '',
   tutor_id: '',
+  day: '' as DayName | '',
+  time: '',
+  start_date: '',
+  end_date: '',
+  banner: null as File | null,
 })
+
+function onBannerInputChange(e: Event) {
+  // get the file from the event
+  const file = (e.target as HTMLInputElement).files?.[0]
+  if (file) {
+    console.log(file)
+    newSubjectFormData.value.banner = file
+  }
+}
 
 const submittingAdditionForm = ref(false)
 
@@ -44,7 +61,6 @@ async function onSubjectAddFormSubmit() {
       if (Object.prototype.hasOwnProperty.call(newSubjectFormData.value, key)) {
         const element = newSubjectFormData.value[key as keyof typeof newSubjectFormData.value]
         if (!element || element === '') {
-          // eslint-disable-next-line no-alert
           alert('Please enter all data')
           return
         }
@@ -140,49 +156,108 @@ async function onSubjectAddFormSubmit() {
         </DataTableRow>
       </template>
     </DataTable>
-    <NModal ref="addClassModal">
+    <NModal ref="addClassModal" :close-on-outside-click="false">
       <template #modal-header>
-        Add new class
+        <h3 class="text-lg font-semibold">
+          Add new class
+        </h3>
       </template>
       <template #modal-body>
-        <form class="w-[300px] flex flex-col gap-1" @submit.prevent="onSubjectAddFormSubmit">
-          <div class="n-input n-input--primary n--primary">
-            <label for="subject_id" class="n-input__label">Subject</label>
-            <select id="subject_id" v-model="newSubjectFormData.subject_id" name="subject_id" class="n-input__input">
-              <option v-for="subject in subjects" :key="subject.subject_id" :value="subject.subject_id">
-                {{
-                  subject.subject_name }}
-              </option>
-            </select>
+        <form class="w-[600px] flex flex-col gap-1" @submit.prevent="onSubjectAddFormSubmit">
+          <div class="flex items-center gap-4">
+            <div class="n-input n-input--primary n--primary w-full">
+              <label for="subject_id" class="n-input__label">Subject</label>
+              <select id="subject_id" v-model="newSubjectFormData.subject_id" name="subject_id" class="n-input__input">
+                <option v-for="subject in subjects" :key="subject.subject_id" :value="subject.subject_id">
+                  {{
+                    subject.subject_name }}
+                </option>
+              </select>
+            </div>
+            <div class="n-input n-input--primary n--primary w-full">
+              <label for="tutor_id" class="n-input__label">Tutor</label>
+              <select id="tutor_id" v-model="newSubjectFormData.tutor_id" name="tutor_id" class="n-input__input">
+                <option v-for="tutor in tutors" :key="tutor.tutor_id" :value="tutor.tutor_id">
+                  {{
+                    `${tutor.f_name} ${tutor.l_name}` }}
+                </option>
+              </select>
+            </div>
           </div>
-          <div class="n-input n-input--primary n--primary">
-            <label for="tutor_id" class="n-input__label">Tutor</label>
-            <select id="tutor_id" v-model="newSubjectFormData.tutor_id" name="tutor_id" class="n-input__input">
-              <option v-for="tutor in tutors" :key="tutor.tutor_id" :value="tutor.tutor_id">
-                {{
-                  `${tutor.f_name} ${tutor.l_name}` }}
-              </option>
-            </select>
+          <div class="flex items-center gap-4">
+            <NInput
+              id="class_name" v-model="newSubjectFormData.class_name" :wrapper-attrs="{
+                class: 'w-full',
+              }" label="Class Name" name="class_name"
+            />
+            <NInput
+              id="class_description"
+              v-model="newSubjectFormData.class_description" :wrapper-attrs="{
+                class: 'w-full',
+              }" label="Class Description"
+              name="class_description"
+            />
           </div>
-          <NInput id="class_name" v-model="newSubjectFormData.class_name" label="Class Name" name="class_name" />
-          <NInput
-            id="class_description" v-model="newSubjectFormData.class_description" label="Class Description"
-            name="class_description"
-          />
-          <NInput
-            id="admission_fee" v-model="newSubjectFormData.admission_fee" label="Admission Fee" name="admission_fee"
-            type="number"
-          />
-          <NInput
-            id="monthly_fee" v-model="newSubjectFormData.monthly_fee" label="Monthly Fee" name="monthly_fee"
-            type="number"
-          />
-          <div class="flex justify-center gap-4 p-4">
-            <NButton class="px-2 py-1" role="button" mode="text" color="danger" @click="addClassModal?.closeModal()">
+
+          <div class="flex items-center gap-4">
+            <NInput
+              id="admission_fee"
+              v-model="newSubjectFormData.admission_fee" :wrapper-attrs="{
+                class: 'w-full',
+              }" label="Admission Fee" name="admission_fee"
+              type="number"
+            />
+            <NInput
+              id="monthly_fee"
+              v-model="newSubjectFormData.monthly_fee" :wrapper-attrs="{
+                class: 'w-full',
+              }" label="Monthly Fee" name="monthly_fee"
+              type="number"
+            />
+          </div>
+
+          <div class="flex items-center gap-4">
+            <div class="n-input n-input--primary n--primary w-full">
+              <label for="day" class="n-input__label">Day</label>
+              <select id="day" v-model="newSubjectFormData.day" name="day" class="n-input__input">
+                <option v-for="dayName in dayNames" :key="dayName" :value="dayName" :selected="dayName === 'Monday'">
+                  {{
+                    dayName }}
+                </option>
+              </select>
+            </div>
+            <NInput
+              id="time"
+              v-model="newSubjectFormData.time" :wrapper-attrs="{
+                class: 'w-full',
+              }" label="Time" name="time"
+              type="time"
+            />
+          </div>
+
+          <div class="flex items-center gap-4">
+            <NInput
+              id="start_date"
+              v-model="newSubjectFormData.start_date" :wrapper-attrs="{
+                class: 'w-full',
+              }" label="Start date" name="start_date"
+              type="date"
+            />
+            <NInput
+              id="end_date"
+              v-model="newSubjectFormData.end_date" :wrapper-attrs="{
+                class: 'w-full',
+              }" label="End date" name="end_date"
+              type="date"
+            />
+          </div>
+          <NInput id="banner" required type="file" label="Banner image" name="banner" :wrapper-attrs="{ class: 'w-full' }" @change="onBannerInputChange" />
+          <div class="flex justify-end gap-4 p-4">
+            <NButton type="button" class="px-2 py-1" role="button" mode="text" color="danger" @click="addClassModal?.closeModal()">
               Cancel
             </NButton>
-            <NButton class="px-2 py-1" color="primary" :is-loading="submittingAdditionForm" loading-text="Submitting">
-              Add
+            <NButton type="submit" class="px-2 py-1" color="primary" :is-loading="submittingAdditionForm" loading-text="Submitting">
+              Add the class
             </NButton>
           </div>
         </form>
